@@ -97,3 +97,14 @@ C:\Users\joaquim\Desktop\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieri
 C:\Users\joaquim\Desktop\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\DAL\obj\Debug\DAL.csproj.Up2Date
 C:\Users\joaquim\Desktop\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\DAL\obj\Debug\DAL.dll
 C:\Users\joaquim\Desktop\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\DAL\obj\Debug\DAL.pdb
+C:\Users\Navegador\Desktop\Cafeccino\DAL\bin\Debug\DAL.dll
+C:\Users\Navegador\Desktop\Cafeccino\DAL\bin\Debug\DAL.pdb
+C:\Users\Navegador\Desktop\Cafeccino\DAL\bin\Debug\BE.dll
+C:\Users\Navegador\Desktop\Cafeccino\DAL\bin\Debug\SERVICIOS.dll
+C:\Users\Navegador\Desktop\Cafeccino\DAL\bin\Debug\BE.pdb
+C:\Users\Navegador\Desktop\Cafeccino\DAL\bin\Debug\SERVICIOS.pdb
+C:\Users\Navegador\Desktop\Cafeccino\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+C:\Users\Navegador\Desktop\Cafeccino\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\Navegador\Desktop\Cafeccino\DAL\obj\Debug\DAL.csproj.Up2Date
+C:\Users\Navegador\Desktop\Cafeccino\DAL\obj\Debug\DAL.dll
+C:\Users\Navegador\Desktop\Cafeccino\DAL\obj\Debug\DAL.pdb

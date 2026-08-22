@@ -1,12 +1,36 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Navegador\\Desktop\\Proyecto-Ingenieria-de-Software\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\Navegador\\Desktop\\Cafeccino\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|c:\\users\\navegador\\desktop\\cafeccino\\ui\\frminicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|solutionrelative:ui\\frminicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "frmInicio.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Navegador\\Desktop\\Cafeccino\\UI\\frmInicio.cs",
+              "RelativeDocumentMoniker": "UI\\frmInicio.cs",
+              "ToolTip": "C:\\Users\\Navegador\\Desktop\\Cafeccino\\UI\\frmInicio.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UI\\frmInicio.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-22T12:34:51.209Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

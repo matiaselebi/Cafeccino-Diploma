@@ -266,3 +266,30 @@ C:\Users\joaquim\Desktop\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieri
 C:\Users\joaquim\Desktop\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\CAFECCINO INGENIERIA DE SOFTWARE\obj\Debug\UI.csproj.GenerateResource.cache
 C:\Users\joaquim\Desktop\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\CAFECCINO INGENIERIA DE SOFTWARE\obj\Debug\UI.csproj.CoreCompileInputs.cache
 C:\Users\joaquim\Desktop\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\Proyecto-Ingenieria-de-Software-main\CAFECCINO INGENIERIA DE SOFTWARE\obj\Debug\UI.csproj.Up2Date
+C:\Users\Navegador\Desktop\Cafeccino\UI\bin\Debug\UI.exe.config
+C:\Users\Navegador\Desktop\Cafeccino\UI\bin\Debug\UI.exe
+C:\Users\Navegador\Desktop\Cafeccino\UI\bin\Debug\UI.pdb
+C:\Users\Navegador\Desktop\Cafeccino\UI\bin\Debug\BE.dll
+C:\Users\Navegador\Desktop\Cafeccino\UI\bin\Debug\BLL.dll
+C:\Users\Navegador\Desktop\Cafeccino\UI\bin\Debug\SERVICIOS.dll
+C:\Users\Navegador\Desktop\Cafeccino\UI\bin\Debug\DAL.dll
+C:\Users\Navegador\Desktop\Cafeccino\UI\bin\Debug\BE.pdb
+C:\Users\Navegador\Desktop\Cafeccino\UI\bin\Debug\BLL.pdb
+C:\Users\Navegador\Desktop\Cafeccino\UI\bin\Debug\SERVICIOS.pdb
+C:\Users\Navegador\Desktop\Cafeccino\UI\bin\Debug\DAL.pdb
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\UI.csproj.AssemblyReference.cache
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.AdministradorIdiomas.resources
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.CerrarSesion.resources
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.frmBitacoraCambios.resources
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.frmEventos.resources
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.frmInicio.resources
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.GestionDeFamilias.resources
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.GestionDePerfiles.resources
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.GestionUsuarios.resources
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.Login.resources
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\UI.Properties.Resources.resources
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\UI.csproj.GenerateResource.cache
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\UI.csproj.CoreCompileInputs.cache
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\UI.csproj.Up2Date
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\UI.exe
+C:\Users\Navegador\Desktop\Cafeccino\UI\obj\Debug\UI.pdb
