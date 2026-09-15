@@ -41,8 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLLBitacoraUsuario.cs" />
-    <Compile Include="BLLEvento.cs" />
+    <Compile Include="BLLBackup.cs" />
+    <Compile Include="BLLAuditoriaCambios.cs" />
+    <Compile Include="BLLBitacoraEventos.cs" />
     <Compile Include="BLLIdioma.cs" />
     <Compile Include="BLLPermiso.cs" />
     <Compile Include="BLLUsuario.cs" />

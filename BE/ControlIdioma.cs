@@ -13,9 +13,5 @@ namespace BE
         public string Formulario { get; set; }
 
         public string NombreControl { get; set; }
-
-        
-
-       
     }
 }

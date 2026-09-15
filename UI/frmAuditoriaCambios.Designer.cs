@@ -1,6 +1,6 @@
 ﻿namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
-    partial class frmBitacoraCambios
+    partial class frmAuditoriaCambios
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBitacoraCambios));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAuditoriaCambios));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -64,8 +64,8 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // frmBitacoraCambios
-            // 
+            // frmAuditoriaCambios
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Chocolate;
@@ -74,10 +74,10 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmBitacoraCambios";
-            this.Text = "Bitacora de Cambios";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmBitacoraCambios_FormClosing);
-            this.Load += new System.EventHandler(this.frmBitacoraCambios_Load);
+            this.Name = "frmAuditoriaCambios";
+            this.Text = "Auditoria de Cambios";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAuditoriaCambios_FormClosing);
+            this.Load += new System.EventHandler(this.frmAuditoriaCambios_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 

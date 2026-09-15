@@ -12,11 +12,11 @@ using SERVICIOS;
 
 namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
-    public partial class frmBitacoraCambios : Form, IObserver
+    public partial class frmAuditoriaCambios : Form, IObserver
     {
-        private BLLBitacoraUsuario _bll = new BLLBitacoraUsuario();
+        private BLLAuditoriaCambios _bll = new BLLAuditoriaCambios();
         Traductor traductor = new Traductor();
-        public frmBitacoraCambios()
+        public frmAuditoriaCambios()
         {
             InitializeComponent();
         }
@@ -26,7 +26,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             traductor.TraducirFormulario(this, int.Parse(idioma));
         }
-        private void frmBitacoraCambios_Load(object sender, EventArgs e)
+        private void frmAuditoriaCambios_Load(object sender, EventArgs e)
         {
             dataGridView1.DataSource = _bll.ObtenerCambios();
 
@@ -71,7 +71,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             }
         }
 
-        private void frmBitacoraCambios_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmAuditoriaCambios_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BE
 {
-    public class BitacoraUsuario
+    public class AuditoriaCambios
     {
         public int IdBitacora { get; set; }
         public DateTime FechaHora { get; set; }

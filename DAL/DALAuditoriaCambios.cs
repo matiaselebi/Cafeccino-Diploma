@@ -9,15 +9,15 @@ using BE;
 
 namespace DAL
 {
-    public class DALBitacoraUsuario
+    public class DALAuditoriaCambios
     {
-        private string _conn = @"Data Source=localhost;Initial Catalog=CAFECCINO1;Integrated Security=True";
+        private string _conn = @"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True";
 
-        public void RegistrarCambio(BitacoraUsuario bitacora)
+        public void RegistrarCambio(AuditoriaCambios bitacora)
         {
             using (SqlConnection cn = new SqlConnection(_conn))
             using (SqlCommand cmd = new SqlCommand(@"
-                INSERT INTO BitacoraUsuario 
+                INSERT INTO AuditoriaCambios
                 (FechaHora, UsuarioEditor, Operacion, DNIAfectado, DatosAnteriores, DatosNuevos)
                 VALUES 
                 (GETDATE(), @editor, @operacion, @dni, @anteriores, @nuevos)", cn))
@@ -36,7 +36,7 @@ namespace DAL
         {
             using (SqlConnection cn = new SqlConnection(_conn))
             using (SqlCommand cmd = new SqlCommand(
-                "SELECT * FROM BitacoraUsuario ORDER BY FechaHora DESC", cn))
+                "SELECT * FROM AuditoriaCambios ORDER BY FechaHora DESC", cn))
             {
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -45,18 +45,18 @@ namespace DAL
             }
         }
 
-        public BitacoraUsuario ObtenerPorId(int idBitacora)
+        public AuditoriaCambios ObtenerPorId(int idBitacora)
         {
             using (SqlConnection cn = new SqlConnection(_conn))
             using (SqlCommand cmd = new SqlCommand(
-                "SELECT * FROM BitacoraUsuario WHERE IdBitacora = @id", cn))
+                "SELECT * FROM AuditoriaCambios WHERE IdBitacora = @id", cn))
             {
                 cmd.Parameters.AddWithValue("@id", idBitacora);
                 cn.Open();
                 using (SqlDataReader rd = cmd.ExecuteReader())
                 {
                     if (!rd.Read()) return null;
-                    return new BitacoraUsuario
+                    return new AuditoriaCambios
                     {
                         IdBitacora = rd.GetInt32(0),
                         FechaHora = rd.GetDateTime(1),

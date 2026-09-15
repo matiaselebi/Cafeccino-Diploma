@@ -19,8 +19,6 @@ namespace BE
         public Traduccion()
         {
 
-        }
-
-      
+        }      
     }
 }

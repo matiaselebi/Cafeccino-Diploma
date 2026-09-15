@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class BLLEvento
+    public class BLLBitacoraEventos
     {
-        DALEvento eventoDAL = new DALEvento();
+        DALBitacoraEventos eventoDAL = new DALBitacoraEventos();
 
         public void RegistrarEvento(string usuario,
                                     string evento,
                                     string modulo,
                                     string criticidad)
         {
-            BEEvento ev = new BEEvento();
+            BitacoraEventos ev = new BitacoraEventos();
 
             ev.NombreUsuario = usuario;
             ev.Fecha = DateTime.Now;

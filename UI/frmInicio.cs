@@ -18,15 +18,38 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         public frmInicio()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            // El fondo grande de la ventana MDI se redibuja sobre un control interno (MdiClient)
+            // que no respeta el DoubleBuffered del Form, y eso es lo que se ve lento/tironeado al
+            // arrastrar la ventana rapido. Se activa el double buffer en ese control puntual.
+            foreach (Control control in this.Controls)
+            {
+                if (control is MdiClient mdiClient)
+                {
+                    typeof(Control).InvokeMember(
+                        "DoubleBuffered",
+                        System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
+                        null, mdiClient, new object[] { true });
+                    break;
+                }
+            }
         }
         public Login login = new Login();
         public CerrarSesion cerrarSesion = new CerrarSesion();
-        public frmEventos eventos = new frmEventos();
+        public frmBitacoraEventos eventos = new frmBitacoraEventos();
         private GestionUsuarios gestionUsuarios;
         public AdministradorIdiomas administradorIdiomas = new AdministradorIdiomas();
         public GestionDePerfiles gestionDePerfiles = new GestionDePerfiles();
         public GestionDeFamilias gestionDeFamilias = new GestionDeFamilias();
-        public frmBitacoraCambios bitacoraCambios = new frmBitacoraCambios();
+        public frmAuditoriaCambios bitacoraCambios = new frmAuditoriaCambios();
+        public frmCambiarContraseña cambiarContraseña = new frmCambiarContraseña();
+        public frmVerificacionIntegridad verificacionIntegridad = new frmVerificacionIntegridad();
         private frmInicio menuPrincipal;
         Traductor traductor = new Traductor();
 
@@ -48,27 +71,33 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             cerrarSesionToolStripMenuItem.Visible = false;
             administradorToolStripMenuItem.Visible = false;
+            cambiarContraseñaToolStripMenuItem.Visible = false;
 
 
             gestionUsuarios = new GestionUsuarios();
             gestionUsuarios.MdiParent = this;
             Singleton.Instancia.Suscribir(gestionUsuarios);
 
-            
+
             eventos.MdiParent = this;
             Singleton.Instancia.Suscribir(eventos);
 
-           
+
             administradorIdiomas.MdiParent = this;
             Singleton.Instancia.Suscribir(administradorIdiomas);
 
-          
-            gestionDePerfiles.MdiParent = this; 
+
+            gestionDePerfiles.MdiParent = this;
             Singleton.Instancia.Suscribir(gestionDePerfiles);
 
-            
+
             gestionDeFamilias.MdiParent = this;
             Singleton.Instancia.Suscribir(gestionDeFamilias);
+
+            Singleton.Instancia.Suscribir(bitacoraCambios);
+            Singleton.Instancia.Suscribir(cambiarContraseña);
+            Singleton.Instancia.Suscribir(verificacionIntegridad);
+            Singleton.Instancia.Suscribir(cerrarSesion);
 
             //Este metodo es para el frmInicio
 
@@ -78,29 +107,20 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         }
         private void ValidarIntegridadInicial()
         {
-           
+
             {
                 BLLUsuario bllUsuario = new BLLUsuario();
                 bool integro = bllUsuario.ValidarIntegridad();
 
                 if (!integro)
                 {
-                    DialogResult resultado = MessageBox.Show(
+                    MessageBox.Show(
                         "Se detectó que la tabla Usuario fue alterada fuera del sistema.\n\n" +
-                        "¿Desea ingresar al sistema de todas formas?",
+                        "Inicie sesión como administrador y utilice 'Administrador > Verificación de Integridad' " +
+                        "para restaurar el último backup o recalcular los dígitos verificadores.",
                         "Alerta de integridad",
-                        MessageBoxButtons.YesNo,
+                        MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
-
-                    if (resultado == DialogResult.No)
-                    {
-                        Application.Exit();
-                    }
-                    else
-                    {
-                       
-                        bllUsuario.SincronizarDigitos();
-                    }
                 }
             }
         }
@@ -116,6 +136,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             cerrarSesion.Show();
 
         }
+
 
         private void bitacoraDeEventosToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -133,12 +154,12 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             gestionUsuarios.Show();
         }
 
-        
+
 
         private void gestionDeIdiomasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             administradorIdiomas.MdiParent = this;
-            administradorIdiomas.Show();    
+            administradorIdiomas.Show();
         }
 
         private void gestionDePerfilesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -154,10 +175,10 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         }
         public void AplicarPermisosUsuario(List<Perfil> componentesUsuario)
         {
-            
+
             ApagarMenuCompleto(menuStrip1.Items);
 
-           
+
             HabilitarControlesRecursivo(componentesUsuario);
         }
 
@@ -166,26 +187,26 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             foreach (ToolStripItem item in items)
             {
-                
-                
+
+
                 if (item.Name == "usuarioToolStripMenuItem")
                 {
-                    item.Visible = true; 
+                    item.Visible = true;
 
-                   
+
                     if (item is ToolStripMenuItem menuDesplegableUsuario)
                     {
-                       
+
                         foreach (ToolStripItem subItem in menuDesplegableUsuario.DropDownItems)
                         {
                             subItem.Visible = true;
                         }
                     }
 
-                    continue; 
+                    continue;
                 }
 
-               
+
                 item.Visible = false;
 
                 if (item is ToolStripMenuItem menuDesplegable)
@@ -199,27 +220,27 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             foreach (var comp in componentes)
             {
-                if (comp is Permiso) 
+                if (comp is Permiso)
                 {
-                    
+
                     ToolStripItem controlEncontrado = BuscarControlMenu(menuStrip1.Items, comp.Nombre);
 
                     if (controlEncontrado != null)
                     {
-                        controlEncontrado.Visible = true; 
+                        controlEncontrado.Visible = true;
 
-                        
+
                         PrenderPadresOcultos(controlEncontrado);
                     }
                 }
-                else if (comp is Familia) 
+                else if (comp is Familia)
                 {
                     HabilitarControlesRecursivo(((Familia)comp).Hijos.ToList());
                 }
             }
         }
 
-        
+
         private ToolStripItem BuscarControlMenu(ToolStripItemCollection items, string nombreBuscar)
         {
             foreach (ToolStripItem item in items)
@@ -235,13 +256,13 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             return null;
         }
 
-       
+
         private void PrenderPadresOcultos(ToolStripItem item)
         {
             if (item.OwnerItem != null)
             {
                 item.OwnerItem.Visible = true;
-                PrenderPadresOcultos(item.OwnerItem); 
+                PrenderPadresOcultos(item.OwnerItem);
             }
         }
 
@@ -249,6 +270,20 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             bitacoraCambios.MdiParent = this;
             bitacoraCambios.Show();
+        }
+
+
+
+        private void verificaciónDeIntegridadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            verificacionIntegridad.MdiParent = this;
+            verificacionIntegridad.Show();
+        }
+
+        private void cambiarContraseñaToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            cambiarContraseña.MdiParent = this;
+            cambiarContraseña.Show();
         }
     }
 }

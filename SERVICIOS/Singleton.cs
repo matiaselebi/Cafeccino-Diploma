@@ -14,8 +14,8 @@ namespace SERVICIOS
         private static Singleton instance;
         private static Usuario _user;
 
-        
-        private int _idIdioma = 2; 
+
+        private int _idIdioma = 2;
 
         private Singleton() { }
 
@@ -47,7 +47,12 @@ namespace SERVICIOS
             get { return _user; }
         }
 
-        
+        public bool EsAdministrador()
+        {
+            return _user != null && string.Equals(_user.Rol, "administrador", StringComparison.OrdinalIgnoreCase);
+        }
+
+
         public int IdiomaActual
         {
             get { return _idIdioma; }
@@ -56,10 +61,8 @@ namespace SERVICIOS
 
         public void CambiarIdioma(int idIdioma)
         {
-          
             _idIdioma = idIdioma;
 
-           
             Notificar();
         }
     }

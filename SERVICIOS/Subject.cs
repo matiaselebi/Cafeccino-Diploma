@@ -24,8 +24,6 @@ namespace SERVICIOS
 
         protected void Notificar()
         {
-
-           
             foreach (IObserver observer in observadores)
             {
                 

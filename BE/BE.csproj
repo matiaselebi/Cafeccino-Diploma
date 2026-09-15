@@ -41,8 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BEEvento.cs" />
-    <Compile Include="BitacoraUsuario.cs" />
+    <Compile Include="BitacoraEventos.cs" />
+    <Compile Include="AuditoriaCambios.cs" />
     <Compile Include="ControlIdioma.cs" />
     <Compile Include="DigitoVerificador.cs" />
     <Compile Include="Familia.cs" />

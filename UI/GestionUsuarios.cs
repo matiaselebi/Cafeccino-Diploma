@@ -15,7 +15,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
     public partial class GestionUsuarios : Form, IObserver
     {
-        private BLLBitacoraUsuario _bllBitacora = new BLLBitacoraUsuario();
+        private BLLAuditoriaCambios _bllBitacora = new BLLAuditoriaCambios();
         BLLUsuario bllUsuario = new BLLUsuario();
         BLLPermiso _permisoBLL = new BLLPermiso();
         Traductor traductor = new Traductor();
@@ -51,7 +51,6 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             try
             {
-                
                 Usuario usuario = new Usuario();
                 usuario.DNI = dni;
                 usuario.NombreUsuario = textBox2.Text.Trim();
@@ -62,16 +61,13 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 usuario.NumTelefono = telefono;
                 usuario.Rol = CBRoles.Text;
 
-
                 Perfil rolSeleccionado = (Perfil)CBRoles.SelectedItem;
 
-                
                 bllUsuario.RegistrarUsuario(usuario, rolSeleccionado.Id);
                 bllUsuario.SincronizarDigitos();
                
                 MessageBox.Show("Usuario agregado y rol asignado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                
                 LimpiarCampos();
                 actualizarGrilla();
             }
@@ -122,9 +118,6 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 bllUsuario.EliminarUsuario(eliminado.DNI);
                 bllUsuario.SincronizarDigitos();
 
-                
-               
-
                 MessageBox.Show("Usuario eliminado correctamente.");
                 actualizarGrilla();
             }
@@ -132,7 +125,6 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         private void actualizarGrilla()
         {
             dataGridView1.DataSource = bllUsuario.ListarUsuarios();
-
         }
 
         private void GestionUsuarios_FormClosing(object sender, FormClosingEventArgs e)
@@ -142,8 +134,6 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 e.Cancel = true;
                 Hide();
             }
-          
-
         }
 
         private void GestionUsuarios_Load(object sender, EventArgs e)
@@ -191,7 +181,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             if (this.Visible)
             {
-                
+                LimpiarCampos();
                 traductor.TraducirFormulario(this, Singleton.Instancia.IdiomaActual);
             }
         }

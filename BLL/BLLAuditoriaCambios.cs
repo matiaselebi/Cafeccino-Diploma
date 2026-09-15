@@ -10,9 +10,9 @@ using SERVICIOS;
 
 namespace BLL
 {
-    public class BLLBitacoraUsuario
+    public class BLLAuditoriaCambios
     {
-        private readonly DALBitacoraUsuario _dal = new DALBitacoraUsuario();
+        private readonly DALAuditoriaCambios _dal = new DALAuditoriaCambios();
         private readonly DALUsuario _dalUsuario = new DALUsuario();
         private string SerializarUsuario(Usuario u)
         {
@@ -20,11 +20,9 @@ namespace BLL
                    $"Apellido:{u.Apellido} | Mail:{u.Mail} | Tel:{u.NumTelefono} | Rol:{u.Rol}";
         }
 
-        
-
         public void RegistrarModificacion(Usuario anterior, Usuario nuevo, string usuarioEditor)
         {
-            _dal.RegistrarCambio(new BitacoraUsuario
+            _dal.RegistrarCambio(new AuditoriaCambios
             {
                 UsuarioEditor = usuarioEditor,
                 Operacion = "Modificacion",
@@ -39,11 +37,10 @@ namespace BLL
             return _dal.ObtenerCambios();
         }
 
-        
         public void RestaurarUsuario(int idBitacora)
         {
 
-            BitacoraUsuario registro = _dal.ObtenerPorId(idBitacora);
+            AuditoriaCambios registro = _dal.ObtenerPorId(idBitacora);
 
             if (registro == null)
                 return;
@@ -55,7 +52,7 @@ namespace BLL
 
             _dalUsuario.ModificarUsuario(usuarioAnterior);
 
-            _dal.RegistrarCambio(new BitacoraUsuario
+            _dal.RegistrarCambio(new AuditoriaCambios
             {
                 UsuarioEditor = Singleton.Instancia.Usuario.NombreUsuario,
                 Operacion = "Restauracion",
@@ -63,11 +60,13 @@ namespace BLL
                 DatosAnteriores = registro.DatosNuevos,
                 DatosNuevos = registro.DatosAnteriores
             });
+
+            new BLLUsuario().SincronizarDigitos();
         }
 
         private Usuario DesSerializarUsuario(string datos)
         {
-            
+
             var partes = datos.Split('|');
             Usuario u = new Usuario();
 

@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 namespace DAL
 {
-    public class DALEvento
+    public class DALBitacoraEventos
     {
-        private string conexion = @"Data Source=localhost;Initial Catalog=CAFECCINO1;Integrated Security=True";
-        public void RegistrarEvento(BEEvento evento)
+        private string conexion = @"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True";
+        public void RegistrarEvento(BitacoraEventos evento)
         {
             SqlConnection cn = new SqlConnection(conexion);
 
-            string query = @"INSERT INTO Evento
+            string query = @"INSERT INTO BitacoraEventos
                         (NombreUsuario, Fecha, Evento, Modulo, Criticidad)
                         VALUES
                         (@NombreUsuario, @Fecha, @Evento, @Modulo, @Criticidad)";
@@ -36,7 +36,7 @@ namespace DAL
         {
             SqlConnection cn = new SqlConnection(conexion);
 
-            string query = "SELECT * FROM Evento";
+            string query = "SELECT * FROM BitacoraEventos";
 
             SqlDataAdapter da = new SqlDataAdapter(query, cn);
 
@@ -51,7 +51,7 @@ namespace DAL
             SqlConnection cn = new SqlConnection(conexion);
 
             string query = @"SELECT *
-                     FROM Evento
+                     FROM BitacoraEventos
                      WHERE (@Modulo = '' OR Modulo = @Modulo)
                      AND (@Criticidad = '' OR Criticidad = @Criticidad)  AND (@Fecha = '' OR CONVERT(date, Fecha) = @Fecha)     
                       AND (@Evento = '' OR Evento = @Evento)    

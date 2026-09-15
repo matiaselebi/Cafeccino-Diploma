@@ -8,6 +8,6 @@ namespace DAL
 {
     internal static class Conexion
     {
-        internal static readonly string cadena = @"Data Source=localhost;Initial Catalog=CAFECCINO1;Integrated Security=True";
+        internal static readonly string cadena = @"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True";
     }
 }

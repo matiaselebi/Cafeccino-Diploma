@@ -13,7 +13,6 @@ namespace BLL
     public class BLLIdioma
     {
         DALIdioma dal = new DALIdioma();
-
        
         public DataTable ListarIdiomas()
         {
@@ -26,12 +25,6 @@ namespace BLL
             dal.AgregarIdioma(idioma);
         }
 
-      
-       
-
-        
-
-      
         public DataTable ObtenerTraducciones(string formulario, int idIdioma)
         {
             return dal.ObtenerTraducciones(formulario, idIdioma);
@@ -43,7 +36,6 @@ namespace BLL
             dal.GuardarTraduccion(traduccion);
         }
 
-      
         public string ObtenerTexto(int idIdioma,
                                    string formulario,
                                    string control)
@@ -51,8 +43,6 @@ namespace BLL
             return dal.ObtenerTexto(idIdioma, formulario, control);
         }
 
-       
-       
         public void RegistrarControl(string formulario, string nombreControl, string textoOriginal)
         {
             dal.RegistrarControl(formulario, nombreControl, textoOriginal);

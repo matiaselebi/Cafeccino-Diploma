@@ -17,8 +17,6 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
     public partial class GestionDeFamilias : Form , IObserver
     {
         private BLLPermiso NegociosPermiso = new BLLPermiso();
-        
-
         private Familia _familiaSeleccionada;
         private bool CambioManual = true;
         Traductor traductor = new Traductor();
@@ -31,7 +29,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         public void ActualizarIdioma(string idioma)
         {
-          
+
             traductor.TraducirFormulario(this, int.Parse(idioma));
         }
 
@@ -51,14 +49,13 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             CambioManual = false;
 
-            
+
             List<Perfil> permisos = NegociosPermiso.ObtenerPermisosSimples();
             CBPermisos.DataSource = permisos;
             CBPermisos.DisplayMember = "Nombre";
             CBPermisos.ValueMember = "Id";
             CBPermisos.SelectedIndex = -1;
 
-            
             List<Perfil> familias = NegociosPermiso.ObtenerFamilias();
 
             CBFamilias.DataSource = new List<Perfil>(familias);
@@ -82,26 +79,26 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNCrearFamilia_Click(object sender, EventArgs e)
         {
-         
+
             if (string.IsNullOrWhiteSpace(TXTFamilia.Text)) return;
 
             try
             {
                 string nombreFamilia = TXTFamilia.Text.Trim();
 
-          
+
                 int idGenerado = NegociosPermiso.InsertarComponente(nombreFamilia, esFamilia: true, esPerfil: false);
 
-              
+
                 frmInicio parentUI = this.MdiParent as frmInicio;
                 if (parentUI != null && parentUI.gestionDePerfiles != null)
                 {
                     parentUI.gestionDePerfiles.LlenarCombosPerfiles();
                 }
 
-                
+
                 TXTFamilia.Clear();
-                LlenarCombobox(); 
+                LlenarCombobox();
 
                 MessageBox.Show("Familia creada con éxito en la base de datos.");
             }
@@ -117,7 +114,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             Permiso permisoSeleccionado = (Permiso)CBPermisos.SelectedItem;
 
-            if (_familiaSeleccionada.Hijos.Any(h => h.Id == permisoSeleccionado.Id))
+            if (NegociosPermiso.ExisteEnArbol(_familiaSeleccionada, permisoSeleccionado.Id))
             {
                 MessageBox.Show("Este permiso ya se encuentra seleccionado en la familia actual.");
                 return;
@@ -133,7 +130,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             _familiaSeleccionada = (Familia)CBFamilias.SelectedItem;
 
-            _familiaSeleccionada.VaciarHijos(); 
+            _familiaSeleccionada.VaciarHijos();
             NegociosPermiso.ArmarArbolComponente(_familiaSeleccionada);
 
             MostrarEnTreeView();
@@ -165,12 +162,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
                     MostrarEnTreeView();
                 }
-            } 
-
-
-
-
-
+            }
         }
 
         private void BTNAplicar_Click(object sender, EventArgs e)
@@ -187,8 +179,8 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                     Usuario usuarioActual = Singleton.Instancia.Usuario;
                     if (usuarioActual != null && usuarioActual.Perfil != null)
                     {
-                        
-                        
+
+
                         NegociosPermiso.ArmarArbolComponente(usuarioActual.Perfil);
                         parentUI.AplicarPermisosUsuario(usuarioActual.Perfil.Hijos.ToList());
                     }
@@ -205,14 +197,14 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNEliminarFamilia_Click(object sender, EventArgs e)
         {
-            
+
             if (CBFamilias.SelectedItem == null)
             {
                 MessageBox.Show("Por favor, seleccione de la lista la familia que desea eliminar.");
                 return;
             }
 
-            
+
             Familia familiaAEliminar = (Familia)CBFamilias.SelectedItem;
 
             DialogResult resultado = MessageBox.Show($"¿Está seguro de que desea eliminar la familia '{familiaAEliminar.Nombre}'? Se perderán todas sus uniones jerárquicas.", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -221,24 +213,19 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             {
                 try
                 {
-                      
-                    NegociosPermiso.EliminarFamilia(familiaAEliminar.Id);
 
-                    
-                   
+                    NegociosPermiso.EliminarFamilia(familiaAEliminar.Id);
 
                     MessageBox.Show("Familia eliminada con éxito del sistema.");
 
-                   
                     treeView1.Nodes.Clear();
                     _familiaSeleccionada = null;
                     LlenarCombobox();
 
-                    
                     frmInicio parentUI = this.MdiParent as frmInicio;
                     if (parentUI != null)
                     {
-                       
+
                         if (parentUI.gestionDePerfiles != null) parentUI.gestionDePerfiles.LlenarCombosPerfiles();
                     }
                 }
@@ -251,8 +238,10 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         private void GestionDeFamilias_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible)
+            {
+                TXTFamilia.Clear();
                 LlenarCombobox();
-         
+            }
         }
 
         private void BTNAgregarFamilia_Click(object sender, EventArgs e)
@@ -261,25 +250,37 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             Familia subFamiliaOrigen = (Familia)CBFamilias2.SelectedItem;
 
+
             if (_familiaSeleccionada.Id == subFamiliaOrigen.Id)
             {
                 MessageBox.Show("No se puede agregar una familia dentro de sí misma.");
                 return;
             }
 
-            if (_familiaSeleccionada.Hijos.Any(h => h.Id == subFamiliaOrigen.Id))
+
+            if (NegociosPermiso.ExisteEnArbol(_familiaSeleccionada, subFamiliaOrigen.Id))
             {
-                MessageBox.Show("Esta familia ya se encuentra ingresada.");
+                MessageBox.Show("Esta familia ya existe en el árbol.");
                 return;
             }
 
-            
             Familia copia = new Familia();
             copia.Id = subFamiliaOrigen.Id;
             copia.Nombre = subFamiliaOrigen.Nombre;
-
-            
             NegociosPermiso.ArmarArbolComponente(copia);
+
+
+            if (NegociosPermiso.ExisteEnArbol(copia, _familiaSeleccionada.Id))
+            {
+                MessageBox.Show("No se puede agregar porque crearía una referencia circular.");
+                return;
+            }
+
+            if (NegociosPermiso.AlgunComponenteYaExisteEnArbol(_familiaSeleccionada, copia))
+            {
+                MessageBox.Show("Esta familia contiene componentes que ya existen en el árbol.");
+                return;
+            }
 
             _familiaSeleccionada.AgregarHijo(copia);
             MostrarEnTreeView();
@@ -292,7 +293,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             TreeNode root = new TreeNode(_familiaSeleccionada.Nombre) { Tag = _familiaSeleccionada };
             treeView1.Nodes.Add(root);
 
-            
+
             DibujarRamas(root, _familiaSeleccionada.Hijos);
             treeView1.ExpandAll();
         }
@@ -303,7 +304,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 TreeNode nuevoNodo = new TreeNode(hijo.Nombre) { Tag = hijo };
                 nodoVisual.Nodes.Add(nuevoNodo);
 
-             
+
                 if (hijo.Hijos != null && hijo.Hijos.Count > 0)
                     DibujarRamas(nuevoNodo, hijo.Hijos);
             }
@@ -335,7 +336,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
                     NegociosPermiso.GuardarFamilia(_familiaSeleccionada, esPerfil: false);
 
-                    
+
                     frmInicio parentUI = this.MdiParent as frmInicio;
                     if (parentUI != null)
                     {

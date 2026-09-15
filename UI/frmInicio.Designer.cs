@@ -34,12 +34,14 @@
             this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iniciarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cambiarContraseñaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.administradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionDeUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionDePerfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionDeIdiomasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bitacoraDeEventosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bitacoraDeCambiosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verificacionIntegridadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +62,8 @@
             // 
             this.usuarioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.iniciarSesionToolStripMenuItem,
-            this.cerrarSesionToolStripMenuItem});
+            this.cerrarSesionToolStripMenuItem,
+            this.cambiarContraseñaToolStripMenuItem});
             this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
             this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.usuarioToolStripMenuItem.Text = "Usuario";
@@ -68,16 +71,23 @@
             // iniciarSesionToolStripMenuItem
             // 
             this.iniciarSesionToolStripMenuItem.Name = "iniciarSesionToolStripMenuItem";
-            this.iniciarSesionToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.iniciarSesionToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.iniciarSesionToolStripMenuItem.Text = "Iniciar Sesion";
             this.iniciarSesionToolStripMenuItem.Click += new System.EventHandler(this.iniciarSesionToolStripMenuItem_Click);
             // 
             // cerrarSesionToolStripMenuItem
             // 
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar Sesion";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
+            // 
+            // cambiarContraseñaToolStripMenuItem
+            // 
+            this.cambiarContraseñaToolStripMenuItem.Name = "cambiarContraseñaToolStripMenuItem";
+            this.cambiarContraseñaToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.cambiarContraseñaToolStripMenuItem.Text = "Cambiar Contraseña";
+            this.cambiarContraseñaToolStripMenuItem.Click += new System.EventHandler(this.cambiarContraseñaToolStripMenuItem_Click_1);
             // 
             // administradorToolStripMenuItem
             // 
@@ -86,7 +96,8 @@
             this.gestionDePerfilesToolStripMenuItem,
             this.gestionDeIdiomasToolStripMenuItem,
             this.bitacoraDeEventosToolStripMenuItem,
-            this.bitacoraDeCambiosToolStripMenuItem});
+            this.bitacoraDeCambiosToolStripMenuItem,
+            this.verificacionIntegridadToolStripMenuItem});
             this.administradorToolStripMenuItem.Name = "administradorToolStripMenuItem";
             this.administradorToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
             this.administradorToolStripMenuItem.Text = "Administrador";
@@ -94,37 +105,44 @@
             // gestionDeUsuariosToolStripMenuItem
             // 
             this.gestionDeUsuariosToolStripMenuItem.Name = "gestionDeUsuariosToolStripMenuItem";
-            this.gestionDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.gestionDeUsuariosToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.gestionDeUsuariosToolStripMenuItem.Text = "Gestion de usuarios";
             this.gestionDeUsuariosToolStripMenuItem.Click += new System.EventHandler(this.gestionDeUsuariosToolStripMenuItem_Click);
             // 
             // gestionDePerfilesToolStripMenuItem
             // 
             this.gestionDePerfilesToolStripMenuItem.Name = "gestionDePerfilesToolStripMenuItem";
-            this.gestionDePerfilesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.gestionDePerfilesToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.gestionDePerfilesToolStripMenuItem.Text = "Gestion de perfiles";
             this.gestionDePerfilesToolStripMenuItem.Click += new System.EventHandler(this.gestionDePerfilesToolStripMenuItem_Click);
             // 
             // gestionDeIdiomasToolStripMenuItem
             // 
             this.gestionDeIdiomasToolStripMenuItem.Name = "gestionDeIdiomasToolStripMenuItem";
-            this.gestionDeIdiomasToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.gestionDeIdiomasToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.gestionDeIdiomasToolStripMenuItem.Text = "Gestion de idiomas";
             this.gestionDeIdiomasToolStripMenuItem.Click += new System.EventHandler(this.gestionDeIdiomasToolStripMenuItem_Click);
             // 
             // bitacoraDeEventosToolStripMenuItem
             // 
             this.bitacoraDeEventosToolStripMenuItem.Name = "bitacoraDeEventosToolStripMenuItem";
-            this.bitacoraDeEventosToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.bitacoraDeEventosToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.bitacoraDeEventosToolStripMenuItem.Text = "Bitacora de eventos";
             this.bitacoraDeEventosToolStripMenuItem.Click += new System.EventHandler(this.bitacoraDeEventosToolStripMenuItem_Click);
             // 
             // bitacoraDeCambiosToolStripMenuItem
             // 
             this.bitacoraDeCambiosToolStripMenuItem.Name = "bitacoraDeCambiosToolStripMenuItem";
-            this.bitacoraDeCambiosToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.bitacoraDeCambiosToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.bitacoraDeCambiosToolStripMenuItem.Text = "Bitacora de cambios";
             this.bitacoraDeCambiosToolStripMenuItem.Click += new System.EventHandler(this.bitacoraDeCambiosToolStripMenuItem_Click);
+            // 
+            // verificacionIntegridadToolStripMenuItem
+            // 
+            this.verificacionIntegridadToolStripMenuItem.Name = "verificacionIntegridadToolStripMenuItem";
+            this.verificacionIntegridadToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.verificacionIntegridadToolStripMenuItem.Text = "Verificación de Integridad";
+            this.verificacionIntegridadToolStripMenuItem.Click += new System.EventHandler(this.verificaciónDeIntegridadToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -164,6 +182,8 @@
         private System.Windows.Forms.ToolStripMenuItem gestionDeIdiomasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestionDePerfilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitacoraDeCambiosToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem cambiarContraseñaToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem verificacionIntegridadToolStripMenuItem;
     }
 }
 

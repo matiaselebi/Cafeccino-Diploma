@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BE
 {
-    public class BEEvento
+    public class BitacoraEventos
     {
         public int CodEvento {  get; set; }
         public string NombreUsuario { get; set; }

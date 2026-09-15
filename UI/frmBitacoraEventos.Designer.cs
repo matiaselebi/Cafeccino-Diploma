@@ -1,6 +1,6 @@
 ﻿namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
-    partial class frmEventos
+    partial class frmBitacoraEventos
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEventos));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBitacoraEventos));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.Buscar = new System.Windows.Forms.Button();
@@ -127,8 +127,8 @@
             this.label4.TabIndex = 9;
             this.label4.Text = "Evento";
             // 
-            // frmEventos
-            // 
+            // frmBitacoraEventos
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Chocolate;
@@ -144,11 +144,11 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.dataGridView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmEventos";
+            this.Name = "frmBitacoraEventos";
             this.Text = "Bitacora de eventos";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmEventos_FormClosing);
-            this.Load += new System.EventHandler(this.frmEventos_Load);
-            this.VisibleChanged += new System.EventHandler(this.frmEventos_VisibleChanged);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmBitacoraEventos_FormClosing);
+            this.Load += new System.EventHandler(this.frmBitacoraEventos_Load);
+            this.VisibleChanged += new System.EventHandler(this.frmBitacoraEventos_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

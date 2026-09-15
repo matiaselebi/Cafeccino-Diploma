@@ -12,29 +12,29 @@ namespace BLL
 {
     public class BLLUsuario
     {
-        BLLPermiso _permisoBLL = new BLLPermiso();  
+        BLLPermiso _permisoBLL = new BLLPermiso();
         Encriptacion encriptacion = new Encriptacion();
         DALUsuario DALUsuario = new DALUsuario();
 
         public Usuario Login(Usuario user)
         {
-           
+
             user.Contraseña = encriptacion.GenerarHash(user.Contraseña);
 
-            
+
             Usuario usuarioLogueado = DALUsuario.Login(user);
 
-           
+
             if (usuarioLogueado != null)
             {
-            
+
                 if (usuarioLogueado.Perfil != null)
                 {
                     _permisoBLL.ArmarArbolComponente(usuarioLogueado.Perfil);
                 }
             }
 
-        
+
             return usuarioLogueado;
         }
         public void RegistrarUsuario(Usuario usuario, int idPerfil)
@@ -58,8 +58,8 @@ namespace BLL
         private readonly DALUsuario _usuarioDAL = new DALUsuario();
         private readonly DALDigitoVerificador _dvDAL = new DALDigitoVerificador();
 
-       
-            public void SincronizarDigitos()
+
+        public void SincronizarDigitos()
         {
             var usuarios = _usuarioDAL.ObtenerTodos();
 
@@ -72,7 +72,7 @@ namespace BLL
 
             _dvDAL.Guardar(dv);
         }
-        
+
 
         public List<int> ObtenerFilasAlteradas()
         {
@@ -80,8 +80,8 @@ namespace BLL
             DigitoVerificador dvGuardado = _dvDAL.ObtenerPorTabla("Usuario");
             return DigitVerifierService.ObtenerFilasAlteradas(lista, dvGuardado);
         }
-       
-           public bool ValidarIntegridad()
+
+        public bool ValidarIntegridad()
         {
             var usuarios = _usuarioDAL.ObtenerTodos();
 
@@ -89,10 +89,22 @@ namespace BLL
 
             return DigitVerifierService.Validar(usuarios, dv);
         }
-        
+
         public Usuario ObtenerPorDNI(int dni)
         {
             return _usuarioDAL.ObtenerPorDNI(dni);
+        }
+
+        public void CambiarContraseña(string nombreUsuario, string nuevaContraseña)
+        {
+            Usuario usuario = _usuarioDAL.ObtenerPorUsername(nombreUsuario);
+            if (usuario == null)
+                throw new Exception("No existe un usuario con ese nombre de usuario.");
+
+            string hash = encriptacion.GenerarHash(nuevaContraseña);
+            _usuarioDAL.ActualizarContraseña(nombreUsuario, hash);
+
+            SincronizarDigitos();
         }
     }
 }

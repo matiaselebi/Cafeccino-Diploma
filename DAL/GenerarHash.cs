@@ -11,7 +11,7 @@ namespace DAL
     {
         public void ActualizarPasswordHash(string usuario, string hash)
         {
-            SqlConnection cn = new SqlConnection(@"Data Source=localhost;Initial Catalog=CAFECCINO1;Integrated Security=True");
+            SqlConnection cn = new SqlConnection(@"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True");
 
             string query = @"UPDATE Usuario
                      SET Contraseña = @Contraseña

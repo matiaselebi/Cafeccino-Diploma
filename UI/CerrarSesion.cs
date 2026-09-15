@@ -13,17 +13,23 @@ using SERVICIOS;
 
 namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
-    public partial class CerrarSesion : Form
+    public partial class CerrarSesion : Form, IObserver
     {
-        BLLEvento bitacora = new BLLEvento();
+        BLLBitacoraEventos bitacora = new BLLBitacoraEventos();
+        Traductor traductor = new Traductor();
         public CerrarSesion()
         {
             InitializeComponent();
         }
 
+        public void ActualizarIdioma(string idioma)
+        {
+            traductor.TraducirFormulario(this, int.Parse(idioma));
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
             string nombreUsuario = Singleton.Instancia.Usuario?.Nombre ?? "Desconocido";
 
             Singleton.Instancia.CerrarSesion();
@@ -45,12 +51,15 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             parent.cerrarSesionToolStripMenuItem.Visible = false;
             parent.administradorToolStripMenuItem.Visible = false;
+            parent.cambiarContraseñaToolStripMenuItem.Visible = false;
+            parent.verificacionIntegridadToolStripMenuItem.Visible = false;
+            parent.verificacionIntegridad.Hide();
 
             parent.login.Hide();
             parent.gestionDeFamilias.Hide();
             parent.gestionDePerfiles.Hide();
             parent.administradorIdiomas.Hide();
-      
+
         }
 
         private void CerrrarSesion_FormClosing(object sender, FormClosingEventArgs e)

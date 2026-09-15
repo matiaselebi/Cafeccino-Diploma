@@ -12,11 +12,11 @@ using SERVICIOS;
 
 namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
-    public partial class frmEventos : Form, IObserver
+    public partial class frmBitacoraEventos : Form, IObserver
     {
-        BLLEvento bllevento = new BLLEvento();
+        BLLBitacoraEventos bllevento = new BLLBitacoraEventos();
         Traductor traductor = new Traductor();
-        public frmEventos()
+        public frmBitacoraEventos()
         {
             InitializeComponent();
         }
@@ -26,7 +26,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             traductor.TraducirFormulario(this, int.Parse(idioma));
         }
 
-        private void frmEventos_Load(object sender, EventArgs e)
+        private void frmBitacoraEventos_Load(object sender, EventArgs e)
         {
             dataGridView1.DataSource = bllevento.ObtenerEventos();
             
@@ -65,12 +65,12 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             if (evento == "Todos")
                 evento = "";
 
-            BLLEvento bll = new BLLEvento();
+            BLLBitacoraEventos bll = new BLLBitacoraEventos();
 
             dataGridView1.DataSource = bll.FiltrarEventos(modulo, criticidad,  evento, fecha);
         }
 
-        private void frmEventos_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmBitacoraEventos_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
@@ -80,7 +80,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             }
         }
 
-        private void frmEventos_VisibleChanged(object sender, EventArgs e)
+        private void frmBitacoraEventos_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible)
             {

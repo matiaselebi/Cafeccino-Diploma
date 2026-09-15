@@ -74,18 +74,18 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             cmbFormulario.Items.Clear();
             cmbFormulario.Items.Add("Login");
             cmbFormulario.Items.Add("GestionUsuarios");
-            cmbFormulario.Items.Add("frmEventos");
+            cmbFormulario.Items.Add("frmBitacoraEventos");
             cmbFormulario.Items.Add("frmInicio");
             cmbFormulario.Items.Add("AdministradorIdiomas");
-            cmbFormulario.Items.Add("GestionDePerfiles"); 
+            cmbFormulario.Items.Add("GestionDePerfiles");
             cmbFormulario.Items.Add("GestionDeFamilias");
-            cmbFormulario.Items.Add("frmBitacoraCambios");
+            cmbFormulario.Items.Add("frmAuditoriaCambios");
+            cmbFormulario.Items.Add("CerrarSesion");
+            cmbFormulario.Items.Add("frmCambiarContraseña");
+            cmbFormulario.Items.Add("frmVerificacionIntegridad");
             cmbFormulario.SelectedIndex = -1;
-
-      
         }
 
-        
         private void CargarGrilla()
         {
             if (cmbFormulario.SelectedIndex == -1 || cmbIdioma.SelectedIndex == -1)
@@ -116,6 +116,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                     bllIdioma.RegistrarControl("Login", "lblContraseña", "Contraseña");
                     bllIdioma.RegistrarControl("Login", "btnLogin", "Ingresar");
                     bllIdioma.RegistrarControl("Login", "btnCancelar", "Cancelar");
+                    bllIdioma.RegistrarControl("Login", "label1", "Idioma");
                     break;
 
                 case "GestionUsuarios":
@@ -132,17 +133,19 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                     bllIdioma.RegistrarControl("GestionUsuarios", "Eliminar", "Eliminar");
                     break;
 
-                case "frmEventos":
-                    bllIdioma.RegistrarControl("frmEventos", "label1", "Fecha");
-                    bllIdioma.RegistrarControl("frmEventos", "label2", "Modulo");
-                    bllIdioma.RegistrarControl("frmEventos", "label3", "Criticidad");
-                    bllIdioma.RegistrarControl("frmEventos", "label4", "Evento");
-                    bllIdioma.RegistrarControl("frmEventos", "Buscar", "Buscar");
+                case "frmBitacoraEventos":
+                    bllIdioma.RegistrarControl("frmBitacoraEventos", "label1", "Fecha");
+                    bllIdioma.RegistrarControl("frmBitacoraEventos", "label2", "Modulo");
+                    bllIdioma.RegistrarControl("frmBitacoraEventos", "label3", "Criticidad");
+                    bllIdioma.RegistrarControl("frmBitacoraEventos", "label4", "Evento");
+                    bllIdioma.RegistrarControl("frmBitacoraEventos", "Buscar", "Buscar");
                     break;
 
                 case "frmInicio":
                     bllIdioma.RegistrarControl("frmInicio", "iniciarSesionToolStripMenuItem", "Iniciar Sesión");
                     bllIdioma.RegistrarControl("frmInicio", "cerrarSesionToolStripMenuItem", "Cerrar Sesión");
+                    bllIdioma.RegistrarControl("frmInicio", "cambiarContraseñaToolStripMenuItem", "Cambiar Contraseña");
+                    bllIdioma.RegistrarControl("frmInicio", "verificacionIntegridadToolStripMenuItem", "Verificación de Integridad");
                     bllIdioma.RegistrarControl("frmInicio", "administradorToolStripMenuItem", "Administrador");
                     bllIdioma.RegistrarControl("frmInicio", "gestionDeUsuariosToolStripMenuItem", "Gestión de Usuarios");
                     bllIdioma.RegistrarControl("frmInicio", "gestionDePerfilesToolStripMenuItem", "Gestión de Perfiles");
@@ -155,9 +158,8 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 case "AdministradorIdiomas":
                     bllIdioma.RegistrarControl("AdministradorIdiomas", "label1", "Formulario");
                     bllIdioma.RegistrarControl("AdministradorIdiomas", "label2", "Idioma");
-                    bllIdioma.RegistrarControl("AdministradorIdiomas", "label3", "Nuevo Idioma");
                     bllIdioma.RegistrarControl("AdministradorIdiomas", "btnGuardar", "Guardar");
-                    bllIdioma.RegistrarControl("AdministradorIdiomas", "btnNuevoIdioma", "Agregar Idioma");
+                    bllIdioma.RegistrarControl("AdministradorIdiomas", "btnNuevoIdioma", "NuevoIdioma");
                     break;
                 
                 case "GestionDePerfiles":
@@ -184,10 +186,30 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                     bllIdioma.RegistrarControl("GestionDeFamilias", "BTNEliminarFamilia", "Eliminar Familia"); 
                     bllIdioma.RegistrarControl("GestionDeFamilias", "BTNAplicar", "Aplicar");
                     break;
-                case "frmBitacoraCambios":
-                  
-                    bllIdioma.RegistrarControl("frmBitacoraCambios", "button2", "Restaurar");
-                    bllIdioma.RegistrarControl("frmBitacoraCambios", "button1", "Ver Todos");
+                case "frmAuditoriaCambios":
+
+                    bllIdioma.RegistrarControl("frmAuditoriaCambios", "button2", "Restaurar");
+                    bllIdioma.RegistrarControl("frmAuditoriaCambios", "button1", "Ver Todos");
+                    break;
+
+                case "CerrarSesion":
+                    bllIdioma.RegistrarControl("CerrarSesion", "label1", "Confirmar cierre de sesion?");
+                    bllIdioma.RegistrarControl("CerrarSesion", "button1", "Confirmar");
+                    bllIdioma.RegistrarControl("CerrarSesion", "button2", "Cancelar");
+                    break;
+
+                case "frmCambiarContraseña":
+                    bllIdioma.RegistrarControl("frmCambiarContraseña", "lblUsuario", "Usuario");
+                    bllIdioma.RegistrarControl("frmCambiarContraseña", "lblNuevaContraseña", "Nueva contraseña");
+                    bllIdioma.RegistrarControl("frmCambiarContraseña", "lblConfirmarContraseña", "Confirmar contraseña");
+                    bllIdioma.RegistrarControl("frmCambiarContraseña", "btnCambiar", "Cambiar");
+                    break;
+
+                case "frmVerificacionIntegridad":
+                    bllIdioma.RegistrarControl("frmVerificacionIntegridad", "lblTitulo", "Verificación de Integridad");
+                    bllIdioma.RegistrarControl("frmVerificacionIntegridad", "btnRecalcular", "Recalcular");
+                    bllIdioma.RegistrarControl("frmVerificacionIntegridad", "btnRestaurar", "Restaurar");
+                    bllIdioma.RegistrarControl("frmVerificacionIntegridad", "btnSalir", "Salir");
                     break;
             }
            
@@ -274,7 +296,8 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void AdministradorIdiomas_VisibleChanged(object sender, EventArgs e)
         {
-           
+            if (this.Visible)
+                txtNuevoIdioma.Clear();
         }
     }
 }

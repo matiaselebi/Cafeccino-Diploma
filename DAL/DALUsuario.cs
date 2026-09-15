@@ -12,7 +12,7 @@ namespace DAL
     public class DALUsuario
     {
         private readonly string connectionString =
-        @"Data Source=localhost;Initial Catalog=CAFECCINO1;Integrated Security=True";
+        @"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True";
 
         private readonly SqlConnection cn;
 
@@ -45,9 +45,48 @@ namespace DAL
                 }
             }
         }
+        public Usuario ObtenerPorUsername(string username)
+        {
+            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(
+                "SELECT DNI, Username, Contraseña, Nombre, Apellido, Email, NumTelefono, Rol, DVH FROM Usuario WHERE Username = @username", cn))
+            {
+                cmd.Parameters.AddWithValue("@username", username);
+                cn.Open();
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    if (!rd.Read()) return null;
+                    return new Usuario(
+                        Convert.ToInt32(rd["DNI"]),
+                        rd["Nombre"].ToString(),
+                        rd["Apellido"].ToString(),
+                        rd["Email"].ToString(),
+                        Convert.ToInt32(rd["NumTelefono"]),
+                        rd["Username"].ToString(),
+                        rd["Contraseña"].ToString(),
+                        rd["Rol"].ToString(),
+                        rd["DVH"] == DBNull.Value ? 0 : Convert.ToInt32(rd["DVH"])
+                    );
+                }
+            }
+        }
+
+        public void ActualizarContraseña(string username, string nuevaContraseñaHash)
+        {
+            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(
+                "UPDATE Usuario SET Contraseña = @Contraseña WHERE Username = @Username", cn))
+            {
+                cmd.Parameters.AddWithValue("@Contraseña", nuevaContraseñaHash);
+                cmd.Parameters.AddWithValue("@Username", username);
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public Usuario Login(Usuario user)
         {
-            string query = @"SELECT u.DNI, u.Username, up.CodPermiso, p.Nombre as NombrePerfil
+            string query = @"SELECT u.DNI, u.Username, u.Rol, up.CodPermiso, p.Nombre as NombrePerfil
                      FROM Usuario u
                      INNER JOIN Usuario_Permiso up ON u.DNI = up.CodUsuario
                      INNER JOIN Permiso p ON up.CodPermiso = p.CodPermiso
@@ -66,11 +105,12 @@ namespace DAL
                         {
                             Usuario usuarioValido = new Usuario();
 
-                            
+
                             usuarioValido.DNI = Convert.ToInt32(reader["DNI"]);
                             usuarioValido.NombreUsuario = reader["Username"].ToString();
+                            usuarioValido.Rol = reader["Rol"].ToString();
 
-                            
+
                             usuarioValido.Perfil = new Familia()
                             {
                                 Id = Convert.ToInt32(reader["CodPermiso"]),
@@ -82,7 +122,7 @@ namespace DAL
                     }
                 }
             }
-            return null; 
+            return null;
         }
 
 
@@ -107,7 +147,7 @@ namespace DAL
             return dt;
         }
 
-        
+
         public List<Usuario> ObtenerTodos()
         {
             DataTable dt = ListarUsuarios();
@@ -132,7 +172,7 @@ namespace DAL
         }
         public void RegistrarUsuario(Usuario usuario, int idPerfil)
         {
-       
+
             EjecutarComando(
                 "InsertarUsuario",
                 $"{usuario.DNI}, '{usuario.NombreUsuario}', '{usuario.Contraseña}', '{usuario.Nombre}', '{usuario.Apellido}', '{usuario.Mail}', '{usuario.NumTelefono}', '{usuario.Rol}',{idPerfil}"
@@ -178,6 +218,5 @@ namespace DAL
                 cmd.ExecuteNonQuery();
             }
         }
-
     }
 }

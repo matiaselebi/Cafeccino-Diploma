@@ -12,7 +12,6 @@ namespace BE
         public string Tabla { get; set; }
         public string DVH { get; set; }   
         public string DVV { get; set; } 
-
        
         public List<int> ObtenerListaDVH() =>
             DVH.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)

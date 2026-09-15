@@ -58,23 +58,35 @@
     <Compile Include="CerrarSesion.Designer.cs">
       <DependentUpon>CerrarSesion.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmBitacoraCambios.cs">
+    <Compile Include="frmAuditoriaCambios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmBitacoraCambios.Designer.cs">
-      <DependentUpon>frmBitacoraCambios.cs</DependentUpon>
+    <Compile Include="frmAuditoriaCambios.Designer.cs">
+      <DependentUpon>frmAuditoriaCambios.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmEventos.cs">
+    <Compile Include="frmCambiarContraseña.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmEventos.Designer.cs">
-      <DependentUpon>frmEventos.cs</DependentUpon>
+    <Compile Include="frmCambiarContraseña.Designer.cs">
+      <DependentUpon>frmCambiarContraseña.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBitacoraEventos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBitacoraEventos.Designer.cs">
+      <DependentUpon>frmBitacoraEventos.cs</DependentUpon>
     </Compile>
     <Compile Include="frmInicio.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmInicio.Designer.cs">
       <DependentUpon>frmInicio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmVerificacionIntegridad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVerificacionIntegridad.Designer.cs">
+      <DependentUpon>frmVerificacionIntegridad.cs</DependentUpon>
     </Compile>
     <Compile Include="GestionDeFamilias.cs">
       <SubType>Form</SubType>
@@ -109,14 +121,20 @@
     <EmbeddedResource Include="CerrarSesion.resx">
       <DependentUpon>CerrarSesion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmBitacoraCambios.resx">
-      <DependentUpon>frmBitacoraCambios.cs</DependentUpon>
+    <EmbeddedResource Include="frmAuditoriaCambios.resx">
+      <DependentUpon>frmAuditoriaCambios.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmEventos.resx">
-      <DependentUpon>frmEventos.cs</DependentUpon>
+    <EmbeddedResource Include="frmCambiarContraseña.resx">
+      <DependentUpon>frmCambiarContraseña.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBitacoraEventos.resx">
+      <DependentUpon>frmBitacoraEventos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmInicio.resx">
       <DependentUpon>frmInicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVerificacionIntegridad.resx">
+      <DependentUpon>frmVerificacionIntegridad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GestionDeFamilias.resx">
       <DependentUpon>GestionDeFamilias.cs</DependentUpon>

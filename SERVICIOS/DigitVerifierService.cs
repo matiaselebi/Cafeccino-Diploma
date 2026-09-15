@@ -71,7 +71,6 @@ namespace SERVICIOS
             };
         }
 
-
         public static bool Validar(List<Usuario> usuarios, DigitoVerificador dvGuardado)
         {
             if (dvGuardado == null)
@@ -102,7 +101,6 @@ namespace SERVICIOS
                 }
             }
 
-
             int dvvActual = CalcularDVV(dvhActual);
 
             int dvvGuardado = dvGuardado.ObtenerDVV();
@@ -111,7 +109,6 @@ namespace SERVICIOS
             {
                 filasAlteradas.Add(-2);
             }
-
 
             return filasAlteradas;
         }

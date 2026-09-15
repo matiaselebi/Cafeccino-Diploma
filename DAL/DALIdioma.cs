@@ -10,7 +10,7 @@ namespace DAL
 {
     public class DALIdioma
     {
-        SqlConnection cn = new SqlConnection(@"Data Source=localhost;Initial Catalog=CAFECCINO1;Integrated Security=True");
+        SqlConnection cn = new SqlConnection(@"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True");
         
         public DataTable ListarIdiomas()
         {

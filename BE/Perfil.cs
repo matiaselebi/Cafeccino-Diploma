@@ -10,7 +10,6 @@ namespace BE
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-
         
         public TipoPermiso? Permiso { get; set; }
 
@@ -18,7 +17,5 @@ namespace BE
         public abstract void AgregarHijo(Perfil p);
         public abstract void EliminarHijo(int id);
         public abstract void VaciarHijos();
-
-        
     }
 }
