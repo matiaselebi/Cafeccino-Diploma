@@ -27,3 +27,8 @@ C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\UI\obj\Debug\UI.csproj.Core
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\UI\obj\Debug\UI.csproj.Up2Date
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\UI\obj\Debug\UI.exe
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\UI\obj\Debug\UI.pdb
+C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.frmVenta.resources
+C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.frmFacturas.resources
+C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.GestionProductos.resources
+C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.frmCambiarIdioma.resources
+C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\UI\obj\Debug\CAFECCINO_INGENIERIA_DE_SOFTWARE.frmGestionClientes.resources

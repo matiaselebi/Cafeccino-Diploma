@@ -10,78 +10,78 @@ namespace DAL
 {
     public class DALIdioma
     {
-        SqlConnection cn = new SqlConnection(@"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True");
+        SqlConnection connection = new SqlConnection(@"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True");
         
         public DataTable ListarIdiomas()
         {
-            cn.Open();
+            connection.Open();
 
             SqlDataAdapter da = new SqlDataAdapter(
                 "SELECT IdIdioma, Nombre FROM Idioma",
-                cn);
+                connection);
 
             DataTable dt = new DataTable();
 
             da.Fill(dt);
 
-            cn.Close();
+            connection.Close();
 
             return dt;
         }
         public void AgregarIdioma(Idioma idioma)
         {
-            cn.Open();
+            connection.Open();
 
             string query =  @" IF NOT EXISTS( SELECT * FROM Idioma WHERE Nombre=@nombre)
                             BEGIN INSERT INTO Idioma(Nombre) VALUES(@nombre) END"; ;
 
-            SqlCommand cmd = new SqlCommand(query, cn);
+            SqlCommand command = new SqlCommand(query, connection);
 
-            cmd.Parameters.AddWithValue("@nombre", idioma.Nombre);
+            command.Parameters.AddWithValue("@nombre", idioma.Nombre);
 
-            cmd.ExecuteNonQuery();
+            command.ExecuteNonQuery();
 
-            cn.Close();
+            connection.Close();
         }
 
         public void AgregarControl(ControlIdioma control)
         {
-            cn.Open();
+            connection.Open();
 
-            SqlCommand cmd =
+            SqlCommand command =
                 new SqlCommand(
                 @"INSERT INTO ControlIdioma
         (Formulario,NombreControl)
-        VALUES(@form,@control)", cn);
+        VALUES(@form,@control)", connection);
 
-            cmd.Parameters.AddWithValue("@form", control.Formulario);
+            command.Parameters.AddWithValue("@form", control.Formulario);
 
-            cmd.Parameters.AddWithValue("@control", control.NombreControl);
+            command.Parameters.AddWithValue("@control", control.NombreControl);
 
-            cmd.ExecuteNonQuery();
+            command.ExecuteNonQuery();
 
-            cn.Close();
+            connection.Close();
         }
         public DataTable ObtenerTraducciones(string formulario, int idIdioma)
         {
-            cn.Open();
+            connection.Open();
 
             string query = @"SELECT c.IdControl,c.NombreControl AS Control,c.TextoOriginal,ISNULL(t.Texto,'') AS Traduccion
                             FROM ControlIdioma c LEFT JOIN Traduccion t ON c.IdControl = t.IdControl
                             AND t.IdIdioma = @idIdioma WHERE c.Formulario = @formulario";
 
-            SqlCommand cmd = new SqlCommand(query, cn);
+            SqlCommand command = new SqlCommand(query, connection);
 
-            cmd.Parameters.AddWithValue("@formulario", formulario);
-            cmd.Parameters.AddWithValue("@idIdioma", idIdioma);
+            command.Parameters.AddWithValue("@formulario", formulario);
+            command.Parameters.AddWithValue("@idIdioma", idIdioma);
 
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            SqlDataAdapter da = new SqlDataAdapter(command);
 
             DataTable dt = new DataTable();
 
             da.Fill(dt);
 
-            cn.Close();
+            connection.Close();
 
             return dt;
         }
@@ -89,24 +89,24 @@ namespace DAL
                            string formulario,
                            string control)
         {
-            cn.Open();
+            connection.Open();
 
             string query = @"SELECT Texto FROM Traduccion t INNER JOIN ControlIdioma c ON c.IdControl=t.IdControl
                             WHERE t.IdIdioma=@idioma AND c.Formulario=@form AND c.NombreControl=@control";
 
-            SqlCommand cmd =
-                new SqlCommand(query, cn);
+            SqlCommand command =
+                new SqlCommand(query, connection);
 
-            cmd.Parameters.AddWithValue("@idioma", idIdioma);
+            command.Parameters.AddWithValue("@idioma", idIdioma);
 
-            cmd.Parameters.AddWithValue("@form", formulario);
+            command.Parameters.AddWithValue("@form", formulario);
 
-            cmd.Parameters.AddWithValue("@control", control);
+            command.Parameters.AddWithValue("@control", control);
 
             object resultado =
-                cmd.ExecuteScalar();
+                command.ExecuteScalar();
 
-            cn.Close();
+            connection.Close();
 
             if (resultado == null)
                 return "";
@@ -115,7 +115,7 @@ namespace DAL
         }
         public void GuardarTraduccion(Traduccion traduccion)
         {
-            cn.Open();
+            connection.Open();
 
             string query = @" IF EXISTS ( SELECT *FROM Traduccion WHERE IdIdioma=@idioma AND IdControl=@control)
                             BEGIN UPDATE Traduccion SET Texto=@texto WHERE IdIdioma=@idioma AND IdControl=@control
@@ -126,25 +126,25 @@ namespace DAL
                             VALUES (@idioma, @control, @texto)
                             END";
 
-            SqlCommand cmd =
-                new SqlCommand(query, cn);
+            SqlCommand command =
+                new SqlCommand(query, connection);
 
-            cmd.Parameters.AddWithValue("@idioma",
+            command.Parameters.AddWithValue("@idioma",
                 traduccion.Idioma);
 
-            cmd.Parameters.AddWithValue("@control",
+            command.Parameters.AddWithValue("@control",
                 traduccion.Control);
 
-            cmd.Parameters.AddWithValue("@texto",
+            command.Parameters.AddWithValue("@texto",
                 traduccion.Texto);
 
-            cmd.ExecuteNonQuery();
+            command.ExecuteNonQuery();
 
-            cn.Close();
+            connection.Close();
         }
         public void RegistrarControl(string formulario, string nombreControl, string textoOriginal)
         {
-            cn.Open();
+            connection.Open();
 
             string query = @" IF NOT EXISTS( SELECT * FROM ControlIdioma WHERE Formulario=@formulario
                             AND NombreControl=@nombreControl)
@@ -152,19 +152,19 @@ namespace DAL
                             VALUES(@formulario,@nombreControl,@textoOriginal)
                             END";
 
-            SqlCommand cmd = new SqlCommand(query, cn);
+            SqlCommand command = new SqlCommand(query, connection);
 
-            cmd.Parameters.AddWithValue("@formulario", formulario);
-            cmd.Parameters.AddWithValue("@nombreControl", nombreControl);
-            cmd.Parameters.AddWithValue("@textoOriginal", textoOriginal);
+            command.Parameters.AddWithValue("@formulario", formulario);
+            command.Parameters.AddWithValue("@nombreControl", nombreControl);
+            command.Parameters.AddWithValue("@textoOriginal", textoOriginal);
 
-            cmd.ExecuteNonQuery();
+            command.ExecuteNonQuery();
 
-            cn.Close();
+            connection.Close();
         }
         public DataTable ObtenerControles(string formulario)
         {
-            cn.Open();
+            connection.Open();
 
             string query = @"SELECT IdControl,
                             NombreControl AS Control,
@@ -172,15 +172,15 @@ namespace DAL
                      FROM ControlIdioma
                      WHERE Formulario = @formulario";
 
-            SqlCommand cmd = new SqlCommand(query, cn);
-            cmd.Parameters.AddWithValue("@formulario", formulario);
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@formulario", formulario);
 
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            SqlDataAdapter da = new SqlDataAdapter(command);
 
             DataTable dt = new DataTable();
             da.Fill(dt);
 
-            cn.Close();
+            connection.Close();
 
             return dt;
         }

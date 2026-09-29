@@ -44,10 +44,13 @@
     <Compile Include="Conexion.cs" />
     <Compile Include="DALBackup.cs" />
     <Compile Include="DALAuditoriaCambios.cs" />
+    <Compile Include="DALCliente.cs" />
     <Compile Include="DALDigitoVerificador.cs" />
     <Compile Include="DALBitacoraEventos.cs" />
+    <Compile Include="DALFactura.cs" />
     <Compile Include="DALPermiso.cs" />
     <Compile Include="DALIdioma.cs" />
+    <Compile Include="DALProducto.cs" />
     <Compile Include="DALUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

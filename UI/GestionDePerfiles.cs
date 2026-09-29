@@ -19,8 +19,8 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
     public partial class GestionDePerfiles : Form , IObserver
     {
-        private BLLPermiso _permisoBLL = new BLLPermiso();
-        private Familia _perfilSeleccionado;
+        private BLLPermiso bllPermiso = new BLLPermiso();
+        private Familia perfilSeleccionado;
         Traductor traductor = new Traductor();
         frmInicio parent;
         private bool CambioManual = true;
@@ -66,19 +66,19 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             CambioManual = false;
 
-            List<Perfil> perfiles = _permisoBLL.ObtenerPerfiles();
+            List<Perfil> perfiles = bllPermiso.ObtenerPerfiles();
             cmbPerfiles.DataSource = perfiles;
             cmbPerfiles.DisplayMember = "Nombre";
             cmbPerfiles.ValueMember = "Id";
             cmbPerfiles.SelectedIndex = -1;
 
-            List<Perfil> familias = _permisoBLL.ObtenerFamilias();
+            List<Perfil> familias = bllPermiso.ObtenerFamilias();
             cmbFamiliasAsociar.DataSource = familias;
             cmbFamiliasAsociar.DisplayMember = "Nombre";
             cmbFamiliasAsociar.ValueMember = "Id";
             cmbFamiliasAsociar.SelectedIndex = -1;
 
-            List<Perfil> permisos = _permisoBLL.ObtenerPermisosYPerfiles();
+            List<Perfil> permisos = bllPermiso.ObtenerPermisosYPerfiles();
             cmbPermisos.DataSource = permisos;
             cmbPermisos.DisplayMember = "Nombre";
             cmbPermisos.ValueMember = "Id";
@@ -95,7 +95,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             {
                 string nombrePerfil = TXTPerfil.Text.Trim();
 
-                int idGenerado = _permisoBLL.InsertarComponente(nombrePerfil, esFamilia: true, esPerfil: true);
+                int idGenerado = bllPermiso.InsertarComponente(nombrePerfil, esFamilia: true, esPerfil: true);
 
                 frmInicio parentUI = this.MdiParent as frmInicio;
                 if (parentUI != null && parentUI.gestionDeFamilias != null)
@@ -131,12 +131,12 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             {
                 try
                 {
-                    _permisoBLL.EliminarComponente(perfilAEliminar.Id);
+                    bllPermiso.EliminarComponente(perfilAEliminar.Id);
 
                     MessageBox.Show("Perfil eliminado correctamente.");
 
                     treePerfil.Nodes.Clear();
-                    _perfilSeleccionado = null;
+                    perfilSeleccionado = null;
                     LlenarCombosPerfiles();
 
                     frmInicio parentUI = this.MdiParent as frmInicio;
@@ -170,15 +170,15 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                         padreCompuesto.EliminarHijo(hijoAEliminar.Id);
 
                         if (padreCompuesto is Familia)
-                            _permisoBLL.GuardarFamilia((Familia)padreCompuesto, esPerfil: false);
+                            bllPermiso.GuardarFamilia((Familia)padreCompuesto, esPerfil: false);
                     }
                     else
                     {
 
                         Perfil hijoAEliminar = (Perfil)e.Node.Tag;
-                        _perfilSeleccionado.EliminarHijo(hijoAEliminar.Id);
+                        perfilSeleccionado.EliminarHijo(hijoAEliminar.Id);
 
-                        _permisoBLL.GuardarFamilia(_perfilSeleccionado, esPerfil: true);
+                        bllPermiso.GuardarFamilia(perfilSeleccionado, esPerfil: true);
                     }
 
 
@@ -187,9 +187,9 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                     {
                         Usuario usuarioActual = Singleton.Instancia.Usuario;
                         if (usuarioActual != null && usuarioActual.Perfil != null
-                            && usuarioActual.Perfil.Id == _perfilSeleccionado.Id)
+                            && usuarioActual.Perfil.Id == perfilSeleccionado.Id)
                         {
-                            _permisoBLL.ArmarArbolComponente(usuarioActual.Perfil);
+                            bllPermiso.ArmarArbolComponente(usuarioActual.Perfil);
                             parentUI.AplicarPermisosUsuario(usuarioActual.Perfil.Hijos.ToList());
                         }
                     }
@@ -201,19 +201,19 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNAgregarFamilia_Click(object sender, EventArgs e)
         {
-            if (_perfilSeleccionado == null || cmbFamiliasAsociar.SelectedItem == null) return;
+            if (perfilSeleccionado == null || cmbFamiliasAsociar.SelectedItem == null) return;
 
             Familia subFamiliaOrigen = (Familia)cmbFamiliasAsociar.SelectedItem;
 
 
-            if (subFamiliaOrigen.Id == _perfilSeleccionado.Id)
+            if (subFamiliaOrigen.Id == perfilSeleccionado.Id)
             {
                 MessageBox.Show("No se puede agregar un perfil dentro de sí mismo.");
                 return;
             }
 
 
-            if (_permisoBLL.ExisteEnArbol(_perfilSeleccionado, subFamiliaOrigen.Id))
+            if (bllPermiso.ExisteEnArbol(perfilSeleccionado, subFamiliaOrigen.Id))
             {
                 MessageBox.Show("Esta familia ya existe en el árbol.");
                 return;
@@ -222,79 +222,79 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             Familia copia = new Familia();
             copia.Id = subFamiliaOrigen.Id;
             copia.Nombre = subFamiliaOrigen.Nombre;
-            _permisoBLL.ArmarArbolComponente(copia);
+            bllPermiso.ArmarArbolComponente(copia);
 
 
-            if (_permisoBLL.ExisteEnArbol(copia, _perfilSeleccionado.Id))
+            if (bllPermiso.ExisteEnArbol(copia, perfilSeleccionado.Id))
             {
                 MessageBox.Show("No se puede agregar porque crearía una referencia circular.");
                 return;
             }
 
-            if (_permisoBLL.AlgunComponenteYaExisteEnArbol(_perfilSeleccionado, copia))
+            if (bllPermiso.AlgunComponenteYaExisteEnArbol(perfilSeleccionado, copia))
             {
                 MessageBox.Show("Esta familia contiene componentes que ya existen en el árbol del perfil.");
                 return;
             }
 
-            _perfilSeleccionado.AgregarHijo(copia);
+            perfilSeleccionado.AgregarHijo(copia);
             MostrarEnTreeView();
         }
 
         private void BTNAgregarPermiso_Click(object sender, EventArgs e)
         {
-            if (_perfilSeleccionado == null || cmbPermisos.SelectedItem == null) return;
+            if (perfilSeleccionado == null || cmbPermisos.SelectedItem == null) return;
 
             Perfil permisoSeleccionado = (Perfil)cmbPermisos.SelectedItem;
 
 
-            if (permisoSeleccionado.Id == _perfilSeleccionado.Id)
+            if (permisoSeleccionado.Id == perfilSeleccionado.Id)
             {
                 MessageBox.Show("No se puede agregar un perfil dentro de sí mismo.");
                 return;
             }
-            if (_permisoBLL.ExisteEnArbol(_perfilSeleccionado, permisoSeleccionado.Id))
+            if (bllPermiso.ExisteEnArbol(perfilSeleccionado, permisoSeleccionado.Id))
             {
                 MessageBox.Show("Este permiso ya existe");
                 return;
 
             }
-            if (_perfilSeleccionado is Familia)
+            if (perfilSeleccionado is Familia)
             {
                 Familia copia = new Familia();
                 copia.Id = permisoSeleccionado.Id;
                 copia.Nombre = permisoSeleccionado.Nombre;
-                _permisoBLL.ArmarArbolComponente(copia);
+                bllPermiso.ArmarArbolComponente(copia);
 
-                if (_permisoBLL.ExisteEnArbol(copia, _perfilSeleccionado.Id))
+                if (bllPermiso.ExisteEnArbol(copia, perfilSeleccionado.Id))
                 {
                     MessageBox.Show("No se puede agregar porque crea una dependencia circular");
                     return;
                 }
 
-                if (_permisoBLL.AlgunComponenteYaExisteEnArbol(_perfilSeleccionado, copia))
+                if (bllPermiso.AlgunComponenteYaExisteEnArbol(perfilSeleccionado, copia))
                 {
                     MessageBox.Show("Este permiso contiene componentes que ya existen en el árbol del perfil.");
                     return;
                 }
 
-                _perfilSeleccionado.AgregarHijo(copia);
+                perfilSeleccionado.AgregarHijo(copia);
 
             }
             else
             {
-                _perfilSeleccionado.AgregarHijo(permisoSeleccionado);
+                perfilSeleccionado.AgregarHijo(permisoSeleccionado);
             }
             MostrarEnTreeView();
         }
 
         private void BTNAplicar_Click(object sender, EventArgs e)
         {
-            if (_perfilSeleccionado == null) return;
+            if (perfilSeleccionado == null) return;
 
             try
             {
-                _permisoBLL.GuardarFamilia(_perfilSeleccionado, esPerfil: true);
+                bllPermiso.GuardarFamilia(perfilSeleccionado, esPerfil: true);
 
                 frmInicio parentUI = this.MdiParent as frmInicio;
                 if (parentUI != null)
@@ -302,10 +302,10 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
                     Usuario usuarioActual = Singleton.Instancia.Usuario;
                     if (usuarioActual != null && usuarioActual.Perfil != null
-                        && usuarioActual.Perfil.Id == _perfilSeleccionado.Id)
+                        && usuarioActual.Perfil.Id == perfilSeleccionado.Id)
                     {
 
-                        _permisoBLL.ArmarArbolComponente(usuarioActual.Perfil);
+                        bllPermiso.ArmarArbolComponente(usuarioActual.Perfil);
 
                         parentUI.AplicarPermisosUsuario(usuarioActual.Perfil.Hijos.ToList());
                     }
@@ -328,10 +328,10 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             try
             {
-                _perfilSeleccionado = (Familia)cmbPerfiles.SelectedItem;
+                perfilSeleccionado = (Familia)cmbPerfiles.SelectedItem;
 
-                _perfilSeleccionado.EliminarHijo(((Perfil)cmbPerfiles.SelectedItem).Id);
-                _permisoBLL.ArmarArbolComponente(_perfilSeleccionado);
+                perfilSeleccionado.EliminarHijo(((Perfil)cmbPerfiles.SelectedItem).Id);
+                bllPermiso.ArmarArbolComponente(perfilSeleccionado);
 
                 MostrarEnTreeView();
             }
@@ -344,13 +344,13 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         private void MostrarEnTreeView()
         {
             treePerfil.Nodes.Clear();
-            if (_perfilSeleccionado == null) return;
+            if (perfilSeleccionado == null) return;
 
-            TreeNode root = new TreeNode(_perfilSeleccionado.Nombre) { Tag = _perfilSeleccionado };
+            TreeNode root = new TreeNode(perfilSeleccionado.Nombre) { Tag = perfilSeleccionado };
             treePerfil.Nodes.Add(root);
 
 
-            DibujarRamas(root, _perfilSeleccionado.Hijos);
+            DibujarRamas(root, perfilSeleccionado.Hijos);
             treePerfil.ExpandAll();
         }
         private void GestionDePerfiles_VisibleChanged(object sender, EventArgs e)

@@ -12,17 +12,17 @@ namespace BLL
 {
     public class BLLAuditoriaCambios
     {
-        private readonly DALAuditoriaCambios _dal = new DALAuditoriaCambios();
-        private readonly DALUsuario _dalUsuario = new DALUsuario();
-        private string SerializarUsuario(Usuario u)
+        private readonly DALAuditoriaCambios dalAuditoriaCambios = new DALAuditoriaCambios();
+        private readonly DALUsuario dalUsuario = new DALUsuario();
+        private string SerializarUsuario(Usuario usuario)
         {
-            return $"DNI:{u.DNI} | Usuario:{u.NombreUsuario} | Contraseña:{u.Contraseña}| Nombre:{u.Nombre} | " +
-                   $"Apellido:{u.Apellido} | Mail:{u.Mail} | Tel:{u.NumTelefono} | Rol:{u.Rol}";
+            return $"DNI:{usuario.DNI} | Usuario:{usuario.NombreUsuario} | Contraseña:{usuario.Contraseña}| Nombre:{usuario.Nombre} | " +
+                   $"Apellido:{usuario.Apellido} | Mail:{usuario.Mail} | Tel:{usuario.NumTelefono} | Rol:{usuario.Rol}";
         }
 
         public void RegistrarModificacion(Usuario anterior, Usuario nuevo, string usuarioEditor)
         {
-            _dal.RegistrarCambio(new AuditoriaCambios
+            dalAuditoriaCambios.RegistrarCambio(new AuditoriaCambios
             {
                 UsuarioEditor = usuarioEditor,
                 Operacion = "Modificacion",
@@ -34,13 +34,23 @@ namespace BLL
 
         public DataTable ObtenerCambios()
         {
-            return _dal.ObtenerCambios();
+            return dalAuditoriaCambios.ObtenerCambios();
+        }
+
+        public AuditoriaCambios ObtenerUltimoPorDni(int dni)
+        {
+            return dalAuditoriaCambios.ObtenerUltimoPorDni(dni);
+        }
+
+        public Usuario ParsearSnapshot(string datos)
+        {
+            return DesSerializarUsuario(datos);
         }
 
         public void RestaurarUsuario(int idBitacora)
         {
 
-            AuditoriaCambios registro = _dal.ObtenerPorId(idBitacora);
+            AuditoriaCambios registro = dalAuditoriaCambios.ObtenerPorId(idBitacora);
 
             if (registro == null)
                 return;
@@ -50,9 +60,9 @@ namespace BLL
 
             Usuario usuarioAnterior = DesSerializarUsuario(registro.DatosAnteriores);
 
-            _dalUsuario.ModificarUsuario(usuarioAnterior);
+            dalUsuario.ModificarUsuario(usuarioAnterior);
 
-            _dal.RegistrarCambio(new AuditoriaCambios
+            dalAuditoriaCambios.RegistrarCambio(new AuditoriaCambios
             {
                 UsuarioEditor = Singleton.Instancia.Usuario.NombreUsuario,
                 Operacion = "Restauracion",
@@ -68,7 +78,7 @@ namespace BLL
         {
 
             var partes = datos.Split('|');
-            Usuario u = new Usuario();
+            Usuario usuario = new Usuario();
 
             foreach (var parte in partes)
             {
@@ -79,17 +89,17 @@ namespace BLL
 
                 switch (clave)
                 {
-                    case "DNI": u.DNI = int.Parse(valor); break;
-                    case "Usuario": u.NombreUsuario = valor; break;
-                    case "Contraseña": u.Contraseña = valor; break;
-                    case "Nombre": u.Nombre = valor; break;
-                    case "Apellido": u.Apellido = valor; break;
-                    case "Mail": u.Mail = valor; break;
-                    case "Tel": u.NumTelefono = int.TryParse(valor, out int tel) ? tel : 0; break;
-                    case "Rol": u.Rol = valor; break;
+                    case "DNI": usuario.DNI = int.Parse(valor); break;
+                    case "Usuario": usuario.NombreUsuario = valor; break;
+                    case "Contraseña": usuario.Contraseña = valor; break;
+                    case "Nombre": usuario.Nombre = valor; break;
+                    case "Apellido": usuario.Apellido = valor; break;
+                    case "Mail": usuario.Mail = valor; break;
+                    case "Tel": usuario.NumTelefono = int.TryParse(valor, out int tel) ? tel : 0; break;
+                    case "Rol": usuario.Rol = valor; break;
                 }
             }
-            return u;
+            return usuario;
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BE;
 
 namespace SERVICIOS
 {
@@ -27,11 +26,11 @@ namespace SERVICIOS
 
         }
 
-        public Idioma IdiomaActual { get; private set; }
+        public int IdiomaActual { get; private set; } = 2;
 
-        public void CambiarIdioma(Idioma idioma)
+        public void CambiarIdioma(int idIdioma)
         {
-            IdiomaActual = idioma;
+            IdiomaActual = idIdioma;
 
             Notificar();
         }

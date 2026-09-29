@@ -35,8 +35,6 @@
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.cmbCambiarIdioma = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblUsuario
@@ -91,32 +89,12 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // cmbCambiarIdioma
-            // 
-            this.cmbCambiarIdioma.FormattingEnabled = true;
-            this.cmbCambiarIdioma.Location = new System.Drawing.Point(305, 36);
-            this.cmbCambiarIdioma.Name = "cmbCambiarIdioma";
-            this.cmbCambiarIdioma.Size = new System.Drawing.Size(121, 21);
-            this.cmbCambiarIdioma.TabIndex = 6;
-            this.cmbCambiarIdioma.SelectedIndexChanged += new System.EventHandler(this.cmbCambiarIdioma_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(302, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Idioma";
-            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Chocolate;
-            this.ClientSize = new System.Drawing.Size(454, 153);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.cmbCambiarIdioma);
+            this.ClientSize = new System.Drawing.Size(264, 153);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtContraseña);
@@ -143,7 +121,5 @@
         private System.Windows.Forms.TextBox txtContraseña;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.ComboBox cmbCambiarIdioma;
-        private System.Windows.Forms.Label label1;
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data.SqlClient;
 using System.IO;
 
@@ -20,7 +20,7 @@ namespace DAL
             return dir != null ? dir.FullName : AppDomain.CurrentDomain.BaseDirectory;
         }
 
-        private readonly string _conexionMaster =
+        private readonly string conexionMaster =
             @"Data Source=localhost;Initial Catalog=master;Integrated Security=True";
 
         public string ObtenerRutaBackup() => RutaBackup;
@@ -31,14 +31,14 @@ namespace DAL
         {
             Directory.CreateDirectory(Path.GetDirectoryName(RutaBackup));
 
-            using (SqlConnection cn = new SqlConnection(_conexionMaster))
-            using (SqlCommand cmd = new SqlCommand(
-                $"BACKUP DATABASE [{NombreBaseDatos}] TO DISK = @ruta WITH INIT, STATS = 10", cn))
+            using (SqlConnection connection = new SqlConnection(conexionMaster))
+            using (SqlCommand command = new SqlCommand(
+                $"BACKUP DATABASE [{NombreBaseDatos}] TO DISK = @ruta WITH INIT, STATS = 10", connection))
             {
-                cmd.Parameters.AddWithValue("@ruta", RutaBackup);
-                cmd.CommandTimeout = 120;
-                cn.Open();
-                cmd.ExecuteNonQuery();
+                command.Parameters.AddWithValue("@ruta", RutaBackup);
+                command.CommandTimeout = 120;
+                connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 
@@ -47,36 +47,36 @@ namespace DAL
             if (!File.Exists(RutaBackup))
                 throw new Exception("No existe un backup generado todavía. Use 'Recalcular' al menos una vez para generar uno.");
 
-            using (SqlConnection cn = new SqlConnection(_conexionMaster))
+            using (SqlConnection connection = new SqlConnection(conexionMaster))
             {
-                cn.Open();
+                connection.Open();
 
-                EjecutarNonQuery(cn, $"ALTER DATABASE [{NombreBaseDatos}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
+                EjecutarNonQuery(connection, $"ALTER DATABASE [{NombreBaseDatos}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
 
                 try
                 {
-                    using (SqlCommand cmd = new SqlCommand(
-                        $"RESTORE DATABASE [{NombreBaseDatos}] FROM DISK = @ruta WITH REPLACE, STATS = 10", cn))
+                    using (SqlCommand command = new SqlCommand(
+                        $"RESTORE DATABASE [{NombreBaseDatos}] FROM DISK = @ruta WITH REPLACE, STATS = 10", connection))
                     {
-                        cmd.Parameters.AddWithValue("@ruta", RutaBackup);
-                        cmd.CommandTimeout = 180;
-                        cmd.ExecuteNonQuery();
+                        command.Parameters.AddWithValue("@ruta", RutaBackup);
+                        command.CommandTimeout = 180;
+                        command.ExecuteNonQuery();
                     }
                 }
                 finally
                 {
-                    EjecutarNonQuery(cn, $"ALTER DATABASE [{NombreBaseDatos}] SET MULTI_USER");
+                    EjecutarNonQuery(connection, $"ALTER DATABASE [{NombreBaseDatos}] SET MULTI_USER");
                 }
             }
 
             SqlConnection.ClearAllPools();
         }
 
-        private void EjecutarNonQuery(SqlConnection cn, string sql)
+        private void EjecutarNonQuery(SqlConnection connection, string sql)
         {
-            using (SqlCommand cmd = new SqlCommand(sql, cn))
+            using (SqlCommand command = new SqlCommand(sql, connection))
             {
-                cmd.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             }
         }
     }

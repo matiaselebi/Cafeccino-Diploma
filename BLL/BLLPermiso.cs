@@ -11,11 +11,11 @@ namespace BLL
 {
     public class BLLPermiso
     {
-        private DALPermiso _permisoDAL = new DALPermiso();
+        private DALPermiso dalPermiso = new DALPermiso();
 
         public Perfil CargarArbolCompleto(Perfil perfil)
         {
-            List<Perfil> hijos = _permisoDAL.ObtenerHijos(perfil.Id);
+            List<Perfil> hijos = dalPermiso.ObtenerHijos(perfil.Id);
 
             foreach (Perfil hijo in hijos)
             {
@@ -32,16 +32,16 @@ namespace BLL
         public List<Perfil> ObtenerFamilias()
         {
 
-            return _permisoDAL.ObtenerTodosLosComponentes(soloFamilias: true, soloPerfiles: false);
+            return dalPermiso.ObtenerTodosLosComponentes(soloFamilias: true, soloPerfiles: false);
         }
         public List<Perfil> ObtenerPermisosYPerfiles()
         {
-            return _permisoDAL.ObtenerPermisosYPerfiles();
+            return dalPermiso.ObtenerPermisosYPerfiles();
         }
         public List<Perfil> ObtenerPermisosSimples()
         {
 
-            return _permisoDAL.ObtenerTodosLosComponentes(soloFamilias: false, soloPerfiles: false);
+            return dalPermiso.ObtenerTodosLosComponentes(soloFamilias: false, soloPerfiles: false);
         }
 
         public bool ExisteEnArbol(Perfil raiz, int idBuscar)
@@ -71,7 +71,7 @@ namespace BLL
 
             componentePadre.VaciarHijos();
 
-            var hijos = _permisoDAL.ObtenerHijos(componentePadre.Id);
+            var hijos = dalPermiso.ObtenerHijos(componentePadre.Id);
             foreach (var hijo in hijos)
             {
                 componentePadre.AgregarHijo(hijo);
@@ -86,12 +86,12 @@ namespace BLL
             try
             {
 
-                _permisoDAL.EliminarRelacionesPadre(familia.Id);
+                dalPermiso.EliminarRelacionesPadre(familia.Id);
 
                 foreach (var hijo in familia.Hijos)
                 {
 
-                    _permisoDAL.InsertarRelacion(familia.Id, hijo.Id);
+                    dalPermiso.InsertarRelacion(familia.Id, hijo.Id);
                 }
             }
             catch (Exception ex)
@@ -102,35 +102,35 @@ namespace BLL
 
         public void EliminarComponente(int idComponente)
         {
-            if (_permisoDAL.TieneUsuariosAsignados(idComponente))
+            if (dalPermiso.TieneUsuariosAsignados(idComponente))
                 throw new Exception("No se puede eliminar este rol porque tiene usuarios asignados.");
 
-            _permisoDAL.EliminarRelacionesComponente(idComponente);
-            _permisoDAL.EliminarAsignacionesUsuario(idComponente);
-            _permisoDAL.EliminarComponenteBase(idComponente);
+            dalPermiso.EliminarRelacionesComponente(idComponente);
+            dalPermiso.EliminarAsignacionesUsuario(idComponente);
+            dalPermiso.EliminarComponenteBase(idComponente);
         }
 
         public void EliminarFamilia(int idFamilia)
         {
-            if (_permisoDAL.TieneUsuariosAsignados(idFamilia))
+            if (dalPermiso.TieneUsuariosAsignados(idFamilia))
                 throw new Exception("No se puede eliminar este rol porque tiene usuarios asignados.");
 
-            _permisoDAL.EliminarRelacionesComponente(idFamilia);
-            _permisoDAL.EliminarComponenteBase(idFamilia);
+            dalPermiso.EliminarRelacionesComponente(idFamilia);
+            dalPermiso.EliminarComponenteBase(idFamilia);
         }
 
         public List<Perfil> ObtenerPerfiles()
         {
 
-            return _permisoDAL.ObtenerTodosLosComponentes(soloFamilias: true, soloPerfiles: true);
+            return dalPermiso.ObtenerTodosLosComponentes(soloFamilias: true, soloPerfiles: true);
         }
 
         public int InsertarComponente(string nombre, bool esFamilia, bool esPerfil)
         {
-            if (_permisoDAL.ExisteConNombre(nombre))
+            if (dalPermiso.ExisteConNombre(nombre))
                 throw new Exception($"Ya existe un componente con el nombre '{nombre}'.");
 
-            return _permisoDAL.InsertarComponente(nombre, esFamilia, esPerfil);
+            return dalPermiso.InsertarComponente(nombre, esFamilia, esPerfil);
         }
     }
 }

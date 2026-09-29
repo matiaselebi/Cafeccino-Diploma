@@ -17,7 +17,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
     public partial class GestionDeFamilias : Form , IObserver
     {
         private BLLPermiso NegociosPermiso = new BLLPermiso();
-        private Familia _familiaSeleccionada;
+        private Familia familiaSeleccionada;
         private bool CambioManual = true;
         Traductor traductor = new Traductor();
         private frmInicio parent;
@@ -43,7 +43,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             treeView1.Nodes.Clear();
             TXTFamilia.Text = "";
-            _familiaSeleccionada = null;
+            familiaSeleccionada = null;
         }
         public void LlenarCombobox()
         {
@@ -110,17 +110,17 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNAgregarPermiso_Click(object sender, EventArgs e)
         {
-            if (_familiaSeleccionada == null || CBPermisos.SelectedItem == null) return;
+            if (familiaSeleccionada == null || CBPermisos.SelectedItem == null) return;
 
             Permiso permisoSeleccionado = (Permiso)CBPermisos.SelectedItem;
 
-            if (NegociosPermiso.ExisteEnArbol(_familiaSeleccionada, permisoSeleccionado.Id))
+            if (NegociosPermiso.ExisteEnArbol(familiaSeleccionada, permisoSeleccionado.Id))
             {
                 MessageBox.Show("Este permiso ya se encuentra seleccionado en la familia actual.");
                 return;
             }
 
-            _familiaSeleccionada.AgregarHijo(permisoSeleccionado);
+            familiaSeleccionada.AgregarHijo(permisoSeleccionado);
             MostrarEnTreeView();
         }
 
@@ -128,10 +128,10 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             if (!CambioManual || CBFamilias.SelectedItem == null) return;
 
-            _familiaSeleccionada = (Familia)CBFamilias.SelectedItem;
+            familiaSeleccionada = (Familia)CBFamilias.SelectedItem;
 
-            _familiaSeleccionada.VaciarHijos();
-            NegociosPermiso.ArmarArbolComponente(_familiaSeleccionada);
+            familiaSeleccionada.VaciarHijos();
+            NegociosPermiso.ArmarArbolComponente(familiaSeleccionada);
 
             MostrarEnTreeView();
         }
@@ -154,11 +154,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                     else
                     {
                         Perfil hijoAEliminar = (Perfil)e.Node.Tag;
-                        _familiaSeleccionada.EliminarHijo(hijoAEliminar.Id);
+                        familiaSeleccionada.EliminarHijo(hijoAEliminar.Id);
                     }
 
 
-                    NegociosPermiso.GuardarFamilia(_familiaSeleccionada, esPerfil: false);
+                    NegociosPermiso.GuardarFamilia(familiaSeleccionada, esPerfil: false);
 
                     MostrarEnTreeView();
                 }
@@ -167,11 +167,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNAplicar_Click(object sender, EventArgs e)
         {
-            if (_familiaSeleccionada == null) return;
+            if (familiaSeleccionada == null) return;
 
             try
             {
-                NegociosPermiso.GuardarFamilia(_familiaSeleccionada, esPerfil: false);
+                NegociosPermiso.GuardarFamilia(familiaSeleccionada, esPerfil: false);
 
                 frmInicio parentUI = this.MdiParent as frmInicio;
                 if (parentUI != null)
@@ -219,7 +219,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                     MessageBox.Show("Familia eliminada con éxito del sistema.");
 
                     treeView1.Nodes.Clear();
-                    _familiaSeleccionada = null;
+                    familiaSeleccionada = null;
                     LlenarCombobox();
 
                     frmInicio parentUI = this.MdiParent as frmInicio;
@@ -246,19 +246,19 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNAgregarFamilia_Click(object sender, EventArgs e)
         {
-            if (_familiaSeleccionada == null || CBFamilias2.SelectedItem == null) return;
+            if (familiaSeleccionada == null || CBFamilias2.SelectedItem == null) return;
 
             Familia subFamiliaOrigen = (Familia)CBFamilias2.SelectedItem;
 
 
-            if (_familiaSeleccionada.Id == subFamiliaOrigen.Id)
+            if (familiaSeleccionada.Id == subFamiliaOrigen.Id)
             {
                 MessageBox.Show("No se puede agregar una familia dentro de sí misma.");
                 return;
             }
 
 
-            if (NegociosPermiso.ExisteEnArbol(_familiaSeleccionada, subFamiliaOrigen.Id))
+            if (NegociosPermiso.ExisteEnArbol(familiaSeleccionada, subFamiliaOrigen.Id))
             {
                 MessageBox.Show("Esta familia ya existe en el árbol.");
                 return;
@@ -270,31 +270,31 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             NegociosPermiso.ArmarArbolComponente(copia);
 
 
-            if (NegociosPermiso.ExisteEnArbol(copia, _familiaSeleccionada.Id))
+            if (NegociosPermiso.ExisteEnArbol(copia, familiaSeleccionada.Id))
             {
                 MessageBox.Show("No se puede agregar porque crearía una referencia circular.");
                 return;
             }
 
-            if (NegociosPermiso.AlgunComponenteYaExisteEnArbol(_familiaSeleccionada, copia))
+            if (NegociosPermiso.AlgunComponenteYaExisteEnArbol(familiaSeleccionada, copia))
             {
                 MessageBox.Show("Esta familia contiene componentes que ya existen en el árbol.");
                 return;
             }
 
-            _familiaSeleccionada.AgregarHijo(copia);
+            familiaSeleccionada.AgregarHijo(copia);
             MostrarEnTreeView();
         }
         private void MostrarEnTreeView()
         {
             treeView1.Nodes.Clear();
-            if (_familiaSeleccionada == null) return;
+            if (familiaSeleccionada == null) return;
 
-            TreeNode root = new TreeNode(_familiaSeleccionada.Nombre) { Tag = _familiaSeleccionada };
+            TreeNode root = new TreeNode(familiaSeleccionada.Nombre) { Tag = familiaSeleccionada };
             treeView1.Nodes.Add(root);
 
 
-            DibujarRamas(root, _familiaSeleccionada.Hijos);
+            DibujarRamas(root, familiaSeleccionada.Hijos);
             treeView1.ExpandAll();
         }
         private void DibujarRamas(TreeNode nodoVisual, IList<Perfil> hijos)
@@ -331,10 +331,10 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                     else
                     {
                         Perfil hijoAEliminar = (Perfil)e.Node.Tag;
-                        _familiaSeleccionada.EliminarHijo(hijoAEliminar.Id);
+                        familiaSeleccionada.EliminarHijo(hijoAEliminar.Id);
                     }
 
-                    NegociosPermiso.GuardarFamilia(_familiaSeleccionada, esPerfil: false);
+                    NegociosPermiso.GuardarFamilia(familiaSeleccionada, esPerfil: false);
 
 
                     frmInicio parentUI = this.MdiParent as frmInicio;

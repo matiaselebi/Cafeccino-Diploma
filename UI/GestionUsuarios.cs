@@ -15,9 +15,9 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
     public partial class GestionUsuarios : Form, IObserver
     {
-        private BLLAuditoriaCambios _bllBitacora = new BLLAuditoriaCambios();
+        private BLLAuditoriaCambios bllBitacora = new BLLAuditoriaCambios();
         BLLUsuario bllUsuario = new BLLUsuario();
-        BLLPermiso _permisoBLL = new BLLPermiso();
+        BLLPermiso bllPermiso = new BLLPermiso();
         Traductor traductor = new Traductor();
        
         public GestionUsuarios()
@@ -101,7 +101,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             bllUsuario.ModificarUsuario(usuario);
             bllUsuario.SincronizarDigitos();
-            _bllBitacora.RegistrarModificacion(anterior, usuario, Singleton.Instancia.Usuario.NombreUsuario);
+            bllBitacora.RegistrarModificacion(anterior, usuario, Singleton.Instancia.Usuario.NombreUsuario);
 
             MessageBox.Show("Usuario modificado correctamente.");
 
@@ -164,7 +164,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         private void LlenarComboRoles()
         {
             
-            CBRoles.DataSource = _permisoBLL.ObtenerPerfiles();
+            CBRoles.DataSource = bllPermiso.ObtenerPerfiles();
             CBRoles.DisplayMember = "Nombre";
             CBRoles.ValueMember = "Id";
             CBRoles.SelectedIndex = -1;
@@ -182,7 +182,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             if (this.Visible)
             {
                 LimpiarCampos();
-                traductor.TraducirFormulario(this, Singleton.Instancia.IdiomaActual);
+                traductor.TraducirFormulario(this, GestorIdiomas.Instancia.IdiomaActual);
             }
         }
     }

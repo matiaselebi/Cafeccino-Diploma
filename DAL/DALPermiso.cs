@@ -24,19 +24,19 @@ namespace DAL
                      WHERE EsPerfil = 0
                      ORDER BY Nombre";
 
-            using (SqlConnection con = new SqlConnection(cadenaConexion))
-            using (SqlCommand cmd = new SqlCommand(query, con))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
-                con.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                connection.Open();
+                using (SqlDataReader datareader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (datareader.Read())
                     {
-                        bool esFamilia = Convert.ToBoolean(reader["EsFamilia"]);
-                        Perfil p = esFamilia ? (Perfil)new Familia() : (Perfil)new Permiso();
-                        p.Id = Convert.ToInt32(reader["CodPermiso"]);
-                        p.Nombre = reader["Nombre"].ToString();
-                        lista.Add(p);
+                        bool esFamilia = Convert.ToBoolean(datareader["EsFamilia"]);
+                        Perfil perfil = esFamilia ? (Perfil)new Familia() : (Perfil)new Permiso();
+                        perfil.Id = Convert.ToInt32(datareader["CodPermiso"]);
+                        perfil.Nombre = datareader["Nombre"].ToString();
+                        lista.Add(perfil);
                     }
                 }
             }
@@ -51,19 +51,19 @@ namespace DAL
                          INNER JOIN Permiso p ON pp.CodHijo = p.CodPermiso
                          WHERE pp.CodPadre = @IdPadre";
 
-            using (SqlConnection con = new SqlConnection(cadenaConexion))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@IdPadre", idPadre);
-                    con.Open();
+                    command.Parameters.AddWithValue("@IdPadre", idPadre);
+                    connection.Open();
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader datareader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (datareader.Read())
                         {
                             Perfil hijo;
-                            bool esFamilia = Convert.ToBoolean(reader["EsFamilia"]);
+                            bool esFamilia = Convert.ToBoolean(datareader["EsFamilia"]);
 
                             if (esFamilia)
                             {
@@ -72,14 +72,14 @@ namespace DAL
                             else
                             {
                                 hijo = new Permiso();
-                                if (Enum.TryParse(reader["Nombre"].ToString(), out TipoPermiso tipo))
+                                if (Enum.TryParse(datareader["Nombre"].ToString(), out TipoPermiso tipo))
                                 {
                                     hijo.Permiso = tipo;
                                 }
                             }
 
-                            hijo.Id = Convert.ToInt32(reader["CodPermiso"]);
-                            hijo.Nombre = reader["Nombre"].ToString();
+                            hijo.Id = Convert.ToInt32(datareader["CodPermiso"]);
+                            hijo.Nombre = datareader["Nombre"].ToString();
 
                             hijos.Add(hijo);
                         }
@@ -91,23 +91,23 @@ namespace DAL
         public bool ExisteConNombre(string nombre)
         {
             string query = "SELECT COUNT(*) FROM Permiso WHERE Nombre = @nombre";
-            using (SqlConnection con = new SqlConnection(cadenaConexion))
-            using (SqlCommand cmd = new SqlCommand(query, con))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
-                cmd.Parameters.AddWithValue("@nombre", nombre);
-                con.Open();
-                return (int)cmd.ExecuteScalar() > 0;
+                command.Parameters.AddWithValue("@nombre", nombre);
+                connection.Open();
+                return (int)command.ExecuteScalar() > 0;
             }
         }
         public bool TieneUsuariosAsignados(int idPermiso)
         {
             string query = "SELECT COUNT(*) FROM Usuario_Permiso WHERE CodPermiso = @id";
-            using (SqlConnection con = new SqlConnection(cadenaConexion))
-            using (SqlCommand cmd = new SqlCommand(query, con))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
-                cmd.Parameters.AddWithValue("@id", idPermiso);
-                con.Open();
-                return (int)cmd.ExecuteScalar() > 0;
+                command.Parameters.AddWithValue("@id", idPermiso);
+                connection.Open();
+                return (int)command.ExecuteScalar() > 0;
             }
         }
         public List<Perfil> ObtenerTodosLosComponentes(bool soloFamilias, bool soloPerfiles)
@@ -119,24 +119,24 @@ namespace DAL
                      FROM Permiso 
                      WHERE EsFamilia = @EsFamilia AND EsPerfil = @EsPerfil";
 
-            using (SqlConnection con = new SqlConnection(cadenaConexion))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
 
-                    cmd.Parameters.AddWithValue("@EsFamilia", soloFamilias ? 1 : 0);
-                    cmd.Parameters.AddWithValue("@EsPerfil", soloPerfiles ? 1 : 0);
+                    command.Parameters.AddWithValue("@EsFamilia", soloFamilias ? 1 : 0);
+                    command.Parameters.AddWithValue("@EsPerfil", soloPerfiles ? 1 : 0);
 
-                    con.Open();
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    connection.Open();
+                    using (SqlDataReader datareader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (datareader.Read())
                         {
 
-                            Perfil p = soloFamilias ? (Perfil)new Familia() : (Perfil)new Permiso();
-                            p.Id = Convert.ToInt32(reader["CodPermiso"]);
-                            p.Nombre = reader["Nombre"].ToString();
-                            lista.Add(p);
+                            Perfil perfil = soloFamilias ? (Perfil)new Familia() : (Perfil)new Permiso();
+                            perfil.Id = Convert.ToInt32(datareader["CodPermiso"]);
+                            perfil.Nombre = datareader["Nombre"].ToString();
+                            lista.Add(perfil);
                         }
                     }
                 }
@@ -146,13 +146,13 @@ namespace DAL
         public void EliminarRelacionesComponente(int idComponente)
         {
             string query = "DELETE FROM Permiso_Permiso WHERE CodPadre = @Id OR CodHijo = @Id";
-            using (SqlConnection con = new SqlConnection(cadenaConexion))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@Id", idComponente);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@Id", idComponente);
+                    connection.Open();
+                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -161,13 +161,13 @@ namespace DAL
         public void EliminarAsignacionesUsuario(int idComponente)
         {
             string query = "DELETE FROM Usuario_Permiso WHERE CodPermiso = @Id";
-            using (SqlConnection con = new SqlConnection(cadenaConexion))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@Id", idComponente);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@Id", idComponente);
+                    connection.Open();
+                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -176,13 +176,13 @@ namespace DAL
         public void EliminarComponenteBase(int idComponente)
         {
             string query = "DELETE FROM Permiso WHERE CodPermiso = @Id";
-            using (SqlConnection con = new SqlConnection(cadenaConexion))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@Id", idComponente);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@Id", idComponente);
+                    connection.Open();
+                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -194,16 +194,16 @@ namespace DAL
                      OUTPUT INSERTED.CodPermiso 
                      VALUES (@Nombre, @EsFamilia, @EsPerfil)";
 
-            using (SqlConnection con = new SqlConnection(cadenaConexion))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@Nombre", nombre);
-                    cmd.Parameters.AddWithValue("@EsFamilia", esFamilia ? 1 : 0);
-                    cmd.Parameters.AddWithValue("@EsPerfil", esPerfil ? 1 : 0);
+                    command.Parameters.AddWithValue("@Nombre", nombre);
+                    command.Parameters.AddWithValue("@EsFamilia", esFamilia ? 1 : 0);
+                    command.Parameters.AddWithValue("@EsPerfil", esPerfil ? 1 : 0);
 
-                    con.Open();
-                    return (int)cmd.ExecuteScalar();
+                    connection.Open();
+                    return (int)command.ExecuteScalar();
                 }
             }
         }
@@ -214,13 +214,13 @@ namespace DAL
 
             string query = "DELETE FROM Permiso_Permiso WHERE CodPadre = @idPadre";
 
-            using (SqlConnection con = new SqlConnection(cadenaConexion))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@idPadre", idPadre);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@idPadre", idPadre);
+                    connection.Open();
+                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -229,14 +229,14 @@ namespace DAL
         public void InsertarRelacion(int idPadre, int idHijo)
         {
             string query = "INSERT INTO Permiso_Permiso (CodPadre, CodHijo) VALUES (@CodPadre, @IdHijo)";
-            using (SqlConnection con = new SqlConnection(cadenaConexion))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@CodPadre", idPadre);
-                    cmd.Parameters.AddWithValue("@IdHijo", idHijo);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@CodPadre", idPadre);
+                    command.Parameters.AddWithValue("@IdHijo", idHijo);
+                    connection.Open();
+                    command.ExecuteNonQuery();
                 }
             }
         }

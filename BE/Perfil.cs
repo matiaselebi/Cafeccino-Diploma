@@ -14,7 +14,7 @@ namespace BE
         public TipoPermiso? Permiso { get; set; }
 
         public abstract IList<Perfil> Hijos { get; }
-        public abstract void AgregarHijo(Perfil p);
+        public abstract void AgregarHijo(Perfil perfil);
         public abstract void EliminarHijo(int id);
         public abstract void VaciarHijos();
     }

@@ -9,17 +9,17 @@ namespace BE
     public class Permiso : Perfil
     {
   
-        private static readonly IList<Perfil> _hijosVacios = new List<Perfil>().AsReadOnly();
+        private static readonly IList<Perfil> hijosVacios = new List<Perfil>().AsReadOnly();
 
         public override IList<Perfil> Hijos
         {
             get
             {
-                return _hijosVacios;
+                return hijosVacios;
             }
         }
 
-        public override void AgregarHijo(Perfil p)
+        public override void AgregarHijo(Perfil perfil)
         {
             
             throw new InvalidOperationException("No se pueden agregar hijos a un permiso simple.");

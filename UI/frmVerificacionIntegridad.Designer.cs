@@ -30,7 +30,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmVerificacionIntegridad));
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.lblEstado = new System.Windows.Forms.Label();
+            this.lblEstado = new System.Windows.Forms.TextBox();
             this.lblAviso = new System.Windows.Forms.Label();
             this.btnRecalcular = new System.Windows.Forms.Button();
             this.btnRestaurar = new System.Windows.Forms.Button();
@@ -48,57 +48,61 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             this.lblTitulo.Text = "Verificación de Integridad";
             // 
             // lblEstado
-            // 
+            //
+            this.lblEstado.BackColor = System.Drawing.SystemColors.Window;
             this.lblEstado.Location = new System.Drawing.Point(30, 70);
+            this.lblEstado.Multiline = true;
             this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(440, 80);
+            this.lblEstado.ReadOnly = true;
+            this.lblEstado.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.lblEstado.Size = new System.Drawing.Size(600, 280);
             this.lblEstado.TabIndex = 1;
             this.lblEstado.Text = "Verificando estado...";
-            // 
+            //
             // lblAviso
-            // 
+            //
             this.lblAviso.ForeColor = System.Drawing.Color.Yellow;
-            this.lblAviso.Location = new System.Drawing.Point(30, 155);
+            this.lblAviso.Location = new System.Drawing.Point(30, 355);
             this.lblAviso.Name = "lblAviso";
-            this.lblAviso.Size = new System.Drawing.Size(440, 40);
+            this.lblAviso.Size = new System.Drawing.Size(600, 40);
             this.lblAviso.TabIndex = 2;
-            // 
+            //
             // btnRecalcular
-            // 
-            this.btnRecalcular.Location = new System.Drawing.Point(30, 210);
+            //
+            this.btnRecalcular.Location = new System.Drawing.Point(30, 400);
             this.btnRecalcular.Name = "btnRecalcular";
             this.btnRecalcular.Size = new System.Drawing.Size(130, 32);
             this.btnRecalcular.TabIndex = 3;
             this.btnRecalcular.Text = "Recalcular";
             this.btnRecalcular.UseVisualStyleBackColor = true;
             this.btnRecalcular.Click += new System.EventHandler(this.btnRecalcular_Click);
-            // 
+            //
             // btnRestaurar
-            // 
-            this.btnRestaurar.Location = new System.Drawing.Point(175, 210);
+            //
+            this.btnRestaurar.Location = new System.Drawing.Point(175, 400);
             this.btnRestaurar.Name = "btnRestaurar";
             this.btnRestaurar.Size = new System.Drawing.Size(130, 32);
             this.btnRestaurar.TabIndex = 4;
             this.btnRestaurar.Text = "Restaurar";
             this.btnRestaurar.UseVisualStyleBackColor = true;
             this.btnRestaurar.Click += new System.EventHandler(this.btnRestaurar_Click);
-            // 
+            //
             // btnSalir
-            // 
-            this.btnSalir.Location = new System.Drawing.Point(320, 210);
+            //
+            this.btnSalir.Location = new System.Drawing.Point(320, 400);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(130, 32);
             this.btnSalir.TabIndex = 5;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
-            // 
+            //
             // frmVerificacionIntegridad
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Chocolate;
-            this.ClientSize = new System.Drawing.Size(500, 270);
+            this.ClientSize = new System.Drawing.Size(660, 460);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnRestaurar);
             this.Controls.Add(this.btnRecalcular);
@@ -119,7 +123,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         #endregion
 
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.Label lblEstado;
+        private System.Windows.Forms.TextBox lblEstado;
         private System.Windows.Forms.Label lblAviso;
         private System.Windows.Forms.Button btnRecalcular;
         private System.Windows.Forms.Button btnRestaurar;

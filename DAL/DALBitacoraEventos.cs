@@ -13,32 +13,32 @@ namespace DAL
         private string conexion = @"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True";
         public void RegistrarEvento(BitacoraEventos evento)
         {
-            SqlConnection cn = new SqlConnection(conexion);
+            SqlConnection connection = new SqlConnection(conexion);
 
             string query = @"INSERT INTO BitacoraEventos
                         (NombreUsuario, Fecha, Evento, Modulo, Criticidad)
                         VALUES
                         (@NombreUsuario, @Fecha, @Evento, @Modulo, @Criticidad)";
 
-            SqlCommand cmd = new SqlCommand(query, cn);
+            SqlCommand command = new SqlCommand(query, connection);
 
-            cmd.Parameters.AddWithValue("@NombreUsuario", evento.NombreUsuario);
-            cmd.Parameters.AddWithValue("@Fecha", evento.Fecha);
-            cmd.Parameters.AddWithValue("@Evento", evento.Evento);
-            cmd.Parameters.AddWithValue("@Modulo", evento.Modulo);
-            cmd.Parameters.AddWithValue("@Criticidad", evento.Criticidad);
+            command.Parameters.AddWithValue("@NombreUsuario", evento.NombreUsuario);
+            command.Parameters.AddWithValue("@Fecha", evento.Fecha);
+            command.Parameters.AddWithValue("@Evento", evento.Evento);
+            command.Parameters.AddWithValue("@Modulo", evento.Modulo);
+            command.Parameters.AddWithValue("@Criticidad", evento.Criticidad);
 
-            cn.Open();
-            cmd.ExecuteNonQuery();
-            cn.Close();
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
         }
         public DataTable ListarEventos()
         {
-            SqlConnection cn = new SqlConnection(conexion);
+            SqlConnection connection = new SqlConnection(conexion);
 
             string query = "SELECT * FROM BitacoraEventos";
 
-            SqlDataAdapter da = new SqlDataAdapter(query, cn);
+            SqlDataAdapter da = new SqlDataAdapter(query, connection);
 
             DataTable dt = new DataTable();
 
@@ -48,7 +48,7 @@ namespace DAL
         }
         public DataTable FiltrarEventos(string modulo, string criticidad,string evento, string fecha)
         {
-            SqlConnection cn = new SqlConnection(conexion);
+            SqlConnection connection = new SqlConnection(conexion);
 
             string query = @"SELECT *
                      FROM BitacoraEventos
@@ -57,15 +57,15 @@ namespace DAL
                       AND (@Evento = '' OR Evento = @Evento)    
                      ORDER BY Fecha DESC";
 
-            SqlCommand cmd = new SqlCommand(query, cn);
+            SqlCommand command = new SqlCommand(query, connection);
 
-            cmd.Parameters.AddWithValue("@Evento", evento);
-            cmd.Parameters.AddWithValue("@Fecha", fecha);
-            cmd.Parameters.AddWithValue("@Modulo", modulo);
-            cmd.Parameters.AddWithValue("@Criticidad", criticidad);
+            command.Parameters.AddWithValue("@Evento", evento);
+            command.Parameters.AddWithValue("@Fecha", fecha);
+            command.Parameters.AddWithValue("@Modulo", modulo);
+            command.Parameters.AddWithValue("@Criticidad", criticidad);
        
 
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            SqlDataAdapter da = new SqlDataAdapter(command);
 
             DataTable dt = new DataTable();
 

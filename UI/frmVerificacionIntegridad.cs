@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BE;
 using BLL;
 using SERVICIOS;
 
@@ -14,8 +15,9 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
     public partial class frmVerificacionIntegridad : Form, IObserver
     {
-        private readonly BLLUsuario _usuarioBLL = new BLLUsuario();
-        private readonly BLLBackup _backupBLL = new BLLBackup();
+        private readonly BLLUsuario bllUsuario = new BLLUsuario();
+        private readonly BLLBackup bllBackup = new BLLBackup();
+        private readonly BLLAuditoriaCambios bllBitacora = new BLLAuditoriaCambios();
         Traductor traductor = new Traductor();
 
         public frmVerificacionIntegridad()
@@ -41,7 +43,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             bool esAdmin = Singleton.Instancia.EsAdministrador();
 
             btnRecalcular.Enabled = esAdmin;
-            btnRestaurar.Enabled = esAdmin && _backupBLL.ExisteBackupDisponible();
+            btnRestaurar.Enabled = esAdmin && bllBackup.ExisteBackupDisponible();
 
             lblAviso.Text = esAdmin
                 ? ""
@@ -49,8 +51,8 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             try
             {
-                bool integro = _usuarioBLL.ValidarIntegridad();
-                List<int> filasAlteradas = _usuarioBLL.ObtenerFilasAlteradas().Where(id => id > 0).ToList();
+                bool integro = bllUsuario.ValidarIntegridad();
+                List<int> filasAlteradas = bllUsuario.ObtenerFilasAlteradas().Where(id => id > 0).ToList();
 
                 if (integro)
                 {
@@ -58,7 +60,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 }
                 else if (filasAlteradas.Count > 0)
                 {
-                    lblEstado.Text = "Estado: ALTERADO.\nDNI afectados: " + string.Join(", ", filasAlteradas);
+                    lblEstado.Text = ArmarDetalleAlteraciones(filasAlteradas);
                 }
                 else
                 {
@@ -69,6 +71,77 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             {
                 lblEstado.Text = "No se pudo verificar el estado: " + ex.Message;
             }
+        }
+
+        private string ArmarDetalleAlteraciones(List<int> filasAlteradas)
+        {
+            var texto = new System.Text.StringBuilder();
+            texto.AppendLine("Estado: ALTERADO.");
+            texto.AppendLine("DNI afectados: " + string.Join(", ", filasAlteradas));
+            texto.AppendLine();
+
+            foreach (int dni in filasAlteradas)
+            {
+                Usuario actual = bllUsuario.ObtenerPorDNI(dni);
+                texto.AppendLine($"--- DNI {dni} ---");
+
+                if (actual == null)
+                {
+                    texto.AppendLine("Ya no existe en la tabla Usuario (pudo haber sido borrado directamente por fuera del sistema).");
+                    texto.AppendLine();
+                    continue;
+                }
+
+                texto.AppendLine("Datos actuales:");
+                texto.AppendLine($"  Usuario: {actual.NombreUsuario} | Nombre: {actual.Nombre} | Apellido: {actual.Apellido} | Mail: {actual.Mail} | Tel: {actual.NumTelefono} | Rol: {actual.Rol}");
+
+                AuditoriaCambios ultimo = bllBitacora.ObtenerUltimoPorDni(dni);
+                if (ultimo == null || string.IsNullOrEmpty(ultimo.DatosNuevos))
+                {
+                    texto.AppendLine("No hay un registro previo en Auditoria de Cambios para este DNI - no se puede determinar que campo cambio, solo que el digito verificador no coincide.");
+                }
+                else
+                {
+                    Usuario ultimoRegistrado = bllBitacora.ParsearSnapshot(ultimo.DatosNuevos);
+                    List<string> diferencias = CompararUsuarios(ultimoRegistrado, actual);
+
+                    if (diferencias.Count == 0)
+                    {
+                        texto.AppendLine("Los datos actuales coinciden con el ultimo registro de auditoria - el digito verificador fue alterado sin que cambien los datos visibles (o el cambio no paso por el sistema).");
+                    }
+                    else
+                    {
+                        texto.AppendLine($"Campo(s) modificado(s) respecto al ultimo registro de auditoria ({ultimo.FechaHora:dd/MM/yyyy HH:mm}):");
+                        foreach (string diferencia in diferencias)
+                            texto.AppendLine("  " + diferencia);
+                    }
+                }
+                texto.AppendLine();
+            }
+
+            return texto.ToString();
+        }
+
+        private List<string> CompararUsuarios(Usuario anterior, Usuario actual)
+        {
+            var diferencias = new List<string>();
+
+            void Comparar(string campo, object valorAnterior, object valorActual)
+            {
+                string anteriorTexto = valorAnterior?.ToString() ?? "";
+                string actualTexto = valorActual?.ToString() ?? "";
+                if (anteriorTexto != actualTexto)
+                    diferencias.Add($"{campo}: '{anteriorTexto}' -> '{actualTexto}'");
+            }
+
+            Comparar("Usuario", anterior.NombreUsuario, actual.NombreUsuario);
+            Comparar("Nombre", anterior.Nombre, actual.Nombre);
+            Comparar("Apellido", anterior.Apellido, actual.Apellido);
+            Comparar("Mail", anterior.Mail, actual.Mail);
+            Comparar("Tel", anterior.NumTelefono, actual.NumTelefono);
+            Comparar("Rol", anterior.Rol, actual.Rol);
+
+            return diferencias;
         }
 
         private void btnRecalcular_Click(object sender, EventArgs e)
@@ -89,7 +162,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             try
             {
-                _backupBLL.Recalcular();
+                bllBackup.Recalcular();
                 MessageBox.Show("Dígitos recalculados y backup generado correctamente.");
             }
             catch (Exception ex)
@@ -108,14 +181,14 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 return;
             }
 
-            if (!_backupBLL.ExisteBackupDisponible())
+            if (!bllBackup.ExisteBackupDisponible())
             {
                 MessageBox.Show("No hay ningún backup generado todavía. Use 'Recalcular' primero para generar uno.");
                 return;
             }
 
             DialogResult confirm = MessageBox.Show(
-                "Esto va a REEMPLAZAR toda la base de datos actual por el último backup generado (" + _backupBLL.ObtenerRutaBackup() + ").\n" +
+                "Esto va a REEMPLAZAR toda la base de datos actual por el último backup generado (" + bllBackup.ObtenerRutaBackup() + ").\n" +
                 "Se perderá cualquier cambio posterior a ese backup y se cerrará la sesión actual.\n\n¿Desea continuar?",
                 "Confirmar restauración",
                 MessageBoxButtons.YesNo,
@@ -125,7 +198,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             try
             {
-                _backupBLL.Restaurar();
+                bllBackup.Restaurar();
                 MessageBox.Show("Base de datos restaurada correctamente desde el backup. Debe iniciar sesión nuevamente.");
                 CerrarSesionYPedirLogin();
             }
@@ -146,6 +219,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 parent.cerrarSesionToolStripMenuItem.Visible = false;
                 parent.administradorToolStripMenuItem.Visible = false;
                 parent.cambiarContraseñaToolStripMenuItem.Visible = false;
+                parent.ventasToolStripMenuItem.Visible = false;
                 parent.verificacionIntegridadToolStripMenuItem.Visible = false;
 
                 parent.gestionDeFamilias.Hide();

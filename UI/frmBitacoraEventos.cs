@@ -85,7 +85,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             if (this.Visible)
             {
             
-                traductor.TraducirFormulario(this, Singleton.Instancia.IdiomaActual);
+                traductor.TraducirFormulario(this, GestorIdiomas.Instancia.IdiomaActual);
             }
         }
     }

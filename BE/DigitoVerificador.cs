@@ -18,6 +18,6 @@ namespace BE
                .Select(int.Parse).ToList();
 
         public int ObtenerDVV() =>
-            int.TryParse(DVV, out int v) ? v : 0;
+            int.TryParse(DVV, out int valor) ? valor : 0;
     }
 }

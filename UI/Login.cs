@@ -18,8 +18,6 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         BLLUsuario NegociosUsuario = new BLLUsuario();
         BLLBitacoraEventos bitacora = new BLLBitacoraEventos();
         Traductor traductor = new Traductor();
-        BLLIdioma iidioma = new BLLIdioma();
-        private bool CambioManual = false;
         public Login()
         {
             InitializeComponent();
@@ -49,7 +47,17 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             };
 
 
-            Usuario userLogueado = NegociosUsuario.Login(userIntento);
+            Usuario userLogueado;
+            try
+            {
+                userLogueado = NegociosUsuario.Login(userIntento);
+            }
+            catch (Exception ex)
+            {
+                bitacora.RegistrarEvento(txtNombre.Text, "Intento de inicio de sesión con usuario bloqueado", "Login", "Alta");
+                MessageBox.Show(ex.Message, "Usuario bloqueado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             if (userLogueado != null)
             {
@@ -70,29 +78,14 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             }
             else
             {
+                bitacora.RegistrarEvento(txtNombre.Text, "Intento de inicio de sesión fallido", "Login", "Media");
                 MessageBox.Show("Nombre de usuario o contraseña incorrectos.", "Error de autenticación", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
-        public void RecargarIdiomas()
-        {
-            CambioManual = false;
-            cmbCambiarIdioma.DataSource = null;
-            cmbCambiarIdioma.DataSource = iidioma.ListarIdiomas();
-            cmbCambiarIdioma.DisplayMember = "Nombre";
-            cmbCambiarIdioma.ValueMember = "IdIdioma";
-            cmbCambiarIdioma.SelectedValue = Singleton.Instancia.IdiomaActual;
-            CambioManual = true;
-        }
         private void Login_Load(object sender, EventArgs e)
         {
-            CambioManual = false;
-            cmbCambiarIdioma.DisplayMember = "Nombre";
-            cmbCambiarIdioma.ValueMember = "IdIdioma";
-            cmbCambiarIdioma.DataSource = iidioma.ListarIdiomas();
-            cmbCambiarIdioma.SelectedValue = Singleton.Instancia.IdiomaActual;
-            CambioManual = true;
-            Singleton.Instancia.Suscribir(this);
+            GestorIdiomas.Instancia.Suscribir(this);
         }
 
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
@@ -103,21 +96,23 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 Hide();
 
             }
-            Singleton.Instancia.Desuscribir(this);
+            GestorIdiomas.Instancia.Desuscribir(this);
         }
         public void ModificarMenu()
         {
             frmInicio parent = this.MdiParent as frmInicio;
+            parent.iniciarSesionToolStripMenuItem.Visible = false;
             parent.cerrarSesionToolStripMenuItem.Visible = true;
             parent.administradorToolStripMenuItem.Visible = true;
             parent.cambiarContraseñaToolStripMenuItem.Visible = true;
+            parent.ventasToolStripMenuItem.Visible = true;
             parent.verificacionIntegridadToolStripMenuItem.Visible = Singleton.Instancia.EsAdministrador();
         }
 
 
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Singleton.Instancia.Desuscribir(this);
+            GestorIdiomas.Instancia.Desuscribir(this);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -127,16 +122,6 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
 
 
-        private void cmbCambiarIdioma_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            if (!CambioManual) return;
-            if (cmbCambiarIdioma.SelectedValue == null) return;
-
-            Singleton.Instancia.CambiarIdioma(
-                Convert.ToInt32(cmbCambiarIdioma.SelectedValue));
-        }
-
         private void Login_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible)
@@ -144,12 +129,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 txtNombre.Clear();
                 txtContraseña.Clear();
 
-                this.BeginInvoke(new Action(() =>
-                {
-                    CambioManual = false;
-                    traductor.TraducirFormulario(this, Singleton.Instancia.IdiomaActual);
-                    CambioManual = true;
-                }));
+                traductor.TraducirFormulario(this, GestorIdiomas.Instancia.IdiomaActual);
             }
         }
     }
