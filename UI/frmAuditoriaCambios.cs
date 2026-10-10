@@ -14,7 +14,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
     public partial class frmAuditoriaCambios : Form, IObserver
     {
-        private BLLAuditoriaCambios _bll = new BLLAuditoriaCambios();
+        private BLLAuditoriaCambios bllAuditoriaCambios = new BLLAuditoriaCambios();
         Traductor traductor = new Traductor();
         public frmAuditoriaCambios()
         {
@@ -28,7 +28,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         }
         private void frmAuditoriaCambios_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = _bll.ObtenerCambios();
+            dataGridView1.DataSource = bllAuditoriaCambios.ObtenerCambios();
 
         }
 
@@ -60,9 +60,9 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             {
                 try
                 {
-                    _bll.RestaurarUsuario(idBitacora);
+                    bllAuditoriaCambios.RestaurarUsuario(idBitacora);
                     MessageBox.Show("Usuario restaurado correctamente.");
-                    dataGridView1.DataSource = _bll.ObtenerCambios();
+                    dataGridView1.DataSource = bllAuditoriaCambios.ObtenerCambios();
                 }
                 catch (Exception ex)
                 {
@@ -82,7 +82,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = _bll.ObtenerCambios();
+            dataGridView1.DataSource = bllAuditoriaCambios.ObtenerCambios();
         }
     }
 }

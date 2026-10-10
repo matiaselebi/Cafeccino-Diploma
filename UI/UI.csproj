@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -100,6 +100,36 @@
     <Compile Include="GestionDePerfiles.Designer.cs">
       <DependentUpon>GestionDePerfiles.cs</DependentUpon>
     </Compile>
+    <Compile Include="GestionProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionProductos.Designer.cs">
+      <DependentUpon>GestionProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVenta.Designer.cs">
+      <DependentUpon>frmVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmFacturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFacturas.Designer.cs">
+      <DependentUpon>frmFacturas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmGestionClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGestionClientes.Designer.cs">
+      <DependentUpon>frmGestionClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCambiarIdioma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCambiarIdioma.Designer.cs">
+      <DependentUpon>frmCambiarIdioma.cs</DependentUpon>
+    </Compile>
     <Compile Include="GestionUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,8 +160,20 @@
     <EmbeddedResource Include="frmBitacoraEventos.resx">
       <DependentUpon>frmBitacoraEventos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCambiarIdioma.resx">
+      <DependentUpon>frmCambiarIdioma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFacturas.resx">
+      <DependentUpon>frmFacturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGestionClientes.resx">
+      <DependentUpon>frmGestionClientes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInicio.resx">
       <DependentUpon>frmInicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVenta.resx">
+      <DependentUpon>frmVenta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmVerificacionIntegridad.resx">
       <DependentUpon>frmVerificacionIntegridad.cs</DependentUpon>
@@ -141,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GestionDePerfiles.resx">
       <DependentUpon>GestionDePerfiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionProductos.resx">
+      <DependentUpon>GestionProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GestionUsuarios.resx">
       <DependentUpon>GestionUsuarios.cs</DependentUpon>

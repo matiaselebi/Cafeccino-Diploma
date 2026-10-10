@@ -50,6 +50,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         public frmAuditoriaCambios bitacoraCambios = new frmAuditoriaCambios();
         public frmCambiarContraseña cambiarContraseña = new frmCambiarContraseña();
         public frmVerificacionIntegridad verificacionIntegridad = new frmVerificacionIntegridad();
+        public GestionProductos gestionProductos = new GestionProductos();
+        public frmVenta frmVenta = new frmVenta();
+        public frmFacturas frmFacturas = new frmFacturas();
+        public frmGestionClientes gestionClientes = new frmGestionClientes();
+        public frmCambiarIdioma cambiarIdioma = new frmCambiarIdioma();
         private frmInicio menuPrincipal;
         Traductor traductor = new Traductor();
 
@@ -76,32 +81,38 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             gestionUsuarios = new GestionUsuarios();
             gestionUsuarios.MdiParent = this;
-            Singleton.Instancia.Suscribir(gestionUsuarios);
+            GestorIdiomas.Instancia.Suscribir(gestionUsuarios);
 
 
             eventos.MdiParent = this;
-            Singleton.Instancia.Suscribir(eventos);
+            GestorIdiomas.Instancia.Suscribir(eventos);
 
 
             administradorIdiomas.MdiParent = this;
-            Singleton.Instancia.Suscribir(administradorIdiomas);
+            GestorIdiomas.Instancia.Suscribir(administradorIdiomas);
 
 
             gestionDePerfiles.MdiParent = this;
-            Singleton.Instancia.Suscribir(gestionDePerfiles);
+            GestorIdiomas.Instancia.Suscribir(gestionDePerfiles);
 
 
             gestionDeFamilias.MdiParent = this;
-            Singleton.Instancia.Suscribir(gestionDeFamilias);
+            GestorIdiomas.Instancia.Suscribir(gestionDeFamilias);
 
-            Singleton.Instancia.Suscribir(bitacoraCambios);
-            Singleton.Instancia.Suscribir(cambiarContraseña);
-            Singleton.Instancia.Suscribir(verificacionIntegridad);
-            Singleton.Instancia.Suscribir(cerrarSesion);
+            GestorIdiomas.Instancia.Suscribir(bitacoraCambios);
+            GestorIdiomas.Instancia.Suscribir(cambiarContraseña);
+            GestorIdiomas.Instancia.Suscribir(verificacionIntegridad);
+            GestorIdiomas.Instancia.Suscribir(cerrarSesion);
+            GestorIdiomas.Instancia.Suscribir(gestionProductos);
+            GestorIdiomas.Instancia.Suscribir(frmVenta);
+            GestorIdiomas.Instancia.Suscribir(frmFacturas);
+            GestorIdiomas.Instancia.Suscribir(gestionClientes);
+            GestorIdiomas.Instancia.Suscribir(cambiarIdioma);
+            ventasToolStripMenuItem.Visible = false;
 
             //Este metodo es para el frmInicio
 
-            Singleton.Instancia.Suscribir(this);
+            GestorIdiomas.Instancia.Suscribir(this);
 
             ValidarIntegridadInicial();
         }
@@ -155,6 +166,18 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         }
 
 
+
+        private void cambiarIdiomaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cambiarIdioma.MdiParent = this;
+            cambiarIdioma.Show();
+        }
+
+        private void gestionDeClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gestionClientes.MdiParent = this;
+            gestionClientes.Show();
+        }
 
         private void gestionDeIdiomasToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -284,6 +307,24 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             cambiarContraseña.MdiParent = this;
             cambiarContraseña.Show();
+        }
+
+        private void gestionDeProductosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gestionProductos.MdiParent = this;
+            gestionProductos.Show();
+        }
+
+        private void nuevaVentaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmVenta.MdiParent = this;
+            frmVenta.Show();
+        }
+
+        private void verFacturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmFacturas.MdiParent = this;
+            frmFacturas.Show();
         }
     }
 }

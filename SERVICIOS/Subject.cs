@@ -27,7 +27,7 @@ namespace SERVICIOS
             foreach (IObserver observer in observadores)
             {
                 
-                observer.ActualizarIdioma(Singleton.Instancia.IdiomaActual.ToString());
+                observer.ActualizarIdioma(GestorIdiomas.Instancia.IdiomaActual.ToString());
             }
         }
     }

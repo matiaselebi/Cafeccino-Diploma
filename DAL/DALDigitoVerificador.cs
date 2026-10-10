@@ -11,24 +11,24 @@ namespace DAL
 {
     public class DALDigitoVerificador
     {
-        private string _conn = @"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True";
+        private string cadenaConexion = @"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True";
 
         public DigitoVerificador ObtenerPorTabla(string tabla)
         {
-            using (SqlConnection cn = new SqlConnection(_conn))
-            using (SqlCommand cmd = new SqlCommand(
-                "SELECT Tabla, DVV FROM DigitoVerificador WHERE Tabla=@t", cn))
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            using (SqlCommand command = new SqlCommand(
+                "SELECT Tabla, DVV FROM DigitoVerificador WHERE Tabla=@t", connection))
             {
-                cmd.Parameters.AddWithValue("@t", tabla);
-                cn.Open();
-                using (SqlDataReader rd = cmd.ExecuteReader())
+                command.Parameters.AddWithValue("@t", tabla);
+                connection.Open();
+                using (SqlDataReader datareader = command.ExecuteReader())
                 {
-                    if (!rd.Read()) return null;
+                    if (!datareader.Read()) return null;
                     return new DigitoVerificador
                     {
-                        Tabla = rd.GetString(0),
+                        Tabla = datareader.GetString(0),
                       
-                        DVV = rd.GetString(1)
+                        DVV = datareader.GetString(1)
                     };
                 }
             }
@@ -36,8 +36,8 @@ namespace DAL
 
         public void Guardar(DigitoVerificador dv)
         {
-            using (SqlConnection cn = new SqlConnection(_conn))
-            using (SqlCommand cmd = new SqlCommand(@"
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            using (SqlCommand command = new SqlCommand(@"
         MERGE DigitoVerificador AS target
         USING (SELECT @tabla AS Tabla) AS source 
         ON target.Tabla = source.Tabla
@@ -48,13 +48,13 @@ namespace DAL
         WHEN NOT MATCHED THEN 
             INSERT (Tabla, DVV) 
             VALUES (@tabla, @dvv);",
-                cn))
+                connection))
             {
-                cmd.Parameters.AddWithValue("@tabla", dv.Tabla);
-                cmd.Parameters.AddWithValue("@dvv", dv.DVV);
+                command.Parameters.AddWithValue("@tabla", dv.Tabla);
+                command.Parameters.AddWithValue("@dvv", dv.DVV);
 
-                cn.Open();
-                cmd.ExecuteNonQuery();
+                connection.Open();
+                command.ExecuteNonQuery();
             }
         }
     }

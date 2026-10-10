@@ -8,11 +8,11 @@ namespace BE
 {
     public class Familia : Perfil
     {
-        private IList<Perfil> _hijos;
+        private IList<Perfil> hijos;
 
         public Familia()
         {
-            _hijos = new List<Perfil>();
+            hijos = new List<Perfil>();
         }
 
         public override IList<Perfil> Hijos
@@ -20,26 +20,26 @@ namespace BE
             get
             {
                 
-                return _hijos.ToList();
+                return hijos.ToList();
             }
         }
 
         public override void EliminarHijo(int id)
         {
-            Perfil aEliminar = _hijos.FirstOrDefault(h => h.Id == id);
+            Perfil aEliminar = hijos.FirstOrDefault(hijo => hijo.Id == id);
             if (aEliminar != null)
-                _hijos.Remove(aEliminar);
+                hijos.Remove(aEliminar);
         }
         public override void VaciarHijos()
         {
-            _hijos.Clear();
+            hijos.Clear();
         }
-        public override void AgregarHijo(Perfil p)
+        public override void AgregarHijo(Perfil perfil)
         {
             
-            if (p != null && !_hijos.Any(x => x.Id == p.Id))
+            if (perfil != null && !hijos.Any(hijo => hijo.Id == perfil.Id))
             {
-                _hijos.Add(p);
+                hijos.Add(perfil);
             }
         }
     }

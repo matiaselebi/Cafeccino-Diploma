@@ -44,8 +44,11 @@
     <Compile Include="BLLBackup.cs" />
     <Compile Include="BLLAuditoriaCambios.cs" />
     <Compile Include="BLLBitacoraEventos.cs" />
+    <Compile Include="BLLCliente.cs" />
+    <Compile Include="BLLFactura.cs" />
     <Compile Include="BLLIdioma.cs" />
     <Compile Include="BLLPermiso.cs" />
+    <Compile Include="BLLProducto.cs" />
     <Compile Include="BLLUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

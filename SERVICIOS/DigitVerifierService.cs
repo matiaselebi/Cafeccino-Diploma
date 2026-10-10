@@ -12,29 +12,29 @@ namespace SERVICIOS
         private static int ToNumeric(object value)
         {
             if (value == null) return 0;
-            if (value is int i) return i;
-            if (value is bool b) return b ? 1 : 0;
-            if (value is string s) return s.Sum(c => (int)c);
+            if (value is int entero) return entero;
+            if (value is bool booleano) return booleano ? 1 : 0;
+            if (value is string texto) return texto.Sum(caracter => (int)caracter);
             return Convert.ToInt32(value);
         }
 
-        public static int CalcularDVH(Usuario u)
+        public static int CalcularDVH(Usuario usuario)
         {
             var valores = new object[]
             {
-                u.DNI,
-                u.NombreUsuario,
-                u.Contraseña,
-                u.Nombre,
-                u.Apellido,
-                u.Mail,
-                u.NumTelefono,
-                u.Rol
+                usuario.DNI,
+                usuario.NombreUsuario,
+                usuario.Contraseña,
+                usuario.Nombre,
+                usuario.Apellido,
+                usuario.Mail,
+                usuario.NumTelefono,
+                usuario.Rol
             };
 
             int suma = 0;
-            for (int i = 0; i < valores.Length; i++)
-                suma += ToNumeric(valores[i]) * (i + 1);
+            for (int posicion = 0; posicion < valores.Length; posicion++)
+                suma += ToNumeric(valores[posicion]) * (posicion + 1);
 
             return suma % 1000;
         }
@@ -42,8 +42,8 @@ namespace SERVICIOS
         public static int CalcularDVV(List<int> listaDVH)
         {
             int suma = 0;
-            for (int i = 0; i < listaDVH.Count; i++)
-                suma += listaDVH[i] * (i + 1);
+            for (int posicion = 0; posicion < listaDVH.Count; posicion++)
+                suma += listaDVH[posicion] * (posicion + 1);
 
             return suma % 1000;
         }
@@ -52,12 +52,12 @@ namespace SERVICIOS
         {
             List<int> listaDVH = new List<int>();
 
-            foreach (Usuario u in usuarios)
+            foreach (Usuario usuario in usuarios)
             {
-                int dvh = CalcularDVH(u);
+                int dvh = CalcularDVH(usuario);
 
                 
-                u.DVH = dvh;
+                usuario.DVH = dvh;
 
                 listaDVH.Add(dvh);
             }
@@ -88,16 +88,16 @@ namespace SERVICIOS
 
             List<int> dvhActual = new List<int>();
 
-            foreach (Usuario u in usuarios)
+            foreach (Usuario usuario in usuarios)
             {
-                int dvhCalculado = CalcularDVH(u);
+                int dvhCalculado = CalcularDVH(usuario);
 
                 dvhActual.Add(dvhCalculado);
 
                 
-                if (dvhCalculado != u.DVH)
+                if (dvhCalculado != usuario.DVH)
                 {
-                    filasAlteradas.Add(u.DNI);
+                    filasAlteradas.Add(usuario.DNI);
                 }
             }
 

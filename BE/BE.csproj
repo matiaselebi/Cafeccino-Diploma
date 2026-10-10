@@ -43,9 +43,13 @@
   <ItemGroup>
     <Compile Include="BitacoraEventos.cs" />
     <Compile Include="AuditoriaCambios.cs" />
+    <Compile Include="Cliente.cs" />
     <Compile Include="ControlIdioma.cs" />
+    <Compile Include="DetalleFactura.cs" />
     <Compile Include="DigitoVerificador.cs" />
+    <Compile Include="Factura.cs" />
     <Compile Include="Familia.cs" />
+    <Compile Include="Producto.cs" />
     <Compile Include="Idioma.cs" />
     <Compile Include="Perfil.cs" />
     <Compile Include="Permiso.cs" />

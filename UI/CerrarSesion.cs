@@ -49,9 +49,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             frmInicio parent = this.MdiParent as frmInicio;
 
+            parent.iniciarSesionToolStripMenuItem.Visible = true;
             parent.cerrarSesionToolStripMenuItem.Visible = false;
             parent.administradorToolStripMenuItem.Visible = false;
             parent.cambiarContraseñaToolStripMenuItem.Visible = false;
+            parent.ventasToolStripMenuItem.Visible = false;
             parent.verificacionIntegridadToolStripMenuItem.Visible = false;
             parent.verificacionIntegridad.Hide();
 

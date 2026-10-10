@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,8 +14,8 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
     public partial class frmCambiarContraseña : Form, IObserver
     {
-        private BLLUsuario _usuarioBLL = new BLLUsuario();
-        private BLLBitacoraEventos _bitacora = new BLLBitacoraEventos();
+        private BLLUsuario bllUsuario = new BLLUsuario();
+        private BLLBitacoraEventos bllBitacora = new BLLBitacoraEventos();
         Traductor traductor = new Traductor();
 
         public frmCambiarContraseña()
@@ -48,9 +48,9 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             try
             {
-                _usuarioBLL.CambiarContraseña(usuario, nuevaContraseña);
+                bllUsuario.CambiarContraseña(usuario, nuevaContraseña);
 
-                _bitacora.RegistrarEvento(usuario, "Cambio de contraseña", "Usuario", "Modificación");
+                bllBitacora.RegistrarEvento(usuario, "Cambio de contraseña", "Usuario", "Modificación");
 
                 MessageBox.Show("Contraseña cambiada con éxito. Debe iniciar sesión nuevamente.");
 
@@ -72,6 +72,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 parent.cerrarSesionToolStripMenuItem.Visible = false;
                 parent.administradorToolStripMenuItem.Visible = false;
                 parent.cambiarContraseñaToolStripMenuItem.Visible = false;
+                parent.ventasToolStripMenuItem.Visible = false;
                 parent.verificacionIntegridadToolStripMenuItem.Visible = false;
 
                 parent.gestionDeFamilias.Hide();

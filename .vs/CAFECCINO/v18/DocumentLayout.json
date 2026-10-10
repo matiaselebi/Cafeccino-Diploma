@@ -1,120 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|c:\\users\\matia\\onedrive\\escritorio\\diploma\\cafeccino\\ui\\frminicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|solutionrelative:ui\\frminicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\ui\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|solutionrelative:ui\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3A097BAA-FC5E-45A8-864C-1A56050E05C9}|SERVICIOS\\SERVICIOS.csproj|C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\servicios\\encriptacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A097BAA-FC5E-45A8-864C-1A56050E05C9}|SERVICIOS\\SERVICIOS.csproj|solutionrelative:servicios\\encriptacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{98505F1B-948E-4A0D-90F0-DF63CB23BF2A}|DAL\\DAL.csproj|C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\dal\\dalusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{98505F1B-948E-4A0D-90F0-DF63CB23BF2A}|DAL\\DAL.csproj|solutionrelative:dal\\dalusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\ui\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|solutionrelative:ui\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\ui\\frminicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|solutionrelative:ui\\frminicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\Navegador\\Desktop\\TP Final - Elebi Matias\\Cafeccino\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 3,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Encriptacion.cs",
-              "DocumentMoniker": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\SERVICIOS\\Encriptacion.cs",
-              "RelativeDocumentMoniker": "SERVICIOS\\Encriptacion.cs",
-              "ToolTip": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\SERVICIOS\\Encriptacion.cs",
-              "RelativeToolTip": "SERVICIOS\\Encriptacion.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-15T02:01:51.219Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "frmInicio.cs",
-              "DocumentMoniker": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\UI\\frmInicio.cs",
-              "RelativeDocumentMoniker": "UI\\frmInicio.cs",
-              "ToolTip": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\UI\\frmInicio.cs",
-              "RelativeToolTip": "UI\\frmInicio.cs",
-              "ViewState": "AgIAAOEAAAAAAAAAAAAUwAIBAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-14T22:56:31.49Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "frmInicio.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\UI\\frmInicio.cs",
-              "RelativeDocumentMoniker": "UI\\frmInicio.cs",
-              "ToolTip": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\UI\\frmInicio.cs [Dise\u00F1o]",
-              "RelativeToolTip": "UI\\frmInicio.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-14T22:56:29.355Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DALUsuario.cs",
-              "DocumentMoniker": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\DAL\\DALUsuario.cs",
-              "RelativeDocumentMoniker": "DAL\\DALUsuario.cs",
-              "ToolTip": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\DAL\\DALUsuario.cs",
-              "RelativeToolTip": "DAL\\DALUsuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-15T02:01:29.983Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Login.cs",
-              "DocumentMoniker": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\UI\\Login.cs",
-              "RelativeDocumentMoniker": "UI\\Login.cs",
-              "ToolTip": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\UI\\Login.cs",
-              "RelativeToolTip": "UI\\Login.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAewGIAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-14T22:56:01.152Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Login.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\UI\\Login.cs",
-              "RelativeDocumentMoniker": "UI\\Login.cs",
-              "ToolTip": "C:\\Users\\matia\\OneDrive\\Escritorio\\Diploma\\Cafeccino\\UI\\Login.cs [Dise\u00F1o]",
-              "RelativeToolTip": "UI\\Login.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-14T22:55:55.97Z"
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

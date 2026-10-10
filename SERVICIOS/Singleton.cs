@@ -9,13 +9,10 @@ using BE;
 
 namespace SERVICIOS
 {
-    public class Singleton: Subject
+    public class Singleton
     {
         private static Singleton instance;
-        private static Usuario _user;
-
-
-        private int _idIdioma = 2;
+        private static Usuario usuario;
 
         private Singleton() { }
 
@@ -34,36 +31,22 @@ namespace SERVICIOS
 
         public void IniciarSesion(Usuario userNuevo)
         {
-            _user = userNuevo;
+            usuario = userNuevo;
         }
 
         public void CerrarSesion()
         {
-            _user = null;
+            usuario = null;
         }
 
         public Usuario Usuario
         {
-            get { return _user; }
+            get { return usuario; }
         }
 
         public bool EsAdministrador()
         {
-            return _user != null && string.Equals(_user.Rol, "administrador", StringComparison.OrdinalIgnoreCase);
-        }
-
-
-        public int IdiomaActual
-        {
-            get { return _idIdioma; }
-            set { _idIdioma = value; }
-        }
-
-        public void CambiarIdioma(int idIdioma)
-        {
-            _idIdioma = idIdioma;
-
-            Notificar();
+            return usuario != null && string.Equals(usuario.Rol, "administrador", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

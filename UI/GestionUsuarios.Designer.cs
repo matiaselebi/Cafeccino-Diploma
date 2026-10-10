@@ -187,7 +187,7 @@
             this.Eliminar.Text = "Eliminar";
             this.Eliminar.UseVisualStyleBackColor = true;
             this.Eliminar.Click += new System.EventHandler(this.Eliminar_Click);
-            // 
+            //
             // label7
             // 
             this.label7.AutoSize = true;
