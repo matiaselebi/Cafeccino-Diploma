@@ -49,6 +49,8 @@
             this.CBRoles = new System.Windows.Forms.ComboBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnBloquear_389ME = new System.Windows.Forms.Button();
+            this.btnDesbloquear_389ME = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,6 +68,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(99, 23);
             this.textBox1.Name = "textBox1";
+            this.textBox1.MaxLength = 8;
             this.textBox1.Size = new System.Drawing.Size(137, 20);
             this.textBox1.TabIndex = 1;
             // 
@@ -73,6 +76,7 @@
             // 
             this.textBox2.Location = new System.Drawing.Point(99, 85);
             this.textBox2.Name = "textBox2";
+            this.textBox2.MaxLength = 20;
             this.textBox2.Size = new System.Drawing.Size(137, 20);
             this.textBox2.TabIndex = 2;
             // 
@@ -80,6 +84,8 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(99, 147);
             this.textBox3.Name = "textBox3";
+            this.textBox3.PasswordChar = '*';
+            this.textBox3.MaxLength = 30;
             this.textBox3.Size = new System.Drawing.Size(137, 20);
             this.textBox3.TabIndex = 3;
             // 
@@ -87,6 +93,7 @@
             // 
             this.textBox4.Location = new System.Drawing.Point(99, 210);
             this.textBox4.Name = "textBox4";
+            this.textBox4.MaxLength = 30;
             this.textBox4.Size = new System.Drawing.Size(137, 20);
             this.textBox4.TabIndex = 4;
             // 
@@ -94,6 +101,7 @@
             // 
             this.textBox5.Location = new System.Drawing.Point(99, 272);
             this.textBox5.Name = "textBox5";
+            this.textBox5.MaxLength = 50;
             this.textBox5.Size = new System.Drawing.Size(137, 20);
             this.textBox5.TabIndex = 5;
             // 
@@ -101,6 +109,7 @@
             // 
             this.textBox6.Location = new System.Drawing.Point(99, 324);
             this.textBox6.Name = "textBox6";
+            this.textBox6.MaxLength = 50;
             this.textBox6.Size = new System.Drawing.Size(137, 20);
             this.textBox6.TabIndex = 6;
             // 
@@ -188,6 +197,26 @@
             this.Eliminar.UseVisualStyleBackColor = true;
             this.Eliminar.Click += new System.EventHandler(this.Eliminar_Click);
             //
+            // btnBloquear_389ME
+            //
+            this.btnBloquear_389ME.Location = new System.Drawing.Point(310, 463);
+            this.btnBloquear_389ME.Name = "btnBloquear_389ME";
+            this.btnBloquear_389ME.Size = new System.Drawing.Size(90, 23);
+            this.btnBloquear_389ME.TabIndex = 20;
+            this.btnBloquear_389ME.Text = "Bloquear";
+            this.btnBloquear_389ME.UseVisualStyleBackColor = true;
+            this.btnBloquear_389ME.Click += new System.EventHandler(this.btnBloquear_389ME_Click);
+            //
+            // btnDesbloquear_389ME
+            //
+            this.btnDesbloquear_389ME.Location = new System.Drawing.Point(410, 463);
+            this.btnDesbloquear_389ME.Name = "btnDesbloquear_389ME";
+            this.btnDesbloquear_389ME.Size = new System.Drawing.Size(90, 23);
+            this.btnDesbloquear_389ME.TabIndex = 21;
+            this.btnDesbloquear_389ME.Text = "Desbloquear";
+            this.btnDesbloquear_389ME.UseVisualStyleBackColor = true;
+            this.btnDesbloquear_389ME.Click += new System.EventHandler(this.btnDesbloquear_389ME_Click);
+            //
             // label7
             // 
             this.label7.AutoSize = true;
@@ -202,6 +231,7 @@
             this.CBRoles.FormattingEnabled = true;
             this.CBRoles.Location = new System.Drawing.Point(99, 409);
             this.CBRoles.Name = "CBRoles";
+            this.CBRoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBRoles.Size = new System.Drawing.Size(137, 21);
             this.CBRoles.TabIndex = 17;
             // 
@@ -209,6 +239,7 @@
             // 
             this.textBox7.Location = new System.Drawing.Point(99, 363);
             this.textBox7.Name = "textBox7";
+            this.textBox7.MaxLength = 10;
             this.textBox7.Size = new System.Drawing.Size(137, 20);
             this.textBox7.TabIndex = 18;
             // 
@@ -227,6 +258,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Chocolate;
             this.ClientSize = new System.Drawing.Size(1087, 499);
+            this.Controls.Add(this.btnDesbloquear_389ME);
+            this.Controls.Add(this.btnBloquear_389ME);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.CBRoles);
@@ -282,5 +315,7 @@
         private System.Windows.Forms.ComboBox CBRoles;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnBloquear_389ME;
+        private System.Windows.Forms.Button btnDesbloquear_389ME;
     }
 }

@@ -87,6 +87,7 @@
             // 
             this.TXTFamilia.Location = new System.Drawing.Point(12, 229);
             this.TXTFamilia.Name = "TXTFamilia";
+            this.TXTFamilia.MaxLength = 50;
             this.TXTFamilia.Size = new System.Drawing.Size(129, 20);
             this.TXTFamilia.TabIndex = 58;
             // 
@@ -127,7 +128,6 @@
             this.treeView1.Size = new System.Drawing.Size(214, 270);
             this.treeView1.TabIndex = 54;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
-            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
             // 
             // label3

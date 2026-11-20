@@ -16,6 +16,13 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // Si algun error no se controlo en la pantalla, se informa y el programa sigue abierto
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += (sender_389ME, e_389ME) =>
+                MessageBox.Show("Ocurrió un error inesperado: " + e_389ME.Exception.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             Application.Run(new frmInicio());
         }
     }

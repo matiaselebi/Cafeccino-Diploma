@@ -143,6 +143,51 @@
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="frmInsumos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInsumos.Designer.cs">
+      <DependentUpon>frmInsumos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRecetas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRecetas.Designer.cs">
+      <DependentUpon>frmRecetas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProveedores.Designer.cs">
+      <DependentUpon>frmProveedores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSolicitudCotizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSolicitudCotizacion.Designer.cs">
+      <DependentUpon>frmSolicitudCotizacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCotizaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCotizaciones.Designer.cs">
+      <DependentUpon>frmCotizaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmOrdenesCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOrdenesCompra.Designer.cs">
+      <DependentUpon>frmOrdenesCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRecepcionInsumos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRecepcionInsumos.Designer.cs">
+      <DependentUpon>frmRecepcionInsumos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AyudaGrilla.cs" />
+    <Compile Include="Comprobante.cs" />
+    <Compile Include="Validacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Traductor.cs" />
     <EmbeddedResource Include="AdministradorIdiomas.resx">
@@ -163,6 +208,9 @@
     <EmbeddedResource Include="frmCambiarIdioma.resx">
       <DependentUpon>frmCambiarIdioma.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCotizaciones.resx">
+      <DependentUpon>frmCotizaciones.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmFacturas.resx">
       <DependentUpon>frmFacturas.cs</DependentUpon>
     </EmbeddedResource>
@@ -171,6 +219,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmInicio.resx">
       <DependentUpon>frmInicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInsumos.resx">
+      <DependentUpon>frmInsumos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOrdenesCompra.resx">
+      <DependentUpon>frmOrdenesCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProveedores.resx">
+      <DependentUpon>frmProveedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRecepcionInsumos.resx">
+      <DependentUpon>frmRecepcionInsumos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRecetas.resx">
+      <DependentUpon>frmRecetas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSolicitudCotizacion.resx">
+      <DependentUpon>frmSolicitudCotizacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmVenta.resx">
       <DependentUpon>frmVenta.cs</DependentUpon>

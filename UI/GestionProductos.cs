@@ -14,6 +14,12 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         public GestionProductos()
         {
             InitializeComponent();
+            // Encabezados sin el sufijo y sin la columna del digito verificador
+            AyudaGrilla.Preparar_389ME(dataGridView1_389ME);
+            AyudaGrilla.OcultarDVH_389ME(dataGridView1_389ME);
+
+            txtPrecio_389ME.KeyPress += Validacion.SoloDecimales_389ME;
+            txtStock_389ME.KeyPress += Validacion.SoloNumeros_389ME;
         }
 
         public void ActualizarIdioma(string idioma)
@@ -139,15 +145,15 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 return false;
             }
 
-            if (!double.TryParse(txtPrecio_389ME.Text, out precio_389ME))
+            if (!Validacion.LeerDecimal_389ME(txtPrecio_389ME.Text, out precio_389ME))
             {
-                MessageBox.Show("El precio debe ser un numero valido.");
+                MessageBox.Show("El precio debe ser un número. Use coma o punto para los decimales.");
                 return false;
             }
 
             if (!int.TryParse(txtStock_389ME.Text, out stock_389ME))
             {
-                MessageBox.Show("El stock debe ser un numero entero valido.");
+                MessageBox.Show("El stock debe ser un número entero.");
                 return false;
             }
 

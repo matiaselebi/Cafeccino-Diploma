@@ -50,7 +50,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             {
                 bllUsuario.CambiarContraseña(usuario, nuevaContraseña);
 
-                bllBitacora.RegistrarEvento(usuario, "Cambio de contraseña", "Usuario", "Modificación");
+                bllBitacora.RegistrarEvento(usuario, "Cambio de contraseña", "Usuarios", "Media");
 
                 MessageBox.Show("Contraseña cambiada con éxito. Debe iniciar sesión nuevamente.");
 
@@ -110,7 +110,8 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             if (this.Visible)
             {
-                txtUsuario.Clear();
+                // Cada usuario solo puede cambiar su propia contraseña
+                txtUsuario.Text = Singleton.Instancia.Usuario?.NombreUsuario;
                 txtNuevaContraseña.Clear();
                 txtConfirmarContraseña.Clear();
             }

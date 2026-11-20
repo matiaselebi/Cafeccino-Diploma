@@ -11,26 +11,7 @@ namespace DAL
 {
     public class DALAuditoriaCambios
     {
-        private string cadenaConexion = @"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True";
-
-        public void RegistrarCambio(AuditoriaCambios bitacora)
-        {
-            using (SqlConnection connection = new SqlConnection(cadenaConexion))
-            using (SqlCommand command = new SqlCommand(@"
-                INSERT INTO AuditoriaCambios
-                (FechaHora, UsuarioEditor, Operacion, DNIAfectado, DatosAnteriores, DatosNuevos)
-                VALUES 
-                (GETDATE(), @editor, @operacion, @dni, @anteriores, @nuevos)", connection))
-            {
-                command.Parameters.AddWithValue("@editor", bitacora.UsuarioEditor);
-                command.Parameters.AddWithValue("@operacion", bitacora.Operacion);
-                command.Parameters.AddWithValue("@dni", bitacora.DNIAfectado);
-                command.Parameters.AddWithValue("@anteriores", (object)bitacora.DatosAnteriores ?? DBNull.Value);
-                command.Parameters.AddWithValue("@nuevos", (object)bitacora.DatosNuevos ?? DBNull.Value);
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-        }
+        private string cadenaConexion = Conexion.cadena;
 
         public DataTable ObtenerCambios()
         {

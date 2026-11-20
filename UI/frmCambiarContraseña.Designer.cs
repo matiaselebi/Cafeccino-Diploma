@@ -1,4 +1,4 @@
-namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
+﻿namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
     partial class frmCambiarContraseña
     {
@@ -51,6 +51,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             // 
             this.txtUsuario.Location = new System.Drawing.Point(210, 72);
             this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.ReadOnly = true;
             this.txtUsuario.Size = new System.Drawing.Size(200, 20);
             this.txtUsuario.TabIndex = 1;
             // 
@@ -67,6 +68,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             // 
             this.txtNuevaContraseña.Location = new System.Drawing.Point(210, 127);
             this.txtNuevaContraseña.Name = "txtNuevaContraseña";
+            this.txtNuevaContraseña.MaxLength = 30;
             this.txtNuevaContraseña.PasswordChar = '*';
             this.txtNuevaContraseña.Size = new System.Drawing.Size(200, 20);
             this.txtNuevaContraseña.TabIndex = 3;
@@ -84,6 +86,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             // 
             this.txtConfirmarContraseña.Location = new System.Drawing.Point(210, 177);
             this.txtConfirmarContraseña.Name = "txtConfirmarContraseña";
+            this.txtConfirmarContraseña.MaxLength = 30;
             this.txtConfirmarContraseña.PasswordChar = '*';
             this.txtConfirmarContraseña.Size = new System.Drawing.Size(200, 20);
             this.txtConfirmarContraseña.TabIndex = 5;

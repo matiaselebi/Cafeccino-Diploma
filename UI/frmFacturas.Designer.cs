@@ -20,6 +20,7 @@
             this.dgvFacturas_389ME = new System.Windows.Forms.DataGridView();
             this.lblDetalle_389ME = new System.Windows.Forms.Label();
             this.dgvDetalle_389ME = new System.Windows.Forms.DataGridView();
+            this.btnImprimir_389ME = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturas_389ME)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle_389ME)).BeginInit();
             this.SuspendLayout();
@@ -63,6 +64,16 @@
             this.dgvDetalle_389ME.ReadOnly = true;
             this.dgvDetalle_389ME.Size = new System.Drawing.Size(760, 180);
             this.dgvDetalle_389ME.TabIndex = 3;
+            //
+            // btnImprimir_389ME
+            //
+            this.btnImprimir_389ME.Location = new System.Drawing.Point(650, 253);
+            this.btnImprimir_389ME.Name = "btnImprimir_389ME";
+            this.btnImprimir_389ME.Size = new System.Drawing.Size(120, 24);
+            this.btnImprimir_389ME.TabIndex = 4;
+            this.btnImprimir_389ME.Text = "Imprimir";
+            this.btnImprimir_389ME.UseVisualStyleBackColor = true;
+            this.btnImprimir_389ME.Click += new System.EventHandler(this.btnImprimir_Click_389ME);
             // 
             // frmFacturas
             // 
@@ -74,6 +85,7 @@
             this.Controls.Add(this.dgvFacturas_389ME);
             this.Controls.Add(this.lblDetalle_389ME);
             this.Controls.Add(this.dgvDetalle_389ME);
+            this.Controls.Add(this.btnImprimir_389ME);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmFacturas";
             this.Text = "Facturas";
@@ -91,5 +103,6 @@
         private System.Windows.Forms.DataGridView dgvFacturas_389ME;
         private System.Windows.Forms.Label lblDetalle_389ME;
         private System.Windows.Forms.DataGridView dgvDetalle_389ME;
+        private System.Windows.Forms.Button btnImprimir_389ME;
     }
 }

@@ -11,3 +11,16 @@ C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\BLL\obj\Debug\BLL.csproj.Co
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\BLL\obj\Debug\BLL.csproj.Up2Date
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\BLL\obj\Debug\BLL.dll
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\BLL\obj\Debug\BLL.pdb
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\bin\Debug\BLL.dll
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\bin\Debug\BLL.pdb
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\bin\Debug\BE.dll
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\bin\Debug\DAL.dll
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\bin\Debug\SERVICIOS.dll
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\bin\Debug\BE.pdb
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\bin\Debug\DAL.pdb
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\bin\Debug\SERVICIOS.pdb
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\obj\Debug\BLL.csproj.AssemblyReference.cache
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\obj\Debug\BLL.csproj.Up2Date
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\obj\Debug\BLL.dll
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BLL\obj\Debug\BLL.pdb

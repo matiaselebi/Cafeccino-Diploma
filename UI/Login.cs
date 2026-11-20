@@ -40,6 +40,9 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 return;
             }
 
+            // Si alguien fue desbloqueado desde la base, el evento queda antes que su inicio de sesion
+            bitacora.RegistrarDesbloqueos_389ME();
+
             Usuario userIntento = new Usuario
             {
                 NombreUsuario = txtNombre.Text,

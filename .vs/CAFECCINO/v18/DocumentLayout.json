@@ -1,12 +1,40 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Navegador\\Desktop\\TP Final - Elebi Matias\\Cafeccino\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\matia\\OneDrive\\Escritorio\\Cafeccino\\Cafeccino\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|c:\\users\\matia\\onedrive\\escritorio\\cafeccino\\cafeccino\\ui\\gestionproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{F793630A-512C-446C-B7D0-FACAFDC7A6E7}|UI\\UI.csproj|solutionrelative:ui\\gestionproductos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GestionProductos.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\matia\\OneDrive\\Escritorio\\Cafeccino\\Cafeccino\\UI\\GestionProductos.cs",
+              "RelativeDocumentMoniker": "UI\\GestionProductos.cs",
+              "ToolTip": "C:\\Users\\matia\\OneDrive\\Escritorio\\Cafeccino\\Cafeccino\\UI\\GestionProductos.cs [Dise\u00F1o]",
+              "RelativeToolTip": "UI\\GestionProductos.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-05T05:13:37.696Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -81,6 +81,9 @@ namespace BLL
             }
         }
 
+        private readonly BLLBitacoraEventos bllBitacora_389ME = new BLLBitacoraEventos();
+        private readonly BLLDigitoVerificador bllDigito_389ME = new BLLDigitoVerificador();
+
         public void GuardarFamilia(Familia familia, bool esPerfil)
         {
             try
@@ -98,6 +101,10 @@ namespace BLL
             {
                 throw new Exception("Error en BLL al guardar el árbol: " + ex.Message);
             }
+            bllDigito_389ME.Recalcular_389ME("Permiso_Permiso");
+
+            bllBitacora_389ME.RegistrarEvento_389ME("Modificación de permisos",
+                $"{familia.Nombre}: {familia.Hijos.Count} permiso(s) asignado(s)", "Permisos", "Alta");
         }
 
         public void EliminarComponente(int idComponente)
@@ -108,6 +115,9 @@ namespace BLL
             dalPermiso.EliminarRelacionesComponente(idComponente);
             dalPermiso.EliminarAsignacionesUsuario(idComponente);
             dalPermiso.EliminarComponenteBase(idComponente);
+            bllDigito_389ME.Recalcular_389ME("Permiso", "Permiso_Permiso", "Usuario_Permiso");
+
+            bllBitacora_389ME.RegistrarEvento_389ME("Baja de perfil o familia", $"Código {idComponente}", "Permisos", "Alta");
         }
 
         public void EliminarFamilia(int idFamilia)
@@ -117,6 +127,9 @@ namespace BLL
 
             dalPermiso.EliminarRelacionesComponente(idFamilia);
             dalPermiso.EliminarComponenteBase(idFamilia);
+            bllDigito_389ME.Recalcular_389ME("Permiso", "Permiso_Permiso");
+
+            bllBitacora_389ME.RegistrarEvento_389ME("Baja de perfil o familia", $"Código {idFamilia}", "Permisos", "Alta");
         }
 
         public List<Perfil> ObtenerPerfiles()
@@ -130,7 +143,12 @@ namespace BLL
             if (dalPermiso.ExisteConNombre(nombre))
                 throw new Exception($"Ya existe un componente con el nombre '{nombre}'.");
 
-            return dalPermiso.InsertarComponente(nombre, esFamilia, esPerfil);
+            int codigo_389ME = dalPermiso.InsertarComponente(nombre, esFamilia, esPerfil);
+            bllDigito_389ME.Recalcular_389ME("Permiso");
+
+            string tipo_389ME = esPerfil ? "perfil" : esFamilia ? "familia" : "permiso";
+            bllBitacora_389ME.RegistrarEvento_389ME("Alta de " + tipo_389ME, $"{nombre} - Código {codigo_389ME}", "Permisos", "Media");
+            return codigo_389ME;
         }
     }
 }

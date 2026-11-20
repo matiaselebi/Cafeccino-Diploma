@@ -20,6 +20,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         public AdministradorIdiomas()
         {
             InitializeComponent();
+            txtNuevoIdioma.KeyPress += Validacion.SoloLetras_389ME;
           
         }
         public void ActualizarIdioma(string idioma)
@@ -60,6 +61,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             colTraduccion.Name = "Traduccion";
             colTraduccion.HeaderText = "Traducción";
             colTraduccion.DataPropertyName = "Traduccion";
+            colTraduccion.MaxInputLength = 300;   // largo de la columna Texto en la base
             dgvIdiomas.Columns.Add(colTraduccion);
         }
         private void AdministradorIdiomas_Load(object sender, EventArgs e)
@@ -88,6 +90,13 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             cmbFormulario.Items.Add("frmFacturas");
             cmbFormulario.Items.Add("frmGestionClientes");
             cmbFormulario.Items.Add("frmCambiarIdioma");
+            cmbFormulario.Items.Add("frmInsumos");
+            cmbFormulario.Items.Add("frmRecetas");
+            cmbFormulario.Items.Add("frmProveedores");
+            cmbFormulario.Items.Add("frmSolicitudCotizacion");
+            cmbFormulario.Items.Add("frmCotizaciones");
+            cmbFormulario.Items.Add("frmOrdenesCompra");
+            cmbFormulario.Items.Add("frmRecepcionInsumos");
             cmbFormulario.SelectedIndex = -1;
         }
 
@@ -163,6 +172,14 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                     bllIdioma.RegistrarControl("frmInicio", "verFacturasToolStripMenuItem", "Ver facturas");
                     bllIdioma.RegistrarControl("frmInicio", "gestionDeClientesToolStripMenuItem", "Gestion de clientes");
                     bllIdioma.RegistrarControl("frmInicio", "cambiarIdiomaToolStripMenuItem", "Cambiar Idioma");
+                    bllIdioma.RegistrarControl("frmInicio", "comprasToolStripMenuItem", "Compras");
+                    bllIdioma.RegistrarControl("frmInicio", "insumosToolStripMenuItem", "Insumos");
+                    bllIdioma.RegistrarControl("frmInicio", "recetasToolStripMenuItem", "Recetas");
+                    bllIdioma.RegistrarControl("frmInicio", "proveedoresToolStripMenuItem", "Gestion de proveedores");
+                    bllIdioma.RegistrarControl("frmInicio", "solicitudesCotizacionToolStripMenuItem", "Solicitudes de cotizacion");
+                    bllIdioma.RegistrarControl("frmInicio", "cotizacionesToolStripMenuItem", "Cotizaciones");
+                    bllIdioma.RegistrarControl("frmInicio", "ordenesCompraToolStripMenuItem", "Ordenes de compra");
+                    bllIdioma.RegistrarControl("frmInicio", "recepcionInsumosToolStripMenuItem", "Recepcion de insumos");
                     break;
 
                 case "AdministradorIdiomas":
@@ -249,6 +266,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                     bllIdioma.RegistrarControl("frmVenta", "lblBanco_389ME", "Banco");
                     bllIdioma.RegistrarControl("frmVenta", "lblTipoTarjeta_389ME", "Tipo de tarjeta");
                     bllIdioma.RegistrarControl("frmVenta", "lblMarcaTarjeta_389ME", "Marca de tarjeta");
+                    bllIdioma.RegistrarControl("frmVenta", "lblNumeroTarjeta_389ME", "Numero de tarjeta");
                     bllIdioma.RegistrarControl("frmVenta", "lblFechaExpiracion_389ME", "Vencimiento (MM/AA)");
                     bllIdioma.RegistrarControl("frmVenta", "lblCVV_389ME", "Codigo de seguridad");
                     bllIdioma.RegistrarControl("frmVenta", "btnConfirmarVenta_389ME", "Confirmar venta");
@@ -256,6 +274,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 case "frmFacturas":
                     bllIdioma.RegistrarControl("frmFacturas", "lblFacturas_389ME", "Facturas");
                     bllIdioma.RegistrarControl("frmFacturas", "lblDetalle_389ME", "Productos de la factura seleccionada");
+                    bllIdioma.RegistrarControl("frmFacturas", "btnImprimir_389ME", "Imprimir");
                     break;
 
                 case "frmGestionClientes":
@@ -270,10 +289,92 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                     bllIdioma.RegistrarControl("frmGestionClientes", "btnModificar_389ME", "Modificar");
                     bllIdioma.RegistrarControl("frmGestionClientes", "btnBloquear_389ME", "Bloquear");
                     bllIdioma.RegistrarControl("frmGestionClientes", "btnDesbloquear_389ME", "Desbloquear");
+                    bllIdioma.RegistrarControl("frmGestionClientes", "btnSerializar_389ME", "Serializar");
+                    bllIdioma.RegistrarControl("frmGestionClientes", "btnDeserializar_389ME", "Des-serializar");
+                    bllIdioma.RegistrarControl("frmGestionClientes", "btnLimpiar_389ME", "Limpiar");
+                    bllIdioma.RegistrarControl("frmGestionClientes", "btnActualizar_389ME", "Actualizar");
+                    bllIdioma.RegistrarControl("frmGestionClientes", "lblArchivoXml_389ME", "Archivo XML");
                     break;
 
                 case "frmCambiarIdioma":
                     bllIdioma.RegistrarControl("frmCambiarIdioma", "lblIdioma_389ME", "Idioma del sistema");
+                    break;
+
+                case "frmInsumos":
+                    bllIdioma.RegistrarControl("frmInsumos", "lblInsumos_389ME", "Insumos");
+                    bllIdioma.RegistrarControl("frmInsumos", "lblNombre_389ME", "Nombre");
+                    bllIdioma.RegistrarControl("frmInsumos", "lblTipo_389ME", "Tipo");
+                    bllIdioma.RegistrarControl("frmInsumos", "lblUnidad_389ME", "Unidad de medida");
+                    bllIdioma.RegistrarControl("frmInsumos", "lblPrecio_389ME", "Precio");
+                    bllIdioma.RegistrarControl("frmInsumos", "lblStock_389ME", "Stock");
+                    bllIdioma.RegistrarControl("frmInsumos", "lblStockMinimo_389ME", "Stock minimo");
+                    bllIdioma.RegistrarControl("frmInsumos", "lblStockMaximo_389ME", "Stock maximo");
+                    bllIdioma.RegistrarControl("frmInsumos", "btnAgregar_389ME", "Agregar");
+                    bllIdioma.RegistrarControl("frmInsumos", "btnModificar_389ME", "Modificar");
+                    bllIdioma.RegistrarControl("frmInsumos", "btnEliminar_389ME", "Eliminar");
+                    break;
+
+                case "frmRecetas":
+                    bllIdioma.RegistrarControl("frmRecetas", "lblProducto_389ME", "Producto");
+                    bllIdioma.RegistrarControl("frmRecetas", "lblReceta_389ME", "Insumos por unidad de producto");
+                    bllIdioma.RegistrarControl("frmRecetas", "lblInsumo_389ME", "Insumo");
+                    bllIdioma.RegistrarControl("frmRecetas", "lblCantidad_389ME", "Cantidad");
+                    bllIdioma.RegistrarControl("frmRecetas", "btnAgregarInsumo_389ME", "Agregar insumo");
+                    bllIdioma.RegistrarControl("frmRecetas", "btnQuitarInsumo_389ME", "Quitar insumo");
+                    bllIdioma.RegistrarControl("frmRecetas", "btnGuardarReceta_389ME", "Guardar receta");
+                    break;
+
+                case "frmProveedores":
+                    bllIdioma.RegistrarControl("frmProveedores", "lblProveedores_389ME", "Gestion de proveedores");
+                    bllIdioma.RegistrarControl("frmProveedores", "lblCUIT_389ME", "CUIT");
+                    bllIdioma.RegistrarControl("frmProveedores", "lblNombre_389ME", "Nombre");
+                    bllIdioma.RegistrarControl("frmProveedores", "lblRazonSocial_389ME", "Razon social");
+                    bllIdioma.RegistrarControl("frmProveedores", "lblTelefono_389ME", "Telefono");
+                    bllIdioma.RegistrarControl("frmProveedores", "lblEmail_389ME", "Email");
+                    bllIdioma.RegistrarControl("frmProveedores", "lblDireccion_389ME", "Direccion");
+                    bllIdioma.RegistrarControl("frmProveedores", "lblCuentaBancaria_389ME", "Cuenta bancaria (CBU)");
+                    bllIdioma.RegistrarControl("frmProveedores", "btnPreRegistrar_389ME", "Pre-registrar");
+                    bllIdioma.RegistrarControl("frmProveedores", "btnModificar_389ME", "Modificar");
+                    break;
+
+                case "frmSolicitudCotizacion":
+                    bllIdioma.RegistrarControl("frmSolicitudCotizacion", "lblSugerencias_389ME", "Insumos y sugerencia de compra");
+                    bllIdioma.RegistrarControl("frmSolicitudCotizacion", "btnAgregarSugeridos_389ME", "Agregar los sugeridos");
+                    bllIdioma.RegistrarControl("frmSolicitudCotizacion", "btnAgregarInsumo_389ME", "Agregar insumo");
+                    bllIdioma.RegistrarControl("frmSolicitudCotizacion", "lblInsumosSolicitud_389ME", "Insumos de la solicitud");
+                    bllIdioma.RegistrarControl("frmSolicitudCotizacion", "btnQuitarInsumo_389ME", "Quitar insumo");
+                    bllIdioma.RegistrarControl("frmSolicitudCotizacion", "lblProveedores_389ME", "Proveedores a cotizar");
+                    bllIdioma.RegistrarControl("frmSolicitudCotizacion", "btnConfirmarSolicitud_389ME", "Confirmar solicitud");
+                    break;
+
+                case "frmCotizaciones":
+                    bllIdioma.RegistrarControl("frmCotizaciones", "lblSolicitud_389ME", "Solicitud");
+                    bllIdioma.RegistrarControl("frmCotizaciones", "lblProveedor_389ME", "Proveedor");
+                    bllIdioma.RegistrarControl("frmCotizaciones", "lblInsumosSolicitados_389ME", "Insumos solicitados");
+                    bllIdioma.RegistrarControl("frmCotizaciones", "lblPrecio_389ME", "Precio unitario");
+                    bllIdioma.RegistrarControl("frmCotizaciones", "lblCantidad_389ME", "Cantidad");
+                    bllIdioma.RegistrarControl("frmCotizaciones", "lblPrecioTotal_389ME", "Precio total");
+                    bllIdioma.RegistrarControl("frmCotizaciones", "lblVencimiento_389ME", "Vencimiento");
+                    bllIdioma.RegistrarControl("frmCotizaciones", "btnGuardarCotizacion_389ME", "Guardar cotizacion");
+                    bllIdioma.RegistrarControl("frmCotizaciones", "lblCotizaciones_389ME", "Cotizaciones cargadas");
+                    break;
+
+                case "frmOrdenesCompra":
+                    bllIdioma.RegistrarControl("frmOrdenesCompra", "lblSolicitud_389ME", "Solicitud");
+                    bllIdioma.RegistrarControl("frmOrdenesCompra", "lblComparacion_389ME", "Comparacion de proveedores");
+                    bllIdioma.RegistrarControl("frmOrdenesCompra", "lblCotizacionesProveedor_389ME", "Insumos cotizados (seleccione los que va a comprar)");
+                    bllIdioma.RegistrarControl("frmOrdenesCompra", "btnGenerarOrden_389ME", "Generar orden de compra");
+                    bllIdioma.RegistrarControl("frmOrdenesCompra", "btnImprimirOrden_389ME", "Imprimir orden");
+                    bllIdioma.RegistrarControl("frmOrdenesCompra", "lblOrdenes_389ME", "Ordenes de compra");
+                    bllIdioma.RegistrarControl("frmOrdenesCompra", "lblDetalleOrden_389ME", "Detalle de la orden");
+                    break;
+
+                case "frmRecepcionInsumos":
+                    bllIdioma.RegistrarControl("frmRecepcionInsumos", "lblOrden_389ME", "Orden de compra");
+                    bllIdioma.RegistrarControl("frmRecepcionInsumos", "lblDetalle_389ME", "Insumos de la orden");
+                    bllIdioma.RegistrarControl("frmRecepcionInsumos", "lblCantidadRecibida_389ME", "Cantidad recibida");
+                    bllIdioma.RegistrarControl("frmRecepcionInsumos", "btnActualizarCantidad_389ME", "Actualizar cantidad");
+                    bllIdioma.RegistrarControl("frmRecepcionInsumos", "btnConfirmarRecepcion_389ME", "Confirmar recepcion");
                     break;
             }
            
@@ -288,9 +389,9 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (cmbIdioma.SelectedIndex == -1)
+            if (cmbFormulario.SelectedIndex == -1 || cmbIdioma.SelectedIndex == -1)
             {
-                MessageBox.Show("Seleccione un idioma.");
+                MessageBox.Show("Seleccione un formulario y un idioma.");
                 return;
             }
 
@@ -314,6 +415,9 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 bllIdioma.GuardarTraduccion(traduccion);
             }
 
+            new BLLBitacoraEventos().RegistrarEvento_389ME("Traducciones guardadas",
+                $"Formulario {cmbFormulario.Text} - Idioma {cmbIdioma.Text}", "Idiomas", "Baja");
+
             MessageBox.Show("Traducciones guardadas correctamente.");
         }
         
@@ -331,7 +435,15 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 return;
             }
 
-            bllIdioma.AgregarIdioma(txtNuevoIdioma.Text.Trim());
+            try
+            {
+                bllIdioma.AgregarIdioma(txtNuevoIdioma.Text.Trim());
+            }
+            catch (Exception ex_389ME)
+            {
+                MessageBox.Show(ex_389ME.Message);
+                return;
+            }
 
             cmbIdioma.DataSource = null;
             cmbIdioma.DataSource = bllIdioma.ListarIdiomas();

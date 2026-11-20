@@ -9,3 +9,14 @@ C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\DAL\obj\Debug\DAL.csproj.Co
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\DAL\obj\Debug\DAL.csproj.Up2Date
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\DAL\obj\Debug\DAL.dll
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\DAL\obj\Debug\DAL.pdb
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\DAL\bin\Debug\DAL.dll
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\DAL\bin\Debug\DAL.pdb
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\DAL\bin\Debug\BE.dll
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\DAL\bin\Debug\SERVICIOS.dll
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\DAL\bin\Debug\BE.pdb
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\DAL\bin\Debug\SERVICIOS.pdb
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\DAL\obj\Debug\DAL.csproj.Up2Date
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\DAL\obj\Debug\DAL.dll
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\DAL\obj\Debug\DAL.pdb

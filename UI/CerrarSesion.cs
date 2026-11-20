@@ -30,7 +30,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         private void button1_Click(object sender, EventArgs e)
         {
 
-            string nombreUsuario = Singleton.Instancia.Usuario?.Nombre ?? "Desconocido";
+            string nombreUsuario = Singleton.Instancia.Usuario?.NombreUsuario ?? "Desconocido";
 
             Singleton.Instancia.CerrarSesion();
 
@@ -54,6 +54,14 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             parent.administradorToolStripMenuItem.Visible = false;
             parent.cambiarContraseñaToolStripMenuItem.Visible = false;
             parent.ventasToolStripMenuItem.Visible = false;
+            parent.comprasToolStripMenuItem.Visible = false;
+            parent.insumos.Hide();
+            parent.recetas.Hide();
+            parent.proveedores.Hide();
+            parent.solicitudesCotizacion.Hide();
+            parent.cotizaciones.Hide();
+            parent.ordenesCompra.Hide();
+            parent.recepcionInsumos.Hide();
             parent.verificacionIntegridadToolStripMenuItem.Visible = false;
             parent.verificacionIntegridad.Hide();
 

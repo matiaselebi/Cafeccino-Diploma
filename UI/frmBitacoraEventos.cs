@@ -19,6 +19,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         public frmBitacoraEventos()
         {
             InitializeComponent();
+            AyudaGrilla.OcultarDVH_389ME(dataGridView1);
         }
 
         public void ActualizarIdioma(string idioma)
@@ -30,13 +31,20 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             dataGridView1.DataSource = bllevento.ObtenerEventos();
             
-            cmbModulo.Items.Add("Todos");
-            cmbModulo.Items.Add("Login");
-            cmbModulo.Items.Add("Usuarios");
-            cmbModulo.Items.Add("Permisos");
-            cmbEvento.Items.Add("Todos");
-            cmbEvento.Items.Add("Inicio de sesión exitoso");
-            cmbEvento.Items.Add("Cierre de sesión");
+            cmbModulo.Items.AddRange(new object[] { "Todos", "Login", "Ventas", "Clientes", "Productos", "Compras",
+                                                    "Usuarios", "Permisos", "Idiomas", "Integridad" });
+            cmbEvento.Items.AddRange(new object[] { "Todos",
+                "Inicio de sesión exitoso", "Intento de inicio de sesión fallido", "Intento de inicio de sesión con usuario bloqueado", "Bloqueo de usuario", "Desbloqueo de usuario", "Cierre de sesión",
+                "Venta registrada", "Venta rechazada", "Error al registrar venta",
+                "Alta de cliente", "Modificación de cliente", "Bloqueo de cliente", "Desbloqueo de cliente", "Serialización de clientes", "Deserialización de clientes",
+                "Alta de producto", "Modificación de producto", "Baja de producto",
+                "Alta de usuario", "Modificación de usuario", "Baja de usuario", "Cambio de contraseña", "Restauración de usuario",
+                "Alta de perfil", "Alta de familia", "Alta de permiso", "Modificación de permisos", "Baja de perfil o familia",
+                "Alta de idioma", "Traducciones guardadas", "Cambio de idioma",
+                "Recálculo de dígitos verificadores", "Restauración de backup",
+                "Alta de insumo", "Modificación de insumo", "Baja de insumo", "Modificación de receta",
+                "Pre-registro de proveedor", "Modificación de proveedor", "Registro de proveedor",
+                "Solicitud de cotización", "Carga de cotización", "Generación de orden de compra", "Recepción de insumos" });
 
             cmbEvento.SelectedIndex = 0;
             cmbModulo.SelectedIndex = 0;
@@ -47,6 +55,9 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             cmbCriticidad.Items.Add("Baja");
 
             cmbCriticidad.SelectedIndex = 0;
+
+            // No hay eventos en el futuro
+            dateTimePicker1.MaxDate = DateTime.Today.AddDays(1).AddSeconds(-1);
         }
 
         private void Buscar_Click(object sender, EventArgs e)

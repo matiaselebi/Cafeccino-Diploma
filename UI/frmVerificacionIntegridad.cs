@@ -70,7 +70,14 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             catch (Exception ex)
             {
                 lblEstado.Text = "No se pudo verificar el estado: " + ex.Message;
+                return;
             }
+
+            // Estado de las demas tablas
+            List<string> alteradas_389ME = new BLLDigitoVerificador().Verificar_389ME();
+            lblEstado.Text += Environment.NewLine + Environment.NewLine + (alteradas_389ME.Count == 0
+                ? "Demás tablas: OK. No presentan alteraciones."
+                : "Demás tablas ALTERADAS:" + Environment.NewLine + string.Join(Environment.NewLine, alteradas_389ME));
         }
 
         private string ArmarDetalleAlteraciones(List<int> filasAlteradas)

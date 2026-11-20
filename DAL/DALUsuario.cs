@@ -12,7 +12,7 @@ namespace DAL
     public class DALUsuario
     {
         private readonly string connectionString =
-        @"Data Source=localhost;Initial Catalog=Cafeccino;Integrated Security=True";
+        Conexion.cadena;
 
         private readonly SqlConnection connection;
 
@@ -24,24 +24,27 @@ namespace DAL
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand(
-                "SELECT DNI, Username, Contraseña, Nombre, Apellido, Email, NumTelefono, Rol, DVH FROM Usuario WHERE DNI = @dni", connection))
+                "SELECT DNI, Username, Contraseña, Nombre, Apellido, Email, NumTelefono, Rol, DVH, IntentosFallidos, Bloqueado FROM Usuario WHERE DNI = @dni", connection))
             {
                 command.Parameters.AddWithValue("@dni", dni);
                 connection.Open();
                 using (SqlDataReader datareader = command.ExecuteReader())
                 {
                     if (!datareader.Read()) return null;
-                    return new Usuario(
+                    Usuario usuario = new Usuario(
                         Convert.ToInt32(datareader["DNI"]),
                         datareader["Nombre"].ToString(),
                         datareader["Apellido"].ToString(),
                         datareader["Email"].ToString(),
-                        Convert.ToInt32(datareader["NumTelefono"]),
+                        Convert.ToInt64(datareader["NumTelefono"]),
                         datareader["Username"].ToString(),
                         datareader["Contraseña"].ToString(),
                         datareader["Rol"].ToString(),
                         datareader["DVH"] == DBNull.Value ? 0 : Convert.ToInt32(datareader["DVH"])
                     );
+                    usuario.IntentosFallidos = Convert.ToInt32(datareader["IntentosFallidos"]);
+                    usuario.Bloqueado = Convert.ToBoolean(datareader["Bloqueado"]);
+                    return usuario;
                 }
             }
         }
@@ -61,7 +64,7 @@ namespace DAL
                         datareader["Nombre"].ToString(),
                         datareader["Apellido"].ToString(),
                         datareader["Email"].ToString(),
-                        Convert.ToInt32(datareader["NumTelefono"]),
+                        Convert.ToInt64(datareader["NumTelefono"]),
                         datareader["Username"].ToString(),
                         datareader["Contraseña"].ToString(),
                         datareader["Rol"].ToString(),
@@ -102,6 +105,36 @@ namespace DAL
             }
         }
 
+        // Bloquea o desbloquea al usuario; al desbloquear tambien reinicia los intentos fallidos.
+        // AvisarCambio_389ME le indica al trigger TR_Usuario_Desbloqueo que el cambio lo hizo el programa.
+        public void CambiarBloqueo_389ME(int dni_389ME, bool bloqueado_389ME, string editor_389ME)
+        {
+            using (SqlConnection connection_389ME = new SqlConnection(connectionString))
+            using (SqlCommand command_389ME = new SqlCommand(
+                "UPDATE Usuario SET Bloqueado = @bloqueado, IntentosFallidos = CASE WHEN @bloqueado = 1 THEN IntentosFallidos ELSE 0 END WHERE DNI = @dni",
+                connection_389ME))
+            {
+                command_389ME.Parameters.AddWithValue("@bloqueado", bloqueado_389ME);
+                command_389ME.Parameters.AddWithValue("@dni", dni_389ME);
+                connection_389ME.Open();
+                AvisarCambio_389ME(connection_389ME, editor_389ME, bloqueado_389ME ? "Bloqueo" : "Desbloqueo");
+                command_389ME.ExecuteNonQuery();
+            }
+        }
+
+        // El trigger TR_Usuario_Cambios lee estos datos para guardar quien hizo el cambio y de que tipo es.
+        // Si el cambio se hace directo en la base, el trigger guarda el usuario de Windows o de SQL.
+        private void AvisarCambio_389ME(SqlConnection connection_389ME, string editor_389ME, string operacion_389ME)
+        {
+            using (SqlCommand command_389ME = new SqlCommand(
+                "EXEC sp_set_session_context N'Usuario', @editor; EXEC sp_set_session_context N'Operacion', @operacion;", connection_389ME))
+            {
+                command_389ME.Parameters.AddWithValue("@editor", editor_389ME);
+                command_389ME.Parameters.AddWithValue("@operacion", operacion_389ME);
+                command_389ME.ExecuteNonQuery();
+            }
+        }
+
         public void ActualizarContraseña(string username, string nuevaContraseñaHash)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -111,6 +144,7 @@ namespace DAL
                 command.Parameters.AddWithValue("@Contraseña", nuevaContraseñaHash);
                 command.Parameters.AddWithValue("@Username", username);
                 connection.Open();
+                AvisarCambio_389ME(connection, username, "Modificacion");
                 command.ExecuteNonQuery();
             }
         }
@@ -169,6 +203,7 @@ namespace DAL
                         Email,
                         NumTelefono,
                         Rol,
+                        Bloqueado,
                         DVH
                      FROM Usuario";
             SqlDataAdapter da = new SqlDataAdapter(query, connection);
@@ -191,7 +226,7 @@ namespace DAL
                     row["Nombre"].ToString(),
                     row["Apellido"].ToString(),
                     row["Email"].ToString(),
-                    Convert.ToInt32(row["NumTelefono"]),
+                    Convert.ToInt64(row["NumTelefono"]),
                     row["Username"].ToString(),
                     row["Contraseña"].ToString(),
                     row["Rol"].ToString(),
@@ -203,6 +238,9 @@ namespace DAL
         }
         public void RegistrarUsuario(Usuario usuario, int idPerfil)
         {
+            // Si quedo el perfil de un usuario borrado antes con el mismo DNI, se quita para que no haya dos
+            BorrarPerfil_389ME(usuario.DNI);
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand("InsertarUsuario", connection))
             {
@@ -222,7 +260,7 @@ namespace DAL
         }
 
 
-        public void ModificarUsuario(Usuario usuario)
+        public void ModificarUsuario(Usuario usuario, string editor_389ME, string operacion_389ME)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand("ModificarUsuario", connection))
@@ -237,11 +275,15 @@ namespace DAL
                 command.Parameters.AddWithValue("@NumTelefono", usuario.NumTelefono);
                 command.Parameters.AddWithValue("@Rol", usuario.Rol);
                 connection.Open();
+                AvisarCambio_389ME(connection, editor_389ME, operacion_389ME);
                 command.ExecuteNonQuery();
             }
         }
         public void EliminarUsuario(int dni)
         {
+            // Primero se borra su perfil: Usuario_Permiso tiene una FK hacia Usuario
+            BorrarPerfil_389ME(dni);
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand("EliminarUsuario", connection))
             {
@@ -249,6 +291,32 @@ namespace DAL
                 command.Parameters.AddWithValue("@DNI", dni);
                 connection.Open();
                 command.ExecuteNonQuery();
+            }
+        }
+
+        private void BorrarPerfil_389ME(int dni_389ME)
+        {
+            using (SqlConnection connection_389ME = new SqlConnection(connectionString))
+            using (SqlCommand command_389ME = new SqlCommand("DELETE FROM Usuario_Permiso WHERE CodUsuario = @dni", connection_389ME))
+            {
+                command_389ME.Parameters.AddWithValue("@dni", dni_389ME);
+                connection_389ME.Open();
+                command_389ME.ExecuteNonQuery();
+            }
+        }
+
+        // Reemplaza el perfil asignado al usuario por el nuevo
+        public void CambiarPerfil_389ME(int dni_389ME, int idPerfil_389ME)
+        {
+            BorrarPerfil_389ME(dni_389ME);
+
+            using (SqlConnection connection_389ME = new SqlConnection(connectionString))
+            using (SqlCommand command_389ME = new SqlCommand("INSERT INTO Usuario_Permiso (CodUsuario, CodPermiso) VALUES (@dni, @perfil)", connection_389ME))
+            {
+                command_389ME.Parameters.AddWithValue("@dni", dni_389ME);
+                command_389ME.Parameters.AddWithValue("@perfil", idPerfil_389ME);
+                connection_389ME.Open();
+                command_389ME.ExecuteNonQuery();
             }
         }
         public void ActualizarDVH(int dni, int dvh)

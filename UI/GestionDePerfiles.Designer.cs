@@ -59,6 +59,7 @@
             // 
             this.TXTPerfil.Location = new System.Drawing.Point(12, 244);
             this.TXTPerfil.Name = "TXTPerfil";
+            this.TXTPerfil.MaxLength = 50;
             this.TXTPerfil.Size = new System.Drawing.Size(129, 20);
             this.TXTPerfil.TabIndex = 50;
             // 

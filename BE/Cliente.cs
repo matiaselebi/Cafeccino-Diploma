@@ -13,7 +13,7 @@ namespace BE
         public string Apellido_389ME { get; set; }
         public string Direccion_389ME { get; set; }
         public string Mail_389ME { get; set; }
-        public int NumTelefono_389ME { get; set; }
+        public long NumTelefono_389ME { get; set; }
         public bool Bloqueado_389ME { get; set; }
         public int DVH_389ME { get; set; }
     }

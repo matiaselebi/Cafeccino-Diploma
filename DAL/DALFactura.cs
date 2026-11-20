@@ -55,6 +55,23 @@ namespace DAL
                             command_389ME.Parameters.AddWithValue("@codProducto", detalle_389ME.CodProducto_389ME);
                             command_389ME.ExecuteNonQuery();
                         }
+
+                        // RFN2: segun la receta del producto, registra los insumos consumidos y los descuenta del stock.
+                        // El consumo es una estimacion por receta, por eso el stock del insumo no baja de cero.
+                        using (SqlCommand command_389ME = new SqlCommand(
+                            @"INSERT INTO ConsumoInsumo (CodFactura_389ME, CodProducto_389ME, CodInsumo_389ME, CantidadConsumida_389ME)
+                              SELECT @codFactura, CodProducto_389ME, CodInsumo_389ME, Cantidad_389ME * @cantidad
+                              FROM Receta WHERE CodProducto_389ME = @codProducto;
+                              UPDATE i SET i.Stock_389ME = CASE WHEN i.Stock_389ME - r.Cantidad_389ME * @cantidad < 0 THEN 0
+                                                                ELSE i.Stock_389ME - r.Cantidad_389ME * @cantidad END
+                              FROM Insumo i INNER JOIN Receta r ON r.CodInsumo_389ME = i.CodInsumo_389ME
+                              WHERE r.CodProducto_389ME = @codProducto", connection_389ME, transaccion_389ME))
+                        {
+                            command_389ME.Parameters.AddWithValue("@codFactura", codFactura_389ME);
+                            command_389ME.Parameters.AddWithValue("@cantidad", detalle_389ME.Cantidad_389ME);
+                            command_389ME.Parameters.AddWithValue("@codProducto", detalle_389ME.CodProducto_389ME);
+                            command_389ME.ExecuteNonQuery();
+                        }
                     }
 
                     transaccion_389ME.Commit();

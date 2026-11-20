@@ -19,10 +19,20 @@ namespace BLL
             return dal.ListarIdiomas();
         }
 
+        private readonly BLLBitacoraEventos bllBitacora_389ME = new BLLBitacoraEventos();
+        private readonly BLLDigitoVerificador bllDigito_389ME = new BLLDigitoVerificador();
+
         public void AgregarIdioma(string nombre)
         {
+            foreach (DataRow fila_389ME in dal.ListarIdiomas().Rows)
+                if (string.Equals(fila_389ME["Nombre"].ToString().Trim(), nombre.Trim(), StringComparison.OrdinalIgnoreCase))
+                    throw new Exception("Ya existe un idioma con ese nombre.");
+
             var idioma = new Idioma { Nombre = nombre };
             dal.AgregarIdioma(idioma);
+            bllDigito_389ME.Recalcular_389ME("Idioma");
+
+            bllBitacora_389ME.RegistrarEvento_389ME("Alta de idioma", nombre, "Idiomas", "Baja");
         }
 
         public DataTable ObtenerTraducciones(string formulario, int idIdioma)
@@ -34,6 +44,7 @@ namespace BLL
         public void GuardarTraduccion(Traduccion traduccion)
         {
             dal.GuardarTraduccion(traduccion);
+            bllDigito_389ME.Recalcular_389ME("Traduccion");
         }
 
         public string ObtenerTexto(int idIdioma,
@@ -46,6 +57,7 @@ namespace BLL
         public void RegistrarControl(string formulario, string nombreControl, string textoOriginal)
         {
             dal.RegistrarControl(formulario, nombreControl, textoOriginal);
+            bllDigito_389ME.Recalcular_389ME("ControlIdioma");
         }
         public DataTable ObtenerControles(string formulario)
         {

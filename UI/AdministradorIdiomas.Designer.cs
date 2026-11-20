@@ -45,6 +45,7 @@
             this.cmbFormulario.FormattingEnabled = true;
             this.cmbFormulario.Location = new System.Drawing.Point(593, 76);
             this.cmbFormulario.Name = "cmbFormulario";
+            this.cmbFormulario.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFormulario.Size = new System.Drawing.Size(121, 21);
             this.cmbFormulario.TabIndex = 0;
             this.cmbFormulario.SelectedIndexChanged += new System.EventHandler(this.cmbFormulario_SelectedIndexChanged);
@@ -54,6 +55,7 @@
             this.cmbIdioma.FormattingEnabled = true;
             this.cmbIdioma.Location = new System.Drawing.Point(593, 137);
             this.cmbIdioma.Name = "cmbIdioma";
+            this.cmbIdioma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbIdioma.Size = new System.Drawing.Size(121, 21);
             this.cmbIdioma.TabIndex = 1;
             this.cmbIdioma.SelectedIndexChanged += new System.EventHandler(this.cmbIdioma_SelectedIndexChanged);
@@ -109,6 +111,7 @@
             // 
             this.txtNuevoIdioma.Location = new System.Drawing.Point(532, 207);
             this.txtNuevoIdioma.Name = "txtNuevoIdioma";
+            this.txtNuevoIdioma.MaxLength = 50;
             this.txtNuevoIdioma.Size = new System.Drawing.Size(134, 20);
             this.txtNuevoIdioma.TabIndex = 8;
             // 

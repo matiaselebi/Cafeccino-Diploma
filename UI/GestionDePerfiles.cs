@@ -89,7 +89,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNCrearPerfil_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TXTPerfil.Text)) return;
+            if (string.IsNullOrWhiteSpace(TXTPerfil.Text))
+            {
+                MessageBox.Show("Ingrese el nombre del perfil.");
+                return;
+            }
 
             try
             {
@@ -162,6 +166,10 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             {
                 if (e.Node.Parent != null)
                 {
+                    if (MessageBox.Show($"¿Desea quitar '{e.Node.Text}' del perfil?", "Confirmar",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+
                     if (e.Node.Parent != treePerfil.Nodes[0])
                     {
 
@@ -201,7 +209,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNAgregarFamilia_Click(object sender, EventArgs e)
         {
-            if (perfilSeleccionado == null || cmbFamiliasAsociar.SelectedItem == null) return;
+            if (perfilSeleccionado == null || cmbFamiliasAsociar.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione el perfil y la familia que quiere agregar.");
+                return;
+            }
 
             Familia subFamiliaOrigen = (Familia)cmbFamiliasAsociar.SelectedItem;
 
@@ -243,7 +255,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNAgregarPermiso_Click(object sender, EventArgs e)
         {
-            if (perfilSeleccionado == null || cmbPermisos.SelectedItem == null) return;
+            if (perfilSeleccionado == null || cmbPermisos.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione el perfil y el permiso que quiere agregar.");
+                return;
+            }
 
             Perfil permisoSeleccionado = (Perfil)cmbPermisos.SelectedItem;
 
@@ -290,7 +306,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNAplicar_Click(object sender, EventArgs e)
         {
-            if (perfilSeleccionado == null) return;
+            if (perfilSeleccionado == null)
+            {
+                MessageBox.Show("Seleccione un perfil.");
+                return;
+            }
 
             try
             {

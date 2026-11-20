@@ -51,6 +51,8 @@
             this.dtpFechaExpiracion_389ME = new System.Windows.Forms.DateTimePicker();
             this.lblCVV_389ME = new System.Windows.Forms.Label();
             this.txtCVV_389ME = new System.Windows.Forms.TextBox();
+            this.lblNumeroTarjeta_389ME = new System.Windows.Forms.Label();
+            this.txtNumeroTarjeta_389ME = new System.Windows.Forms.TextBox();
             this.btnConfirmarVenta_389ME = new System.Windows.Forms.Button();
             this.txtResultado_389ME = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos_389ME)).BeginInit();
@@ -66,6 +68,7 @@
             this.txtMarcaTarjeta_389ME.MaxLength = 30;
             this.txtCantidad_389ME.MaxLength = 4;
             this.txtCVV_389ME.MaxLength = 3;
+            this.txtNumeroTarjeta_389ME.MaxLength = 16;
             // 
             // lblProductos_389ME
             // 
@@ -336,48 +339,64 @@
             this.txtMarcaTarjeta_389ME.Size = new System.Drawing.Size(136, 20);
             this.txtMarcaTarjeta_389ME.TabIndex = 30;
             // 
+            // lblNumeroTarjeta_389ME
+            // 
+            this.lblNumeroTarjeta_389ME.AutoSize = true;
+            this.lblNumeroTarjeta_389ME.Location = new System.Drawing.Point(670, 320);
+            this.lblNumeroTarjeta_389ME.Name = "lblNumeroTarjeta_389ME";
+            this.lblNumeroTarjeta_389ME.Size = new System.Drawing.Size(97, 13);
+            this.lblNumeroTarjeta_389ME.TabIndex = 31;
+            this.lblNumeroTarjeta_389ME.Text = "Numero de tarjeta";
+            // 
+            // txtNumeroTarjeta_389ME
+            // 
+            this.txtNumeroTarjeta_389ME.Location = new System.Drawing.Point(790, 317);
+            this.txtNumeroTarjeta_389ME.Name = "txtNumeroTarjeta_389ME";
+            this.txtNumeroTarjeta_389ME.Size = new System.Drawing.Size(136, 20);
+            this.txtNumeroTarjeta_389ME.TabIndex = 32;
+            // 
             // lblFechaExpiracion_389ME
             // 
             this.lblFechaExpiracion_389ME.AutoSize = true;
-            this.lblFechaExpiracion_389ME.Location = new System.Drawing.Point(670, 320);
+            this.lblFechaExpiracion_389ME.Location = new System.Drawing.Point(670, 350);
             this.lblFechaExpiracion_389ME.Name = "lblFechaExpiracion_389ME";
             this.lblFechaExpiracion_389ME.Size = new System.Drawing.Size(101, 13);
-            this.lblFechaExpiracion_389ME.TabIndex = 31;
+            this.lblFechaExpiracion_389ME.TabIndex = 33;
             this.lblFechaExpiracion_389ME.Text = "Vencimiento (MM/AA)";
             // 
             // dtpFechaExpiracion_389ME
             // 
             this.dtpFechaExpiracion_389ME.CustomFormat = "MM/yy";
             this.dtpFechaExpiracion_389ME.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFechaExpiracion_389ME.Location = new System.Drawing.Point(790, 317);
+            this.dtpFechaExpiracion_389ME.Location = new System.Drawing.Point(790, 347);
             this.dtpFechaExpiracion_389ME.Name = "dtpFechaExpiracion_389ME";
             this.dtpFechaExpiracion_389ME.ShowUpDown = true;
             this.dtpFechaExpiracion_389ME.Size = new System.Drawing.Size(136, 20);
-            this.dtpFechaExpiracion_389ME.TabIndex = 32;
+            this.dtpFechaExpiracion_389ME.TabIndex = 34;
             // 
             // lblCVV_389ME
             // 
             this.lblCVV_389ME.AutoSize = true;
-            this.lblCVV_389ME.Location = new System.Drawing.Point(670, 350);
+            this.lblCVV_389ME.Location = new System.Drawing.Point(670, 380);
             this.lblCVV_389ME.Name = "lblCVV_389ME";
             this.lblCVV_389ME.Size = new System.Drawing.Size(101, 13);
-            this.lblCVV_389ME.TabIndex = 33;
+            this.lblCVV_389ME.TabIndex = 35;
             this.lblCVV_389ME.Text = "Codigo de seguridad";
             // 
             // txtCVV_389ME
             // 
-            this.txtCVV_389ME.Location = new System.Drawing.Point(790, 347);
+            this.txtCVV_389ME.Location = new System.Drawing.Point(790, 377);
             this.txtCVV_389ME.Name = "txtCVV_389ME";
             this.txtCVV_389ME.Size = new System.Drawing.Size(136, 20);
-            this.txtCVV_389ME.TabIndex = 34;
+            this.txtCVV_389ME.TabIndex = 36;
             this.txtCVV_389ME.UseSystemPasswordChar = true;
             // 
             // btnConfirmarVenta_389ME
             // 
-            this.btnConfirmarVenta_389ME.Location = new System.Drawing.Point(670, 385);
+            this.btnConfirmarVenta_389ME.Location = new System.Drawing.Point(670, 415);
             this.btnConfirmarVenta_389ME.Name = "btnConfirmarVenta_389ME";
             this.btnConfirmarVenta_389ME.Size = new System.Drawing.Size(256, 32);
-            this.btnConfirmarVenta_389ME.TabIndex = 35;
+            this.btnConfirmarVenta_389ME.TabIndex = 37;
             this.btnConfirmarVenta_389ME.Text = "Confirmar venta";
             this.btnConfirmarVenta_389ME.UseVisualStyleBackColor = true;
             this.btnConfirmarVenta_389ME.Click += new System.EventHandler(this.btnConfirmarVenta_Click_389ME);
@@ -385,20 +404,21 @@
             // txtResultado_389ME
             // 
             this.txtResultado_389ME.BackColor = System.Drawing.SystemColors.Window;
-            this.txtResultado_389ME.Location = new System.Drawing.Point(10, 430);
+            this.txtResultado_389ME.Location = new System.Drawing.Point(10, 460);
             this.txtResultado_389ME.Multiline = true;
             this.txtResultado_389ME.Name = "txtResultado_389ME";
+            this.txtResultado_389ME.Font = new System.Drawing.Font("Courier New", 9F);
             this.txtResultado_389ME.ReadOnly = true;
             this.txtResultado_389ME.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtResultado_389ME.Size = new System.Drawing.Size(916, 140);
-            this.txtResultado_389ME.TabIndex = 36;
+            this.txtResultado_389ME.TabIndex = 38;
             // 
             // frmVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Chocolate;
-            this.ClientSize = new System.Drawing.Size(940, 585);
+            this.ClientSize = new System.Drawing.Size(940, 615);
             this.Controls.Add(this.lblProductos_389ME);
             this.Controls.Add(this.dgvProductos_389ME);
             this.Controls.Add(this.lblCantidad_389ME);
@@ -430,6 +450,8 @@
             this.Controls.Add(this.cmbTipoTarjeta_389ME);
             this.Controls.Add(this.lblMarcaTarjeta_389ME);
             this.Controls.Add(this.txtMarcaTarjeta_389ME);
+            this.Controls.Add(this.lblNumeroTarjeta_389ME);
+            this.Controls.Add(this.txtNumeroTarjeta_389ME);
             this.Controls.Add(this.lblFechaExpiracion_389ME);
             this.Controls.Add(this.dtpFechaExpiracion_389ME);
             this.Controls.Add(this.lblCVV_389ME);
@@ -484,6 +506,8 @@
         private System.Windows.Forms.DateTimePicker dtpFechaExpiracion_389ME;
         private System.Windows.Forms.Label lblCVV_389ME;
         private System.Windows.Forms.TextBox txtCVV_389ME;
+        private System.Windows.Forms.Label lblNumeroTarjeta_389ME;
+        private System.Windows.Forms.TextBox txtNumeroTarjeta_389ME;
         private System.Windows.Forms.Button btnConfirmarVenta_389ME;
         private System.Windows.Forms.TextBox txtResultado_389ME;
     }

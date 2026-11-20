@@ -14,24 +14,7 @@ namespace BLL
     {
         private readonly DALAuditoriaCambios dalAuditoriaCambios = new DALAuditoriaCambios();
         private readonly DALUsuario dalUsuario = new DALUsuario();
-        private string SerializarUsuario(Usuario usuario)
-        {
-            return $"DNI:{usuario.DNI} | Usuario:{usuario.NombreUsuario} | Contraseña:{usuario.Contraseña}| Nombre:{usuario.Nombre} | " +
-                   $"Apellido:{usuario.Apellido} | Mail:{usuario.Mail} | Tel:{usuario.NumTelefono} | Rol:{usuario.Rol}";
-        }
-
-        public void RegistrarModificacion(Usuario anterior, Usuario nuevo, string usuarioEditor)
-        {
-            dalAuditoriaCambios.RegistrarCambio(new AuditoriaCambios
-            {
-                UsuarioEditor = usuarioEditor,
-                Operacion = "Modificacion",
-                DNIAfectado = nuevo.DNI,
-                DatosAnteriores = SerializarUsuario(anterior),
-                DatosNuevos = SerializarUsuario(nuevo)
-            });
-        }
-
+        private readonly BLLDigitoVerificador bllDigito_389ME = new BLLDigitoVerificador();
         public DataTable ObtenerCambios()
         {
             return dalAuditoriaCambios.ObtenerCambios();
@@ -60,18 +43,13 @@ namespace BLL
 
             Usuario usuarioAnterior = DesSerializarUsuario(registro.DatosAnteriores);
 
-            dalUsuario.ModificarUsuario(usuarioAnterior);
-
-            dalAuditoriaCambios.RegistrarCambio(new AuditoriaCambios
-            {
-                UsuarioEditor = Singleton.Instancia.Usuario.NombreUsuario,
-                Operacion = "Restauracion",
-                DNIAfectado = registro.DNIAfectado,
-                DatosAnteriores = registro.DatosNuevos,
-                DatosNuevos = registro.DatosAnteriores
-            });
+            // El trigger TR_Usuario_Cambios guarda la restauracion en AuditoriaCambios
+            dalUsuario.ModificarUsuario(usuarioAnterior, Singleton.Instancia.Usuario.NombreUsuario, "Restauracion");
+            bllDigito_389ME.Recalcular_389ME("AuditoriaCambios");
 
             new BLLUsuario().SincronizarDigitos();
+
+            new BLLBitacoraEventos().RegistrarEvento_389ME("Restauración de usuario", $"DNI {registro.DNIAfectado} volvió a sus datos anteriores", "Usuarios", "Alta");
         }
 
         private Usuario DesSerializarUsuario(string datos)
@@ -95,7 +73,7 @@ namespace BLL
                     case "Nombre": usuario.Nombre = valor; break;
                     case "Apellido": usuario.Apellido = valor; break;
                     case "Mail": usuario.Mail = valor; break;
-                    case "Tel": usuario.NumTelefono = int.TryParse(valor, out int tel) ? tel : 0; break;
+                    case "Tel": usuario.NumTelefono = long.TryParse(valor, out long tel) ? tel : 0; break;
                     case "Rol": usuario.Rol = valor; break;
                 }
             }

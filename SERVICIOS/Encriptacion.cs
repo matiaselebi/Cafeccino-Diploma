@@ -63,9 +63,9 @@ namespace SERVICIOS
 
                 StringBuilder sb = new StringBuilder();
 
-                foreach (byte b in hash)
+                foreach (byte valor in hash)
                 {
-                    sb.Append(b.ToString("x2"));
+                    sb.Append(valor.ToString("x2"));
                 }
 
                 return sb.ToString();

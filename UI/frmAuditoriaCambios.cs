@@ -19,6 +19,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         public frmAuditoriaCambios()
         {
             InitializeComponent();
+            AyudaGrilla.OcultarDVH_389ME(dataGridView1);
         }
         public void ActualizarIdioma(string idioma)
         {

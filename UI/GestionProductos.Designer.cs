@@ -1,4 +1,4 @@
-namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
+﻿namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
     partial class GestionProductos
     {
@@ -71,6 +71,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             // 
             this.txtNombre_389ME.Location = new System.Drawing.Point(90, 17);
             this.txtNombre_389ME.Name = "txtNombre_389ME";
+            this.txtNombre_389ME.MaxLength = 50;
             this.txtNombre_389ME.Size = new System.Drawing.Size(190, 20);
             this.txtNombre_389ME.TabIndex = 7;
             // 
@@ -78,6 +79,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             // 
             this.txtTitulo_389ME.Location = new System.Drawing.Point(90, 47);
             this.txtTitulo_389ME.Name = "txtTitulo_389ME";
+            this.txtTitulo_389ME.MaxLength = 100;
             this.txtTitulo_389ME.Size = new System.Drawing.Size(190, 20);
             this.txtTitulo_389ME.TabIndex = 6;
             // 
@@ -85,6 +87,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             // 
             this.txtPrecio_389ME.Location = new System.Drawing.Point(90, 77);
             this.txtPrecio_389ME.Name = "txtPrecio_389ME";
+            this.txtPrecio_389ME.MaxLength = 11;
             this.txtPrecio_389ME.Size = new System.Drawing.Size(120, 20);
             this.txtPrecio_389ME.TabIndex = 5;
             // 
@@ -92,6 +95,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             // 
             this.txtStock_389ME.Location = new System.Drawing.Point(90, 107);
             this.txtStock_389ME.Name = "txtStock_389ME";
+            this.txtStock_389ME.MaxLength = 6;
             this.txtStock_389ME.Size = new System.Drawing.Size(120, 20);
             this.txtStock_389ME.TabIndex = 4;
             // 

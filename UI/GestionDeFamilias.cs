@@ -80,7 +80,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         private void BTNCrearFamilia_Click(object sender, EventArgs e)
         {
 
-            if (string.IsNullOrWhiteSpace(TXTFamilia.Text)) return;
+            if (string.IsNullOrWhiteSpace(TXTFamilia.Text))
+            {
+                MessageBox.Show("Ingrese el nombre de la familia.");
+                return;
+            }
 
             try
             {
@@ -110,7 +114,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNAgregarPermiso_Click(object sender, EventArgs e)
         {
-            if (familiaSeleccionada == null || CBPermisos.SelectedItem == null) return;
+            if (familiaSeleccionada == null || CBPermisos.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione la familia a configurar y el permiso que quiere agregar.");
+                return;
+            }
 
             Permiso permisoSeleccionado = (Permiso)CBPermisos.SelectedItem;
 
@@ -137,37 +145,13 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         }
 
 
-        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-
-            TreeViewHitTestInfo hitTest = treeView1.HitTest(e.Location);
-            if (hitTest.Location != TreeViewHitTestLocations.PlusMinus)
-            {
-                if (e.Node.Parent != null)
-                {
-                    if (e.Node.Parent != treeView1.Nodes[0])
-                    {
-                        Perfil padreCompuesto = (Perfil)e.Node.Parent.Tag;
-                        Perfil hijoAEliminar = (Perfil)e.Node.Tag;
-                        padreCompuesto.EliminarHijo(hijoAEliminar.Id);
-                    }
-                    else
-                    {
-                        Perfil hijoAEliminar = (Perfil)e.Node.Tag;
-                        familiaSeleccionada.EliminarHijo(hijoAEliminar.Id);
-                    }
-
-
-                    NegociosPermiso.GuardarFamilia(familiaSeleccionada, esPerfil: false);
-
-                    MostrarEnTreeView();
-                }
-            }
-        }
-
         private void BTNAplicar_Click(object sender, EventArgs e)
         {
-            if (familiaSeleccionada == null) return;
+            if (familiaSeleccionada == null)
+            {
+                MessageBox.Show("Seleccione la familia a configurar.");
+                return;
+            }
 
             try
             {
@@ -246,7 +230,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void BTNAgregarFamilia_Click(object sender, EventArgs e)
         {
-            if (familiaSeleccionada == null || CBFamilias2.SelectedItem == null) return;
+            if (familiaSeleccionada == null || CBFamilias2.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione la familia a configurar y la familia que quiere agregar.");
+                return;
+            }
 
             Familia subFamiliaOrigen = (Familia)CBFamilias2.SelectedItem;
 
@@ -315,13 +303,18 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         }
 
-        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        // Doble clic sobre un permiso o una familia del arbol: se quita de la familia
+        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             TreeViewHitTestInfo hitTest = treeView1.HitTest(e.Location);
             if (hitTest.Location != TreeViewHitTestLocations.PlusMinus)
             {
                 if (e.Node.Parent != null)
                 {
+                    if (MessageBox.Show($"¿Desea quitar '{e.Node.Text}' de la familia?", "Confirmar",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+
                     if (e.Node.Parent != treeView1.Nodes[0])
                     {
                         Perfil padreCompuesto = (Perfil)e.Node.Parent.Tag;

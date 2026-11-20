@@ -20,6 +20,20 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         public frmVenta()
         {
             InitializeComponent();
+            // Encabezados sin el sufijo y sin la columna del digito verificador
+            AyudaGrilla.Preparar_389ME(dgvProductos_389ME, dgvCarrito_389ME);
+            AyudaGrilla.OcultarDVH_389ME(dgvProductos_389ME, dgvCarrito_389ME);
+
+            txtCantidad_389ME.KeyPress += Validacion.SoloNumeros_389ME;
+            txtDNI_389ME.KeyPress += Validacion.SoloNumeros_389ME;
+            txtTelCliente_389ME.KeyPress += Validacion.SoloNumeros_389ME;
+            txtNumeroTarjeta_389ME.KeyPress += Validacion.SoloNumeros_389ME;
+            txtCVV_389ME.KeyPress += Validacion.SoloNumeros_389ME;
+            txtNombreCliente_389ME.KeyPress += Validacion.SoloLetras_389ME;
+            txtApellidoCliente_389ME.KeyPress += Validacion.SoloLetras_389ME;
+            txtBanco_389ME.KeyPress += Validacion.SoloLetras_389ME;
+            txtMarcaTarjeta_389ME.KeyPress += Validacion.SoloLetras_389ME;
+            txtDNI_389ME.TextChanged += txtDNI_TextChanged_389ME;
         }
 
         public void ActualizarIdioma(string idioma)
@@ -132,11 +146,24 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             return texto_389ME.Length == 8 && texto_389ME.All(char.IsDigit) && int.TryParse(texto_389ME, out dni_389ME);
         }
 
+        // Si se cambia el DNI de un cliente ya encontrado, sus datos dejan de valer y hay que volver a buscarlo
+        private void txtDNI_TextChanged_389ME(object sender_389ME, EventArgs e_389ME)
+        {
+            if (txtNombreCliente_389ME.Enabled) return;
+
+            txtNombreCliente_389ME.Clear();
+            txtApellidoCliente_389ME.Clear();
+            txtDireccionCliente_389ME.Clear();
+            txtMailCliente_389ME.Clear();
+            txtTelCliente_389ME.Clear();
+            SetCamposClienteHabilitados_389ME(true);
+        }
+
         private void btnBuscarCliente_Click_389ME(object sender_389ME, EventArgs e_389ME)
         {
             if (!DniValido_389ME(out int dni_389ME))
             {
-                MessageBox.Show("El DNI debe tener 8 numeros.");
+                MessageBox.Show("El DNI debe tener 8 números.");
                 return;
             }
 
@@ -144,12 +171,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             if (cliente_389ME != null)
             {
-                txtNombreCliente_389ME.Text = cliente_389ME.Nombre_389ME;
-                txtApellidoCliente_389ME.Text = cliente_389ME.Apellido_389ME;
-                txtDireccionCliente_389ME.Text = cliente_389ME.Direccion_389ME;
-                txtMailCliente_389ME.Text = cliente_389ME.Mail_389ME;
-                txtTelCliente_389ME.Text = cliente_389ME.NumTelefono_389ME.ToString();
-                SetCamposClienteHabilitados_389ME(false);
+                MostrarCliente_389ME(cliente_389ME);
                 MessageBox.Show("Cliente registrado encontrado.");
             }
             else
@@ -164,12 +186,24 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             }
         }
 
+        // Muestra los datos de un cliente registrado; no se editan desde la venta (para eso esta Gestion de clientes)
+        private void MostrarCliente_389ME(Cliente cliente_389ME)
+        {
+            txtNombreCliente_389ME.Text = cliente_389ME.Nombre_389ME;
+            txtApellidoCliente_389ME.Text = cliente_389ME.Apellido_389ME;
+            txtDireccionCliente_389ME.Text = cliente_389ME.Direccion_389ME;
+            txtMailCliente_389ME.Text = cliente_389ME.Mail_389ME;
+            txtTelCliente_389ME.Text = cliente_389ME.NumTelefono_389ME == 0 ? "" : cliente_389ME.NumTelefono_389ME.ToString();
+            SetCamposClienteHabilitados_389ME(false);
+        }
+
         private void LimpiarDatosTarjeta_389ME()
         {
             txtBanco_389ME.Clear();
             cmbTipoTarjeta_389ME.SelectedIndex = -1;
             cmbTipoTarjeta_389ME.Text = "";
             txtMarcaTarjeta_389ME.Clear();
+            txtNumeroTarjeta_389ME.Clear();
             dtpFechaExpiracion_389ME.Value = DateTime.Now;
             txtCVV_389ME.Clear();
         }
@@ -209,6 +243,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             txtBanco_389ME.Enabled = esTarjeta_389ME;
             cmbTipoTarjeta_389ME.Enabled = esTarjeta_389ME;
             txtMarcaTarjeta_389ME.Enabled = esTarjeta_389ME;
+            txtNumeroTarjeta_389ME.Enabled = esTarjeta_389ME;
             dtpFechaExpiracion_389ME.Enabled = esTarjeta_389ME;
             txtCVV_389ME.Enabled = esTarjeta_389ME;
 
@@ -228,20 +263,26 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
             if (!DniValido_389ME(out int dni_389ME))
             {
-                MessageBox.Show("El DNI debe tener 8 numeros.");
+                MessageBox.Show("El DNI debe tener 8 números.");
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtNombreCliente_389ME.Text) || string.IsNullOrWhiteSpace(txtApellidoCliente_389ME.Text))
+            // Si el DNI ya esta registrado pero no se busco, la venta iria a ese cliente y los datos escritos no se
+            // usarian: se muestran los datos registrados para que el vendedor los vea antes de confirmar
+            Cliente registrado_389ME = txtNombreCliente_389ME.Enabled ? bllCliente_389ME.ObtenerPorDNI_389ME(dni_389ME) : null;
+            if (registrado_389ME != null)
             {
-                MessageBox.Show("Faltan datos del cliente.");
+                MostrarCliente_389ME(registrado_389ME);
+                MessageBox.Show("El DNI ya está registrado a nombre de " + registrado_389ME.Nombre_389ME + " " + registrado_389ME.Apellido_389ME +
+                                ". Se cargaron sus datos: revíselos y confirme la venta de nuevo.");
                 return;
             }
 
-            string mail_389ME = txtMailCliente_389ME.Text.Trim();
-            if (!mail_389ME.Contains("@") || !mail_389ME.Contains("."))
+            // El nombre, el apellido y el mail los valida BLLCliente al dar de alta al cliente
+            long telefono_389ME = 0;
+            if (txtTelCliente_389ME.Text.Trim().Length > 0 && !long.TryParse(txtTelCliente_389ME.Text.Trim(), out telefono_389ME))
             {
-                MessageBox.Show("El mail debe tener una arroba y un punto.");
+                MessageBox.Show("El teléfono debe tener solo números.");
                 return;
             }
 
@@ -254,14 +295,19 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 return;
             }
 
-            // El vencimiento y el codigo de seguridad no se guardan: los procesa el PosNet.
-            if (cmbMetodoPago_389ME.Text == "Tarjeta" && (txtCVV_389ME.Text.Length != 3 || !txtCVV_389ME.Text.All(char.IsDigit)))
+            // El numero, el vencimiento y el codigo de seguridad solo se validan aca: no se guardan en ningun lado
+            // (RNF-SEG-05). El cobro lo procesa el PosNet.
+            if (cmbMetodoPago_389ME.Text == "Tarjeta" && (txtNumeroTarjeta_389ME.Text.Length != 16 || !txtNumeroTarjeta_389ME.Text.All(char.IsDigit)))
             {
-                MessageBox.Show("El codigo de seguridad debe tener 3 numeros.");
+                MessageBox.Show("El número de tarjeta debe tener 16 números.");
                 return;
             }
 
-            int.TryParse(txtTelCliente_389ME.Text, out int telefono_389ME);
+            if (cmbMetodoPago_389ME.Text == "Tarjeta" && (txtCVV_389ME.Text.Length != 3 || !txtCVV_389ME.Text.All(char.IsDigit)))
+            {
+                MessageBox.Show("El código de seguridad debe tener 3 números.");
+                return;
+            }
 
             Cliente cliente_389ME = new Cliente
             {
@@ -294,25 +340,21 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 
         private void MostrarFactura_389ME(Factura factura_389ME)
         {
-            StringBuilder texto_389ME = new StringBuilder();
-            texto_389ME.AppendLine("--- Factura N° " + factura_389ME.CodFactura_389ME + " ---");
-            texto_389ME.AppendLine("DNI cliente: " + factura_389ME.DNICliente_389ME);
-            texto_389ME.AppendLine("Fecha: " + factura_389ME.Fecha_389ME.ToString("dd/MM/yyyy HH:mm"));
-            texto_389ME.AppendLine("Metodo de pago: " + factura_389ME.MetodoPago_389ME);
-            if (factura_389ME.MetodoPago_389ME == "Tarjeta")
-            {
-                texto_389ME.AppendLine("Banco: " + factura_389ME.Banco_389ME);
-                texto_389ME.AppendLine("Tipo de tarjeta: " + factura_389ME.TipoTarjeta_389ME);
-                texto_389ME.AppendLine("Marca de tarjeta: " + factura_389ME.MarcaTarjeta_389ME);
-                texto_389ME.AppendLine("Recargo por pago con tarjeta: " + (BLLFactura.RecargoTarjeta_389ME * 100).ToString("N0") + "%");
-            }
-            texto_389ME.AppendLine("Productos vendidos:");
-            foreach (DetalleFactura detalle_389ME in factura_389ME.Detalles_389ME)
-                texto_389ME.AppendLine($"  {detalle_389ME.NombreProducto_389ME} x{detalle_389ME.Cantidad_389ME} = ${detalle_389ME.Subtotal_389ME:N2}");
-            texto_389ME.AppendLine("Monto total: $" + factura_389ME.MontoTotal_389ME.ToString("N2"));
+            txtResultado_389ME.Text = Comprobante.TextoFactura_389ME(factura_389ME);
 
-            txtResultado_389ME.Text = texto_389ME.ToString();
-            MessageBox.Show("Venta registrada correctamente. Factura N° " + factura_389ME.CodFactura_389ME);
+            // La venta ya quedo registrada: si el PDF no se puede generar solo se avisa
+            try
+            {
+                string ruta_389ME = Comprobante.GuardarPdf_389ME(Comprobante.CarpetaVentas_389ME,
+                    "Factura " + factura_389ME.CodFactura_389ME + " - " + factura_389ME.Fecha_389ME.ToString("yyyy-MM-dd"), txtResultado_389ME.Text);
+                MessageBox.Show("Venta registrada correctamente. Factura N° " + factura_389ME.CodFactura_389ME +
+                                "\nLa factura se guardó en: " + ruta_389ME);
+            }
+            catch (Exception ex_389ME)
+            {
+                MessageBox.Show("Venta registrada correctamente. Factura N° " + factura_389ME.CodFactura_389ME +
+                                "\nNo se pudo generar el PDF: " + ex_389ME.Message);
+            }
         }
 
         private void frmVenta_FormClosing_389ME(object sender_389ME, FormClosingEventArgs e_389ME)

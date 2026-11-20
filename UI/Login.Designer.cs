@@ -59,6 +59,7 @@
             // 
             this.txtNombre.Location = new System.Drawing.Point(105, 18);
             this.txtNombre.Name = "txtNombre";
+            this.txtNombre.MaxLength = 20;
             this.txtNombre.Size = new System.Drawing.Size(139, 20);
             this.txtNombre.TabIndex = 2;
             // 
@@ -66,6 +67,8 @@
             // 
             this.txtContraseña.Location = new System.Drawing.Point(105, 77);
             this.txtContraseña.Name = "txtContraseña";
+            this.txtContraseña.PasswordChar = '*';
+            this.txtContraseña.MaxLength = 50;
             this.txtContraseña.Size = new System.Drawing.Size(139, 20);
             this.txtContraseña.TabIndex = 3;
             // 

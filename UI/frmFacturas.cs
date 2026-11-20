@@ -13,6 +13,9 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         public frmFacturas()
         {
             InitializeComponent();
+            // Encabezados sin el sufijo y sin la columna del digito verificador
+            AyudaGrilla.Preparar_389ME(dgvFacturas_389ME, dgvDetalle_389ME);
+            AyudaGrilla.OcultarDVH_389ME(dgvFacturas_389ME, dgvDetalle_389ME);
         }
 
         public void ActualizarIdioma(string idioma)
@@ -51,6 +54,31 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
                 dgvDetalle_389ME.Columns["CodProducto_389ME"].Visible = false;
             if (dgvDetalle_389ME.Columns.Contains("DVH_389ME"))
                 dgvDetalle_389ME.Columns["DVH_389ME"].Visible = false;
+        }
+
+        // Genera el PDF de la factura seleccionada en la carpeta Facturas Venta y lo abre para imprimirlo
+        private void btnImprimir_Click_389ME(object sender_389ME, EventArgs e_389ME)
+        {
+            if (dgvFacturas_389ME.CurrentRow == null)
+            {
+                System.Windows.Forms.MessageBox.Show("Seleccione una factura.");
+                return;
+            }
+
+            try
+            {
+                Factura factura_389ME = (Factura)dgvFacturas_389ME.CurrentRow.DataBoundItem;
+                factura_389ME.Detalles_389ME = bllFactura_389ME.ObtenerDetalle_389ME(factura_389ME.CodFactura_389ME);
+
+                string ruta_389ME = Comprobante.GuardarPdf_389ME(Comprobante.CarpetaVentas_389ME,
+                    "Factura " + factura_389ME.CodFactura_389ME + " - " + factura_389ME.Fecha_389ME.ToString("yyyy-MM-dd"),
+                    Comprobante.TextoFactura_389ME(factura_389ME));
+                System.Diagnostics.Process.Start(ruta_389ME);
+            }
+            catch (Exception ex_389ME)
+            {
+                System.Windows.Forms.MessageBox.Show("No se pudo generar el PDF: " + ex_389ME.Message);
+            }
         }
 
         private void frmFacturas_FormClosing_389ME(object sender_389ME, System.Windows.Forms.FormClosingEventArgs e_389ME)

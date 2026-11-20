@@ -8,6 +8,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
     public partial class frmCambiarIdioma : Form, IObserver
     {
         private readonly BLLIdioma bllIdioma_389ME = new BLLIdioma();
+        private readonly BLLBitacoraEventos bllBitacora_389ME = new BLLBitacoraEventos();
         Traductor traductor = new Traductor();
 
         // Mientras se llena el combo el evento SelectedIndexChanged se dispara solo,
@@ -46,6 +47,7 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             if (cmbIdiomas_389ME.SelectedValue == null) return;
 
             GestorIdiomas.Instancia.CambiarIdioma(Convert.ToInt32(cmbIdiomas_389ME.SelectedValue));
+            bllBitacora_389ME.RegistrarEvento_389ME("Cambio de idioma", cmbIdiomas_389ME.Text, "Idiomas", "Baja");
         }
 
         private void frmCambiarIdioma_FormClosing_389ME(object sender_389ME, FormClosingEventArgs e_389ME)

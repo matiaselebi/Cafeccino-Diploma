@@ -13,9 +13,25 @@ namespace SERVICIOS
         {
             if (value == null) return 0;
             if (value is int entero) return entero;
+            // El telefono es long: hasta int.MaxValue da lo mismo que antes, asi no cambian los DVH guardados
+            if (value is long largo) return (int)(largo % int.MaxValue);
             if (value is bool booleano) return booleano ? 1 : 0;
             if (value is string texto) return texto.Sum(caracter => (int)caracter);
+            // Importes, cantidades y fechas se pasan a texto y cada caracter pesa segun su posicion,
+            // asi cualquier cambio de un digito cambia el DVH
+            if (value is DBNull) return 0;
+            if (value is decimal importe) return TextoPonderado(importe.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            if (value is double cantidad) return TextoPonderado(cantidad.ToString("R", System.Globalization.CultureInfo.InvariantCulture));
+            if (value is DateTime fecha) return TextoPonderado(fecha.ToString("yyyyMMddHHmmss"));
             return Convert.ToInt32(value);
+        }
+
+        private static int TextoPonderado(string texto)
+        {
+            int suma = 0;
+            for (int posicion = 0; posicion < texto.Length; posicion++)
+                suma += texto[posicion] * (posicion + 1);
+            return suma;
         }
 
         public static int CalcularDVH(Usuario usuario)
@@ -32,20 +48,32 @@ namespace SERVICIOS
                 usuario.Rol
             };
 
-            int suma = 0;
-            for (int posicion = 0; posicion < valores.Length; posicion++)
-                suma += ToNumeric(valores[posicion]) * (posicion + 1);
+            return CalcularDVH(valores);
+        }
 
-            return suma % 1000;
+        // DVH de cualquier fila: cada valor se pasa a numero y se pondera por su posicion.
+        // La suma es long para que un telefono grande no la desborde, y el resultado siempre queda entre 0 y 999.
+        public static int CalcularDVH(object[] valores)
+        {
+            long suma = 0;
+            for (int posicion = 0; posicion < valores.Length; posicion++)
+                suma += (long)ToNumeric(valores[posicion]) * (posicion + 1);
+
+            return EntreCeroYMil(suma);
         }
 
         public static int CalcularDVV(List<int> listaDVH)
         {
-            int suma = 0;
+            long suma = 0;
             for (int posicion = 0; posicion < listaDVH.Count; posicion++)
-                suma += listaDVH[posicion] * (posicion + 1);
+                suma += (long)listaDVH[posicion] * (posicion + 1);
 
-            return suma % 1000;
+            return EntreCeroYMil(suma);
+        }
+
+        private static int EntreCeroYMil(long suma)
+        {
+            return (int)(((suma % 1000) + 1000) % 1000);
         }
 
         public static DigitoVerificador Recalcular(List<Usuario> usuarios)

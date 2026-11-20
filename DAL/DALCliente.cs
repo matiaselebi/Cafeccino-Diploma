@@ -107,7 +107,7 @@ namespace DAL
                 Apellido_389ME = datareader_389ME["Apellido_389ME"].ToString(),
                 Direccion_389ME = datareader_389ME["Direccion_389ME"] == DBNull.Value ? "" : datareader_389ME["Direccion_389ME"].ToString(),
                 Mail_389ME = datareader_389ME["Mail_389ME"] == DBNull.Value ? "" : datareader_389ME["Mail_389ME"].ToString(),
-                NumTelefono_389ME = datareader_389ME["NumTelefono_389ME"] == DBNull.Value ? 0 : Convert.ToInt32(datareader_389ME["NumTelefono_389ME"]),
+                NumTelefono_389ME = datareader_389ME["NumTelefono_389ME"] == DBNull.Value ? 0 : Convert.ToInt64(datareader_389ME["NumTelefono_389ME"]),
                 Bloqueado_389ME = datareader_389ME["Bloqueado_389ME"] != DBNull.Value && Convert.ToBoolean(datareader_389ME["Bloqueado_389ME"]),
                 DVH_389ME = datareader_389ME["DVH_389ME"] == DBNull.Value ? 0 : Convert.ToInt32(datareader_389ME["DVH_389ME"])
             };

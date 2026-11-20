@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -56,6 +56,16 @@
     <Compile Include="TipoPermiso.cs" />
     <Compile Include="Traduccion.cs" />
     <Compile Include="Usuario.cs" />
+    <Compile Include="Insumo.cs" />
+    <Compile Include="Receta.cs" />
+    <Compile Include="Proveedor.cs" />
+    <Compile Include="SolicitudCotizacion.cs" />
+    <Compile Include="SolicitudInsumo.cs" />
+    <Compile Include="Cotizacion.cs" />
+    <Compile Include="OrdenCompra.cs" />
+    <Compile Include="OrdenCompraDetalle.cs" />
+    <Compile Include="SugerenciaCompra.cs" />
+    <Compile Include="ResumenCotizacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

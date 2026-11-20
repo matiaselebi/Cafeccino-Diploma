@@ -55,6 +55,13 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         public frmFacturas frmFacturas = new frmFacturas();
         public frmGestionClientes gestionClientes = new frmGestionClientes();
         public frmCambiarIdioma cambiarIdioma = new frmCambiarIdioma();
+        public frmInsumos insumos = new frmInsumos();
+        public frmRecetas recetas = new frmRecetas();
+        public frmProveedores proveedores = new frmProveedores();
+        public frmSolicitudCotizacion solicitudesCotizacion = new frmSolicitudCotizacion();
+        public frmCotizaciones cotizaciones = new frmCotizaciones();
+        public frmOrdenesCompra ordenesCompra = new frmOrdenesCompra();
+        public frmRecepcionInsumos recepcionInsumos = new frmRecepcionInsumos();
         private frmInicio menuPrincipal;
         Traductor traductor = new Traductor();
 
@@ -108,7 +115,15 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             GestorIdiomas.Instancia.Suscribir(frmFacturas);
             GestorIdiomas.Instancia.Suscribir(gestionClientes);
             GestorIdiomas.Instancia.Suscribir(cambiarIdioma);
+            GestorIdiomas.Instancia.Suscribir(insumos);
+            GestorIdiomas.Instancia.Suscribir(recetas);
+            GestorIdiomas.Instancia.Suscribir(proveedores);
+            GestorIdiomas.Instancia.Suscribir(solicitudesCotizacion);
+            GestorIdiomas.Instancia.Suscribir(cotizaciones);
+            GestorIdiomas.Instancia.Suscribir(ordenesCompra);
+            GestorIdiomas.Instancia.Suscribir(recepcionInsumos);
             ventasToolStripMenuItem.Visible = false;
+            comprasToolStripMenuItem.Visible = false;
 
             //Este metodo es para el frmInicio
 
@@ -120,13 +135,19 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
 
             {
+                new BLLBitacoraEventos().RegistrarDesbloqueos_389ME();
                 BLLUsuario bllUsuario = new BLLUsuario();
                 bool integro = bllUsuario.ValidarIntegridad();
 
+                // Las demas tablas tienen su propio control de digitos verificadores
+                List<string> alteradas_389ME = new BLLDigitoVerificador().Verificar_389ME();
                 if (!integro)
+                    alteradas_389ME.Insert(0, "Usuario: se modificaron, agregaron o borraron filas por fuera del sistema.");
+
+                if (alteradas_389ME.Count > 0)
                 {
                     MessageBox.Show(
-                        "Se detectó que la tabla Usuario fue alterada fuera del sistema.\n\n" +
+                        "Se detectaron tablas alteradas fuera del sistema:\n\n" + string.Join("\n", alteradas_389ME) + "\n\n" +
                         "Inicie sesión como administrador y utilice 'Administrador > Verificación de Integridad' " +
                         "para restaurar el último backup o recalcular los dígitos verificadores.",
                         "Alerta de integridad",
@@ -171,6 +192,48 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         {
             cambiarIdioma.MdiParent = this;
             cambiarIdioma.Show();
+        }
+
+        private void insumosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            insumos.MdiParent = this;
+            insumos.Show();
+        }
+
+        private void recetasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            recetas.MdiParent = this;
+            recetas.Show();
+        }
+
+        private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            proveedores.MdiParent = this;
+            proveedores.Show();
+        }
+
+        private void solicitudesCotizacionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            solicitudesCotizacion.MdiParent = this;
+            solicitudesCotizacion.Show();
+        }
+
+        private void cotizacionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cotizaciones.MdiParent = this;
+            cotizaciones.Show();
+        }
+
+        private void ordenesCompraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ordenesCompra.MdiParent = this;
+            ordenesCompra.Show();
+        }
+
+        private void recepcionInsumosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            recepcionInsumos.MdiParent = this;
+            recepcionInsumos.Show();
         }
 
         private void gestionDeClientesToolStripMenuItem_Click(object sender, EventArgs e)

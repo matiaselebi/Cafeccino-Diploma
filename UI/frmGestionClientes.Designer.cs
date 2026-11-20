@@ -1,4 +1,4 @@
-namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
+﻿namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
 {
     partial class frmGestionClientes
     {
@@ -34,6 +34,12 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             this.btnModificar_389ME = new System.Windows.Forms.Button();
             this.btnBloquear_389ME = new System.Windows.Forms.Button();
             this.btnDesbloquear_389ME = new System.Windows.Forms.Button();
+            this.btnSerializar_389ME = new System.Windows.Forms.Button();
+            this.btnDeserializar_389ME = new System.Windows.Forms.Button();
+            this.btnLimpiar_389ME = new System.Windows.Forms.Button();
+            this.btnActualizar_389ME = new System.Windows.Forms.Button();
+            this.lblArchivoXml_389ME = new System.Windows.Forms.Label();
+            this.txtArchivoXml_389ME = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes_389ME)).BeginInit();
             this.SuspendLayout();
             // 
@@ -202,12 +208,69 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             this.btnDesbloquear_389ME.UseVisualStyleBackColor = true;
             this.btnDesbloquear_389ME.Click += new System.EventHandler(this.btnDesbloquear_Click_389ME);
             // 
+            // btnSerializar_389ME
+            // 
+            this.btnSerializar_389ME.Location = new System.Drawing.Point(90, 425);
+            this.btnSerializar_389ME.Name = "btnSerializar_389ME";
+            this.btnSerializar_389ME.Size = new System.Drawing.Size(120, 30);
+            this.btnSerializar_389ME.TabIndex = 18;
+            this.btnSerializar_389ME.Text = "Serializar";
+            this.btnSerializar_389ME.UseVisualStyleBackColor = true;
+            this.btnSerializar_389ME.Click += new System.EventHandler(this.btnSerializar_Click_389ME);
+            // 
+            // btnDeserializar_389ME
+            // 
+            this.btnDeserializar_389ME.Location = new System.Drawing.Point(230, 425);
+            this.btnDeserializar_389ME.Name = "btnDeserializar_389ME";
+            this.btnDeserializar_389ME.Size = new System.Drawing.Size(120, 30);
+            this.btnDeserializar_389ME.TabIndex = 19;
+            this.btnDeserializar_389ME.Text = "Des-serializar";
+            this.btnDeserializar_389ME.UseVisualStyleBackColor = true;
+            this.btnDeserializar_389ME.Click += new System.EventHandler(this.btnDeserializar_Click_389ME);
+            // 
+            // btnLimpiar_389ME
+            // 
+            this.btnLimpiar_389ME.Location = new System.Drawing.Point(400, 425);
+            this.btnLimpiar_389ME.Name = "btnLimpiar_389ME";
+            this.btnLimpiar_389ME.Size = new System.Drawing.Size(120, 30);
+            this.btnLimpiar_389ME.TabIndex = 20;
+            this.btnLimpiar_389ME.Text = "Limpiar";
+            this.btnLimpiar_389ME.UseVisualStyleBackColor = true;
+            this.btnLimpiar_389ME.Click += new System.EventHandler(this.btnLimpiar_Click_389ME);
+            // 
+            // btnActualizar_389ME
+            // 
+            this.btnActualizar_389ME.Location = new System.Drawing.Point(540, 425);
+            this.btnActualizar_389ME.Name = "btnActualizar_389ME";
+            this.btnActualizar_389ME.Size = new System.Drawing.Size(120, 30);
+            this.btnActualizar_389ME.TabIndex = 21;
+            this.btnActualizar_389ME.Text = "Actualizar";
+            this.btnActualizar_389ME.UseVisualStyleBackColor = true;
+            this.btnActualizar_389ME.Click += new System.EventHandler(this.btnActualizar_Click_389ME);
+            // 
+            // lblArchivoXml_389ME
+            // 
+            this.lblArchivoXml_389ME.AutoSize = true;
+            this.lblArchivoXml_389ME.Location = new System.Drawing.Point(10, 473);
+            this.lblArchivoXml_389ME.Name = "lblArchivoXml_389ME";
+            this.lblArchivoXml_389ME.Size = new System.Drawing.Size(66, 13);
+            this.lblArchivoXml_389ME.TabIndex = 22;
+            this.lblArchivoXml_389ME.Text = "Archivo XML";
+            // 
+            // txtArchivoXml_389ME
+            // 
+            this.txtArchivoXml_389ME.Location = new System.Drawing.Point(90, 470);
+            this.txtArchivoXml_389ME.Name = "txtArchivoXml_389ME";
+            this.txtArchivoXml_389ME.ReadOnly = true;
+            this.txtArchivoXml_389ME.Size = new System.Drawing.Size(570, 20);
+            this.txtArchivoXml_389ME.TabIndex = 23;
+            // 
             // frmGestionClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Chocolate;
-            this.ClientSize = new System.Drawing.Size(782, 430);
+            this.ClientSize = new System.Drawing.Size(782, 510);
             this.Controls.Add(this.lblClientes_389ME);
             this.Controls.Add(this.dgvClientes_389ME);
             this.Controls.Add(this.lblDNI_389ME);
@@ -226,6 +289,12 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
             this.Controls.Add(this.btnModificar_389ME);
             this.Controls.Add(this.btnBloquear_389ME);
             this.Controls.Add(this.btnDesbloquear_389ME);
+            this.Controls.Add(this.btnSerializar_389ME);
+            this.Controls.Add(this.btnDeserializar_389ME);
+            this.Controls.Add(this.btnLimpiar_389ME);
+            this.Controls.Add(this.btnActualizar_389ME);
+            this.Controls.Add(this.lblArchivoXml_389ME);
+            this.Controls.Add(this.txtArchivoXml_389ME);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmGestionClientes";
             this.Text = "Gestion de clientes";
@@ -256,5 +325,11 @@ namespace CAFECCINO_INGENIERIA_DE_SOFTWARE
         private System.Windows.Forms.Button btnModificar_389ME;
         private System.Windows.Forms.Button btnBloquear_389ME;
         private System.Windows.Forms.Button btnDesbloquear_389ME;
+        private System.Windows.Forms.Button btnSerializar_389ME;
+        private System.Windows.Forms.Button btnDeserializar_389ME;
+        private System.Windows.Forms.Button btnLimpiar_389ME;
+        private System.Windows.Forms.Button btnActualizar_389ME;
+        private System.Windows.Forms.Label lblArchivoXml_389ME;
+        private System.Windows.Forms.TextBox txtArchivoXml_389ME;
     }
 }

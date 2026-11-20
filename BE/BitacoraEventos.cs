@@ -14,5 +14,6 @@ namespace BE
         public string Evento { get; set; }
         public string Modulo { get; set; }
         public string Criticidad { get; set; }
+        public string Detalle_389ME { get; set; }
     }
 }

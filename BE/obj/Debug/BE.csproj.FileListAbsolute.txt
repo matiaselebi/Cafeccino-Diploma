@@ -4,3 +4,9 @@ C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\BE\obj\Debug\BE.csproj.Asse
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\BE\obj\Debug\BE.csproj.CoreCompileInputs.cache
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\BE\obj\Debug\BE.dll
 C:\Users\matia\OneDrive\Escritorio\Diploma\Cafeccino\BE\obj\Debug\BE.pdb
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BE\bin\Debug\BE.dll
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BE\bin\Debug\BE.pdb
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BE\obj\Debug\BE.csproj.AssemblyReference.cache
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BE\obj\Debug\BE.csproj.CoreCompileInputs.cache
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BE\obj\Debug\BE.dll
+C:\Users\matia\OneDrive\Escritorio\Cafeccino\Cafeccino\BE\obj\Debug\BE.pdb
